@@ -24,7 +24,9 @@
     "MixinTileEntityHopper",
     "MixinItemStack",
     "MixinNEIInfiniteStackSizeHandler",
-    "MixinRenderItem"
+    "MixinRenderItem",
+    "MixinNEIExtendedCreativeInv",
+    "MixinPacketCustom"
     ],
   "verbose": true
   }
