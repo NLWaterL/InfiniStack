@@ -12,6 +12,14 @@
 
  You can see what mods does it compact at a specific version in the changelog and release description.
 
+ WARNING
+ -
+ If you put an item stack larger than 64 into any mod container that's not from the mod on the compact list
+ 
+ There may be unexpected bugs!
+ 
+
  License
  ---
  This project is under MIT License.
+
