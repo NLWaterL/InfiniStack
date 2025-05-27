@@ -13,7 +13,7 @@ public class InfiniStackIFMLLoadingPlugin implements IFMLLoadingPlugin {
 
     static {
         MixinBootstrap.init();
-        Mixins.addConfigurations("mixins.infinistack.json", "mixins.infinistack.hbm.json");
+        Mixins.addConfiguration("mixins.infinistack.json");
         Logger.info("FML Plugin Loaded!");
     }
 
