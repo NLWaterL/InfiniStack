@@ -1,0 +1,7 @@
+{
+    "required": true,
+    "minVersion": "0.7.11",
+    "package": "com.phasico.infinistack.mixins",
+    "refmap": "mixins.infinistack.refmap.json",
+    "compatibilityLevel": "JAVA_8"
+}
