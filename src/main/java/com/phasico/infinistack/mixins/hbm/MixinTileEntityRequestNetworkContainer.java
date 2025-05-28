@@ -3,10 +3,12 @@ package com.phasico.infinistack.mixins.hbm;
 import com.hbm.tileentity.network.TileEntityRequestNetworkContainer;
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 
 
 
+@Pseudo
 @Mixin(TileEntityRequestNetworkContainer.class)
 public abstract class MixinTileEntityRequestNetworkContainer {
 

@@ -2,11 +2,13 @@ package com.phasico.infinistack.mixins.hbm;
 
 import com.hbm.tileentity.bomb.TileEntityLaunchTable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import com.phasico.infinistack.helper.Configurables;
 
 
+@Pseudo
 @Mixin(TileEntityLaunchTable.class)
 public abstract class MixinTileEntityLaunchTable {
 

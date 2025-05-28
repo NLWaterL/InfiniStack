@@ -4,12 +4,14 @@ import com.hbm.tileentity.TileEntityProxyInventory;
 import com.phasico.infinistack.helper.Configurables;
 import net.minecraft.inventory.ISidedInventory;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import org.spongepowered.asm.mixin.Shadow;
 
 @Deprecated
 
+@Pseudo
 @Mixin(TileEntityProxyInventory.class)
 public abstract class MixinTileEntityProxyInventory {
 

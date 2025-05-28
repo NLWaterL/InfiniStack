@@ -2,11 +2,12 @@ package com.phasico.infinistack.mixins.hbm;
 
 import com.hbm.entity.item.EntityDeliveryDrone;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import com.phasico.infinistack.helper.Configurables;
 
-
+@Pseudo
 @Mixin(EntityDeliveryDrone.class)
 public abstract class MixinEntityDeliverDrone {
 
