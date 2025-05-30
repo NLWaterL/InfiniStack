@@ -25,7 +25,6 @@
     "MixinNEIInfiniteStackSizeHandler",
     "MixinRenderItem",
     "MixinNEIExtendedCreativeInv",
-    "MixinPacketCustom",
-    "MixinSlot"
-  ]
+    "MixinPacketCustom"
+    ]
   }
