@@ -36,7 +36,6 @@ minecraft {
 
 repositories {
 	maven {
-		// Fix ForgeGradle on 6+
 		name = "forge"
 		url = "http://files.minecraftforge.net/maven"
 		metadataSources {
