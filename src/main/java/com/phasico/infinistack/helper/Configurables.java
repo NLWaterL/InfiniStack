@@ -9,6 +9,7 @@ public class Configurables {
 
     public static int maxStackSize;
     public static boolean isDebugging;
+    public static boolean alwaysShowCount;
 
     private static Configuration config;
 
@@ -20,6 +21,7 @@ public class Configurables {
             config.load();
 
             maxStackSize = config.getInt("Max Stack Size", Configuration.CATEGORY_GENERAL, (1 << 30) - 1, 1, Integer.MAX_VALUE - 10, "Maximum stack size for items.");
+            alwaysShowCount = config.getBoolean("Always Show Stack Size in Tooltip", Configuration.CATEGORY_GENERAL, false, "Always show the item count in the tooltip, even if shift is not clicked.");
             isDebugging = config.getBoolean("Debug Logging", Configuration.CATEGORY_GENERAL, false, "Enable the debug logging.");
 
         } catch (Exception e) {
