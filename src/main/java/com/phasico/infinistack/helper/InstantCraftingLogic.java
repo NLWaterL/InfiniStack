@@ -10,13 +10,16 @@ public class InstantCraftingLogic {
     /**
      * Performs instant crafting of items with large stack size without lag!
      */
-    public static boolean instantCraft(InventoryCrafting craftMatrix, IRecipe recipe, net.minecraft.entity.player.InventoryPlayer playerInventory) {
+    public static boolean instantCraft(InventoryCrafting craftMatrix, IRecipe recipe, InventoryPlayer playerInventory) {
         if (recipe == null) return false;
 
         ItemStack recipeResult = recipe.getCraftingResult(craftMatrix);
         if (recipeResult == null) return false;
 
-        int maxCraft = calculateMaxCraft(craftMatrix, recipe);
+        //For things that cannot stack, just let the vanilla logic handle it.
+        if (recipeResult.getMaxStackSize() == 1) return false;
+
+        int maxCraft = calculateMaxCraft(craftMatrix);
         if (maxCraft <= 0) return false;
 
         ItemStack finalResult = recipeResult.copy();
@@ -24,11 +27,11 @@ public class InstantCraftingLogic {
         long totalAmount = (long) recipeResult.stackSize * maxCraft;
 
         if (totalAmount > Integer.MAX_VALUE) {
-            consumeIngredients(craftMatrix, recipe, maxCraft, playerInventory);
+            consumeIngredients(craftMatrix, maxCraft, playerInventory);
             returnBigResult(playerInventory, finalResult, totalAmount);
         } else {
             finalResult.stackSize = (int) totalAmount;
-            consumeIngredients(craftMatrix, recipe, maxCraft, playerInventory);
+            consumeIngredients(craftMatrix, maxCraft, playerInventory);
             returnResult(playerInventory, finalResult);
         }
 
@@ -80,7 +83,7 @@ public class InstantCraftingLogic {
         }
     }
 
-    private static int calculateMaxCraft(InventoryCrafting craftMatrix, IRecipe recipe) {
+    private static int calculateMaxCraft(InventoryCrafting craftMatrix) {
         int maxCraft = Integer.MAX_VALUE;
 
         for (int i = 0; i < 9; i++) {
@@ -93,7 +96,7 @@ public class InstantCraftingLogic {
         return maxCraft == Integer.MAX_VALUE ? 0 : maxCraft;
     }
 
-    private static void consumeIngredients(InventoryCrafting craftMatrix, IRecipe recipe, int craftCount, net.minecraft.entity.player.InventoryPlayer playerInventory) {
+    private static void consumeIngredients(InventoryCrafting craftMatrix, int craftCount, net.minecraft.entity.player.InventoryPlayer playerInventory) {
         for (int i = 0; i < 9; i++) {
             ItemStack stack = craftMatrix.getStackInSlot(i);
             if (stack != null) {
