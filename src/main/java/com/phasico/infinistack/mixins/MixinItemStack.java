@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumChatFormatting;
-import org.lwjgl.input.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,7 +27,7 @@ public abstract class MixinItemStack {
     private void redirectSetByte(NBTTagCompound compound, String key, byte value) {
         if ("Count".equals(key)) {
             compound.setInteger("Count", this.stackSize);
-            Logger.debug("writeToNBT - Setting Count as integer: " + this.stackSize);
+            Logger.debug("writeToNBT Setting Count as integer: " + this.stackSize);
         } else {
             compound.setByte(key, value);
         }
