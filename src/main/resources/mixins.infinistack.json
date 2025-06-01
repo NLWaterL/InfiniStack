@@ -26,6 +26,12 @@
     "MixinRenderItem",
     "MixinNEIExtendedCreativeInv",
     "MixinPacketCustom",
-    "MixinContainerWorkbench"
+    "MixinContainerWorkbench",
+    "MixinBlockDispenser",
+    "MixinBlockBrewingStand",
+    "MixinBlockChest",
+    "MixinBlockFurnace",
+    "MixinBlockHopper",
+    "MixinContainerBrewingStandIngredient"
     ]
   }

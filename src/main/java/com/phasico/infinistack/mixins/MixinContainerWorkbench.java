@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ContainerWorkbench.class)
-public class MixinContainerWorkbench {
+public abstract class MixinContainerWorkbench {
 
     @Shadow
     public InventoryCrafting craftMatrix;
