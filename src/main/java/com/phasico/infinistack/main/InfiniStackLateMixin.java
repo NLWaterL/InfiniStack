@@ -117,6 +117,41 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("Avaritia")) {
+            List<String> avaritiaMixins = Arrays.asList(
+                    "MixinBlockAutoDireCrafting",
+                    "MixinBlockCompressor",
+                    "MixinBlockDireCrafting",
+                    "MixinBlockNeutronCollector",
+                    "MixinTileEntityAutoDireCrafting",
+                    "MixinTileEntityCompressor",
+                    "MixinTileEntityDireCrafting",
+                    "MixinTileEntityNeutron"
+            );
+            for (String mixinClass : avaritiaMixins) {
+                mixins.add("avaritia." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("ProjectE")){
+            List<String> projecteMixins = Arrays.asList(
+                    "MixinAlchBagInventory",
+                    "MixinAlchChestTile",
+                    "MixinCollectorMK1Tile",
+                    "MixinCondenserTile",
+                    "MixinDMPedestalTile",
+                    "MixinEternalDensityInventory",
+                    "MixinMercurialEyeInventory",
+                    "MixinRelayMK1Tile",
+                    "MixinRMFurnaceTile",
+                    "MixinTransmutationInventory",
+                    "MixinWorldHelper"
+            );
+            for (String mixinClass : projecteMixins) {
+                mixins.add("projecte." + mixinClass);
+            }
+        }
+
         return mixins;
     }
 
