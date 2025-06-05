@@ -65,6 +65,8 @@ dependencies {
 	compileOnly files('libs/ProjectE-1.7.10-PE1.10.1')
 
 	compileOnly files('libs/ironchest-1.7.10-6.0.62.742-universal')
+
+	compileOnly files('libs/compactstorage-1.7.10-release-2.1.0-lts.21-universal')
 	}
 
 processResources

@@ -162,6 +162,18 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("compactstorage")){
+            List<String> compactStorageMixins = Arrays.asList(
+                    "MixinTileEntityChest",
+                    "MixinTileEntityChestBuilder",
+                    "MixinInventoryBackpack"
+                    );
+            for (String mixinClass : compactStorageMixins) {
+                mixins.add("compactstorage." + mixinClass);
+            }
+        }
+
+
         return mixins;
     }
 

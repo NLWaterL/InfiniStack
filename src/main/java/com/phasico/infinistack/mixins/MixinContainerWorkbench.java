@@ -49,6 +49,13 @@ public abstract class MixinContainerWorkbench {
 
                     cir.setReturnValue(null);
                     return;
+
+                } else {
+
+                    //Edge case
+                    cir.setReturnValue(null);
+                    return;
+
                 }
             }
         }

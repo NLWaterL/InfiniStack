@@ -16,15 +16,31 @@ public class InstantCraftingLogic {
         ItemStack recipeResult = recipe.getCraftingResult(craftMatrix);
         if (recipeResult == null) return false;
 
-        //For things that cannot stack, just let the vanilla logic handle it.
-        if (recipeResult.getMaxStackSize() == 1) return false;
+        //if (recipeResult.getMaxStackSize() == 1) return false;
 
         int maxCraft = calculateMaxCraft(craftMatrix);
         if (maxCraft <= 0) return false;
 
+        // Check inventory space BEFORE doing anything
+        long inventorySpace = calculateMaxFit(playerInventory, recipeResult);
+        if (inventorySpace <= 0) {
+            return false; // No space available, don't consume ingredients
+        }
+
         ItemStack finalResult = recipeResult.copy();
 
         long totalAmount = (long) recipeResult.stackSize * maxCraft;
+
+        if (totalAmount > inventorySpace){
+            long newMaxCraft = (inventorySpace / recipeResult.stackSize);
+            maxCraft = (int)newMaxCraft;
+            totalAmount = (long) recipeResult.stackSize * maxCraft;
+
+            // Double-check that we can still craft something
+            if (maxCraft <= 0) {
+                return false;
+            }
+        }
 
         if (totalAmount > Integer.MAX_VALUE) {
             consumeIngredients(craftMatrix, maxCraft, playerInventory);
@@ -36,6 +52,25 @@ public class InstantCraftingLogic {
         }
 
         return true;
+    }
+
+    private static long calculateMaxFit(InventoryPlayer inventory, ItemStack result) {
+        long total = 0;
+        int maxStack = result.getMaxStackSize();
+
+        for (int i = 0; i < 36; i++) {
+            ItemStack slot = inventory.getStackInSlot(i);
+            if (slot == null) {
+                total += maxStack;
+            } else if (inventory.isItemValidForSlot(i, result) &&
+                    slot.isItemEqual(result) &&
+                    ItemStack.areItemStackTagsEqual(slot, result)) {
+                total += (maxStack - slot.stackSize);
+            }
+        }
+
+        //It returns how many recipes can be processed, like calculateMaxCraft.
+        return total;
     }
 
     private static void returnResult(InventoryPlayer playerInventory, ItemStack result) {
