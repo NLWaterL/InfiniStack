@@ -152,6 +152,16 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("IronChest")){
+            List<String> ironChestMixins = Arrays.asList(
+                    "MixinBlockIronChest",
+                    "MixinTileEntityIronChest"
+                    );
+            for (String mixinClass : ironChestMixins) {
+                mixins.add("ironchest." + mixinClass);
+            }
+        }
+
         return mixins;
     }
 
