@@ -29,7 +29,7 @@ public abstract class MixinContainerWorkbench {
     private World worldObj;
 
     @Inject(method = "transferStackInSlot", at = @At("HEAD"), cancellable = true)
-    public void onTransferStackInSlot(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
+    private void fastCraftingLogic(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
 
         if (slotIndex == 0) {
             Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(0);
@@ -52,7 +52,7 @@ public abstract class MixinContainerWorkbench {
 
                 } else {
 
-                    //Edge case
+                    //Edge case or no space, just produce nothing.
                     cir.setReturnValue(null);
                     return;
 

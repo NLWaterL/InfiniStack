@@ -22,6 +22,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
     public List<String> getMixins(Set<String> loadedMods) {
         List<String> mixins = new ArrayList<>();
 
+        //If you're not using a proper IDE reading this class is a pain.
+
         if (loadedMods.contains("hbm")) {
             List<String> hbmMixins = Arrays.asList(
                     "MixinBufferUtil",
@@ -173,6 +175,25 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("Forestry")){
+            List<String> forestryMixins = Arrays.asList(
+                    "MixinDataInputStreamForestry",
+                    "MixinDataOutputStreamForestry",
+                    "MixinInventoryAdapter",
+                    "MixinInventoryAdapterTile",
+                    "MixinInventoryPlain",
+                    "MixinInventoryUtil",
+                    "MixinItemInventory",
+                    "MixinItemStackUtil",
+                    "MixinTileEnginePeat",
+                    "MixinTileMoistener",
+                    "MixinTileTrader",
+                    "MixinBlockBase"
+                    );
+            for (String mixinClass : forestryMixins) {
+                mixins.add("forestry." + mixinClass);
+            }
+        }
 
         return mixins;
     }

@@ -4,6 +4,13 @@ buildscript {
 		maven {
 			name = "forge"
 			url = "http://files.minecraftforge.net/maven"
+			metadataSources {
+				artifact()
+			}
+		}
+		maven {
+			name = "chickenbones"
+			url = "http://chickenbones.net/maven/"
 		}
 		maven {
 			name = "sonatype"
@@ -46,6 +53,10 @@ repositories {
 		name = "chickenbones"
 		url = "http://chickenbones.net/maven/"
 	}
+	maven {
+		name = "BuildCraft"
+		url = "https://mod-buildcraft.com/maven/"
+	}
 }
 
 dependencies {
@@ -67,6 +78,8 @@ dependencies {
 	compileOnly files('libs/ironchest-1.7.10-6.0.62.742-universal')
 
 	compileOnly files('libs/compactstorage-1.7.10-release-2.1.0-lts.21-universal')
+
+	compileOnly "com.mod-buildcraft:buildcraft-main:8.0.0"
 	}
 
 processResources
