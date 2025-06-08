@@ -10,10 +10,11 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.world.World;
 
-public class InstantCraftingLogic {
+public class InstantPlayerCraftingLogic {
 
     /**
      * Performs instant crafting of items with large stack size without lag!
+     * This is for the Player's crafting.
      */
     public static boolean instantCraft(InventoryCrafting craftMatrix, SlotCrafting craftingSlot, IRecipe recipe, InventoryPlayer playerInventory, EntityPlayer player) {
         if (recipe == null) return false;
@@ -67,6 +68,8 @@ public class InstantCraftingLogic {
         long total = 0;
         int maxStack = result.getMaxStackSize();
 
+
+        //0 is result, 1-4 is crafting, 5-8 is armor. 9-44 is main inventory and hotbar.
         for (int i = 0; i < 36; i++) {
             ItemStack slot = inventory.getStackInSlot(i);
             if (slot == null) {
@@ -103,7 +106,7 @@ public class InstantCraftingLogic {
                     EntityItem entityItem = new EntityItem(world, player.posX, player.posY, player.posZ, toAdd);
                     world.spawnEntityInWorld(entityItem);
 
-                }
+                    }
             }
         }
     }
@@ -133,7 +136,7 @@ public class InstantCraftingLogic {
     private static int calculateMaxCraft(InventoryCrafting craftMatrix) {
         int maxCraft = Integer.MAX_VALUE;
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 4; i++) {
             ItemStack craftItem = craftMatrix.getStackInSlot(i);
             if (craftItem != null) {
                 maxCraft = Math.min(maxCraft, craftItem.stackSize);
@@ -144,7 +147,7 @@ public class InstantCraftingLogic {
     }
 
     private static void consumeIngredients(InventoryCrafting craftMatrix, int craftCount, InventoryPlayer playerInventory, World world, EntityPlayer player) {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 4; i++) {
             ItemStack stack = craftMatrix.getStackInSlot(i);
             if (stack != null) {
                 if (stack.getItem().hasContainerItem(stack)) {

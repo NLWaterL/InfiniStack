@@ -173,6 +173,9 @@ jar {
 				'ForceLoadAsMod': 'true',
 				// Allow Forge to discover the Forge mod:
 				'FMLCorePluginContainsFMLMod': 'true',
+
+				//Access Transformer
+				'FMLAT': 'infinistack_at.cfg'
 		)
 	}
 

@@ -33,6 +33,7 @@
     "MixinBlockChest",
     "MixinBlockFurnace",
     "MixinBlockHopper",
-    "MixinContainerBrewingStandIngredient"
+    "MixinContainerBrewingStandIngredient",
+    "MixinContainerPlayer"
     ]
   }
