@@ -1,9 +1,10 @@
 package com.phasico.infinistack.mixins;
 
-import com.phasico.infinistack.helper.InstantCraftingLogic;
+import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,7 +35,7 @@ public abstract class MixinContainerWorkbench {
 
             if (slotStack != null) {
 
-                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player.inventory, player);
+                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player.inventory, player, 3);
 
                 if (success) {
                     craftResult.setInventorySlotContents(0, null);
@@ -56,7 +57,7 @@ public abstract class MixinContainerWorkbench {
     }
 
     private IRecipe findMatchingRecipe(InventoryCrafting craftMatrix, World world) {
-        for (Object recipeObj : net.minecraft.item.crafting.CraftingManager.getInstance().getRecipeList()) {
+        for (Object recipeObj : CraftingManager.getInstance().getRecipeList()) {
             IRecipe recipe = (IRecipe) recipeObj;
             if (recipe.matches(craftMatrix, world)) {
                 return recipe;

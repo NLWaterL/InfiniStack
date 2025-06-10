@@ -1,4 +1,4 @@
-package com.phasico.infinistack.helper;
+package com.phasico.infinistack.helper.logic;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.item.EntityItem;
@@ -10,19 +10,23 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.world.World;
 
-public class InstantPlayerCraftingLogic {
+public class InstantCraftingLogic {
 
     /**
      * Performs instant crafting of items with large stack size without lag!
-     * This is for the Player's crafting.
-     */
-    public static boolean instantCraft(InventoryCrafting craftMatrix, SlotCrafting craftingSlot, IRecipe recipe, InventoryPlayer playerInventory, EntityPlayer player) {
+     * @param size The dimension of the crafting matrix. For example, vanilla workbench is 3.
+     * */
+    public static boolean instantCraft(InventoryCrafting craftMatrix, SlotCrafting craftingSlot, IRecipe recipe, InventoryPlayer playerInventory, EntityPlayer player, int size) {
+
+        //TODO: Add compact for Forestry's Worktable (logic is quite different)
+        //Wait until I finish other things.
+
         if (recipe == null) return false;
 
         ItemStack recipeResult = recipe.getCraftingResult(craftMatrix);
         if (recipeResult == null) return false;
 
-        int maxCraft = calculateMaxCraft(craftMatrix);
+        int maxCraft = calculateMaxCraft(craftMatrix, size);
         if (maxCraft <= 0) return false;
 
         // Check inventory space BEFORE doing anything
@@ -36,6 +40,7 @@ public class InstantPlayerCraftingLogic {
         long totalAmount = (long) recipeResult.stackSize * maxCraft;
 
         if (totalAmount > inventorySpace){
+
             long newMaxCraft = (inventorySpace / recipeResult.stackSize);
             maxCraft = (int)newMaxCraft;
             totalAmount = (long) recipeResult.stackSize * maxCraft;
@@ -47,12 +52,12 @@ public class InstantPlayerCraftingLogic {
         }
 
         if (totalAmount > Integer.MAX_VALUE) {
-            consumeIngredients(craftMatrix, maxCraft, playerInventory, player.worldObj, player);
-            returnBigResult(playerInventory, finalResult, player.worldObj, player, totalAmount);
+            consumeIngredients(craftMatrix, maxCraft, playerInventory, player, size);
+            returnBigResult(playerInventory, finalResult, player, totalAmount);
         } else {
             finalResult.stackSize = (int) totalAmount;
-            consumeIngredients(craftMatrix, maxCraft, playerInventory, player.worldObj, player);
-            returnResult(playerInventory, finalResult, player.worldObj, player);
+            consumeIngredients(craftMatrix, maxCraft, playerInventory, player, size);
+            returnResult(playerInventory, finalResult, player);
         }
 
 
@@ -64,12 +69,12 @@ public class InstantPlayerCraftingLogic {
         return true;
     }
 
-    private static long calculateMaxFit(InventoryPlayer inventory, ItemStack result) {
+    //Each method can be used alone for different purposes. This is more like a util class.
+    //You can even use these things for non-crafting logic.
+    public static long calculateMaxFit(InventoryPlayer inventory, ItemStack result) {
         long total = 0;
         int maxStack = result.getMaxStackSize();
 
-
-        //0 is result, 1-4 is crafting, 5-8 is armor. 9-44 is main inventory and hotbar.
         for (int i = 0; i < 36; i++) {
             ItemStack slot = inventory.getStackInSlot(i);
             if (slot == null) {
@@ -84,7 +89,7 @@ public class InstantPlayerCraftingLogic {
         return total;
     }
 
-    private static void returnResult(InventoryPlayer playerInventory, ItemStack result, World world, EntityPlayer player) {
+    public static void returnResult(InventoryPlayer playerInventory, ItemStack result, EntityPlayer player) {
         if (result == null || result.stackSize <= 0) return;
 
         ItemStack remaining = result.copy();
@@ -100,18 +105,12 @@ public class InstantPlayerCraftingLogic {
             }
 
             if (!playerInventory.addItemStackToInventory(toAdd)) {
-                if (!playerInventory.player.worldObj.isRemote) {
-
-                    //No random needed, this is just to gurantee that no item lost happens.
-                    EntityItem entityItem = new EntityItem(world, player.posX, player.posY, player.posZ, toAdd);
-                    world.spawnEntityInWorld(entityItem);
-
-                    }
+                player.dropPlayerItemWithRandomChoice(toAdd,false);
             }
         }
     }
 
-    private static void returnBigResult(InventoryPlayer playerInventory, ItemStack result, World world, EntityPlayer player, long returnSize){
+    public static void returnBigResult(InventoryPlayer playerInventory, ItemStack result, EntityPlayer player, long returnSize){
         if (result == null || returnSize <= 0) return;
 
         long size = returnSize;
@@ -129,14 +128,14 @@ public class InstantPlayerCraftingLogic {
                 size = 0;
             }
 
-            returnResult(playerInventory, toAdd, world, player);
+            returnResult(playerInventory, toAdd, player);
         }
     }
 
-    private static int calculateMaxCraft(InventoryCrafting craftMatrix) {
+    public static int calculateMaxCraft(InventoryCrafting craftMatrix, int size) {
         int maxCraft = Integer.MAX_VALUE;
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < (size * size); i++) {
             ItemStack craftItem = craftMatrix.getStackInSlot(i);
             if (craftItem != null) {
                 maxCraft = Math.min(maxCraft, craftItem.stackSize);
@@ -146,15 +145,15 @@ public class InstantPlayerCraftingLogic {
         return maxCraft == Integer.MAX_VALUE ? 0 : maxCraft;
     }
 
-    private static void consumeIngredients(InventoryCrafting craftMatrix, int craftCount, InventoryPlayer playerInventory, World world, EntityPlayer player) {
-        for (int i = 0; i < 4; i++) {
+    public static void consumeIngredients(InventoryCrafting craftMatrix, int craftCount, InventoryPlayer playerInventory, EntityPlayer player, int size) {
+        for (int i = 0; i < (size * size); i++) {
             ItemStack stack = craftMatrix.getStackInSlot(i);
             if (stack != null) {
                 if (stack.getItem().hasContainerItem(stack)) {
                     ItemStack containerItem = stack.getItem().getContainerItem(stack);
                     if (containerItem != null) {
                         containerItem.stackSize = craftCount;
-                        returnResult(playerInventory, containerItem, world, player);
+                        returnResult(playerInventory, containerItem, player);
                     }
                     craftMatrix.setInventorySlotContents(i, null);
                 } else {

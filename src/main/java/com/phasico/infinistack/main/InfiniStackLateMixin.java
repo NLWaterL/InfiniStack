@@ -26,6 +26,10 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("hbm")) {
             List<String> hbmMixins = Arrays.asList(
+                    "AccessorAnvilCraftPacket",
+                    "MixinAnvilCraftPacket",
+                    "MixinContainerAnvil",
+                    "MixinContainerBook",
                     "MixinBufferUtil",
                     "MixinEntityDeliverDrone",
                     "MixinEntityMinecartContainerBase",
@@ -128,7 +132,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinTileEntityAutoDireCrafting",
                     "MixinTileEntityCompressor",
                     "MixinTileEntityDireCrafting",
-                    "MixinTileEntityNeutron"
+                    "MixinTileEntityNeutron",
+                    "MixinContainerExtremeCrafting"
             );
             for (String mixinClass : avaritiaMixins) {
                 mixins.add("avaritia." + mixinClass);
@@ -194,6 +199,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                 mixins.add("forestry." + mixinClass);
             }
         }
+
+        //TODO: Compact for BuildCraft and Avaritia Addons (The infinite chest needs some work on it, hmm)
 
         return mixins;
     }

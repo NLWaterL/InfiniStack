@@ -1,5 +1,6 @@
-package com.phasico.infinistack.helper;
+package com.phasico.infinistack.helper.logic;
 
+import com.phasico.infinistack.helper.Configurables;
 import net.minecraft.util.EnumChatFormatting;
 
 public class ItemCountDisplay {
