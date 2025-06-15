@@ -28,6 +28,7 @@ public abstract class MixinBlockBase {
 
         //I literally tried every way to add compact, but it just doesn't work.
         //You can still get the item inside by breaking the block.
+        //I REALLY DON'T WANT TO DO THIS! :(
 
         if (tile instanceof TileWorktable && !Configurables.enableWorkTable){
             player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "InfiniStack: Forestry Worktable causes severe conflict with InfiniStack."));

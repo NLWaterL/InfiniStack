@@ -200,7 +200,29 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
-        //TODO: Compact for BuildCraft and Avaritia Addons (The infinite chest needs some work on it, hmm)
+        if (loadedMods.contains("avaritiaddons")){
+            List<String> avaritiaddonsMixins = Arrays.asList(
+                    "MixinTileEntityCompressedChest",
+                    "MixinTileEntityExtremeAutoCrafter"
+            );
+            for (String mixinClass : avaritiaddonsMixins) {
+                mixins.add("avaritiaddons." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("adventurebackpack")){
+            List<String> adventureBackpackMixins = Arrays.asList(
+                    "MixinFontUtils",
+                    "MixinInventoryBackpack",
+                    "MixinInventoryCopterPack",
+                    "MixinInventorySteamJetpack",
+                    "MixinTileAdventureBackpack",
+                    "MixinContainerBackpack"
+            );
+            for (String mixinClass : adventureBackpackMixins) {
+                mixins.add("adventurebackpack." + mixinClass);
+            }
+        }
 
         return mixins;
     }

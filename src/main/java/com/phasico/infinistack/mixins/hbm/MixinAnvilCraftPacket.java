@@ -50,8 +50,8 @@ public abstract class MixinAnvilCraftPacket {
                 return;
             }
 
-            //Original Logic for recipes returning more than 1 types of item.
-            if(recipe.output.size() > 1) {
+            //If the output is chance based or cannot stack, just let original logic handle it.
+            if(hasChanceResult(recipe) || hasUnstackableResult(recipe)) {
                 for(int i = 0; i < 100; i++) {
                     if(InventoryUtil.doesPlayerHaveAStacks(player, recipe.input, true)) {
                         InventoryUtil.giveChanceStacksToPlayer(player, recipe.output);
@@ -69,13 +69,24 @@ public abstract class MixinAnvilCraftPacket {
 
             //long inventorySpace = InstantCraftingLogic.calculateMaxFit(player.inventory, recipe.output.get(0).stack);
 
+            if(maxCraft <= 0 ){
+
+                cir.setReturnValue(null);
+                return;
+
+            }
+
             consumeAnvilIngredients(player.inventory, maxCraft, recipe);
 
-            ItemStack finalResult = recipe.output.get(0).stack;
+            for(int i = 0; i < recipe.output.size(); i++) {
 
-            long resultSize = (long)maxCraft * finalResult.stackSize;
+                ItemStack finalResult = recipe.output.get(i).stack;
 
-            InstantCraftingLogic.returnBigResult(player.inventory, finalResult, player, resultSize);
+                long resultSize = (long) maxCraft * finalResult.stackSize;
+
+                InstantCraftingLogic.returnBigResult(player.inventory, finalResult, player, resultSize);
+
+            }
 
             AchievementHandler.fire(player, recipe.output.get(0).stack);
             player.inventoryContainer.detectAndSendChanges();
@@ -90,7 +101,7 @@ public abstract class MixinAnvilCraftPacket {
 
         int maxCraft = recipe.output.get(0).stack.getMaxStackSize();
 
-        if(playerInv == null || recipe == null){ return -100; }
+        if(playerInv == null){ return 0; }
 
         for (int i = 0; i < recipe.input.size(); i++) {
 
@@ -163,6 +174,37 @@ public abstract class MixinAnvilCraftPacket {
         }
 
         return itemCount;
+    }
+
+    //Maybe make them just variables in the class?
+    private static boolean hasChanceResult(AnvilRecipes.AnvilConstructionRecipe recipe) {
+
+        for (int i = 0; i < recipe.output.size(); i++) {
+
+            AnvilRecipes.AnvilOutput outputStack = recipe.output.get(i);
+            if(outputStack.chance != 1.0F){
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+
+
+    private static boolean hasUnstackableResult(AnvilRecipes.AnvilConstructionRecipe recipe){
+
+        for (int i = 0; i < recipe.output.size(); i++) {
+
+            AnvilRecipes.AnvilOutput outputStack = recipe.output.get(i);
+            if(outputStack.stack.getMaxStackSize() == 1){
+                return true;
+            }
+
+        }
+
+        return false;
+
     }
 
 }

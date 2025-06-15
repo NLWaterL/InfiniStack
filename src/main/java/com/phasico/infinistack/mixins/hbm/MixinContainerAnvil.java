@@ -99,24 +99,24 @@ public abstract class MixinContainerAnvil {
         }
     }
 
-    private static int calculateMaxAnvilCraft(ItemStack leftInput, ItemStack rightInput, AnvilSmithingRecipe recipe){
+    private static int calculateMaxAnvilCraft(ItemStack leftInput, ItemStack rightInput, AnvilSmithingRecipe recipe) {
         if (leftInput == null || rightInput == null || recipe == null) return -100;
 
         int maxCraft = 0;
 
         int leftConsume = recipe.amountConsumed(0, false);
-        int rightConsume = recipe.amountConsumed(1,false);
+        int rightConsume = recipe.amountConsumed(1, false);
 
-        if(leftConsume < 0 || rightConsume < 0 ) {
+        if (leftConsume < 0 || rightConsume < 0) {
             return -100;
         }
 
-        if(leftConsume == 0 && rightConsume == 0){
+        if (leftConsume == 0 && rightConsume == 0) {
             return -100;   //Really? Is there an infinite crafting recipe.
         }
 
         //For some mold crafting recipes, use another function.
-        if (leftConsume == 0 || rightConsume == 0){
+        if (leftConsume == 0 || rightConsume == 0) {
             return -1;
         }
 

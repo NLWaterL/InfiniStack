@@ -73,6 +73,7 @@ dependencies {
 	compileOnly files('libs/compactstorage-1.7.10-release-2.1.0-lts.21-universal')
 	compileOnly files('libs/buildcraft-7.1.27')  //Does 1.7.10 version of BuildCraft exist on BC's maven? Check it later.
 	compileOnly files('libs/Avaritiaddons-1.4b')
+	compileOnly files('libs/adventurebackpack-1.7.10-0.8c')
 
 	}
 
