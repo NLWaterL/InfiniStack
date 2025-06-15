@@ -66,15 +66,7 @@ dependencies {
 	compileOnly "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
 
 	//Local Files
-	compileOnly files('libs/HBM-NTM-[1.0.27_X5336]')
-	compileOnly files('libs/Avaritia-1.13')
-	compileOnly files('libs/ProjectE-1.7.10-PE1.10.1')
-	compileOnly files('libs/ironchest-1.7.10-6.0.62.742-universal')
-	compileOnly files('libs/compactstorage-1.7.10-release-2.1.0-lts.21-universal')
-	compileOnly files('libs/buildcraft-7.1.27')  //Does 1.7.10 version of BuildCraft exist on BC's maven? Check it later.
-	compileOnly files('libs/Avaritiaddons-1.4b')
-	compileOnly files('libs/adventurebackpack-1.7.10-0.8c')
-
+	compileOnly fileTree(dir: 'libs', include: ['*.jar'])
 	}
 
 processResources
