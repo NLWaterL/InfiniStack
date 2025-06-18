@@ -15,7 +15,6 @@ public abstract class MixinItem {
     @Shadow
     protected int maxStackSize;
 
-
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(CallbackInfo ci) {
         maxStackSize = Configurables.maxStackSize;

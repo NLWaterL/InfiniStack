@@ -406,6 +406,22 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("BuildCraft|Core")){
+            List<String> buildCraftMixins = Arrays.asList(
+                    "MixinEntityRobot",
+                    "MixinInventoryConcatenator",
+                    "MixinNetworkUtils",
+                    "MixinSimpleInventory",
+                    "MixinTileAutoWorkbench",
+                    "MixinTileBuilder",
+                    "MixinTileEngineWithInventory",
+                    "MixinTilePackager"
+            );
+            for (String mixinClass : buildCraftMixins) {
+                mixins.add("buildcraft." + mixinClass);
+            }
+        }
+
         return mixins;
     }
 
