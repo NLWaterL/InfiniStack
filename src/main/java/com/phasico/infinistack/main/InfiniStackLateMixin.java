@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
+import com.phasico.infinistack.helper.Logger;
 
 // Define late mixins (mixins targetting non-coremod mod classes) in this class.
 // These mixins get loaded after mod classes are put on the classpath, allowing you to mix into them.
@@ -211,16 +212,28 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         }
 
         if (loadedMods.contains("adventurebackpack")){
-            List<String> adventureBackpackMixins = Arrays.asList(
-                    "MixinFontUtils",
-                    "MixinInventoryBackpack",
-                    "MixinInventoryCopterPack",
-                    "MixinInventorySteamJetpack",
-                    "MixinTileAdventureBackpack",
-                    "MixinContainerBackpack"
-            );
-            for (String mixinClass : adventureBackpackMixins) {
-                mixins.add("adventurebackpack." + mixinClass);
+
+            boolean isGTNH = false;
+            try {
+                //GTNH fork have this class, but original version doesn't.
+                Class.forName("com.darkona.adventurebackpack.block.TileAdventure");
+                isGTNH = true;
+            } catch (ClassNotFoundException ignored) {}
+
+            if (isGTNH){
+                Logger.warn("Detected GTNH Fork of adventure backpack! Using the GTNH patch is necessary!");
+                } else {
+                List<String> adventureBackpackMixins = Arrays.asList(
+                        "MixinFontUtils",
+                        "MixinInventoryBackpack",
+                        "MixinInventoryCopterPack",
+                        "MixinInventorySteamJetpack",
+                        "MixinTileAdventureBackpack",
+                        "MixinContainerBackpack"
+                );
+                for (String mixinClass : adventureBackpackMixins) {
+                    mixins.add("adventurebackpack." + mixinClass);
+                }
             }
         }
 
