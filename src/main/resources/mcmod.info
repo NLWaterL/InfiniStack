@@ -1,0 +1,16 @@
+[
+{
+  "modid": "infinigtnh",
+  "name": "InfiniGTNH",
+  "description": "A patch for the GTNH fork of some mods with InfiniStack",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["NLWaterL"],
+  "credits": "NLWaterL, also called 糯米饭团",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
