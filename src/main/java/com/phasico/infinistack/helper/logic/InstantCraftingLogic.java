@@ -1,14 +1,12 @@
 package com.phasico.infinistack.helper.logic;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.world.World;
 
 public class InstantCraftingLogic {
 
@@ -17,9 +15,6 @@ public class InstantCraftingLogic {
      * @param size The dimension of the crafting matrix. For example, vanilla workbench is 3.
      * */
     public static boolean instantCraft(InventoryCrafting craftMatrix, SlotCrafting craftingSlot, IRecipe recipe, InventoryPlayer playerInventory, EntityPlayer player, int size) {
-
-        //TODO: Add compact for Forestry's Worktable (logic is quite different)
-        //Wait until I finish other things.
 
         if (recipe == null) return false;
 

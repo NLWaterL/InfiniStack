@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins.adventurebackpack;
+package com.phasico.infinistack.mixins;
 
 import codechicken.lib.render.FontUtils;
 import com.phasico.infinistack.helper.Configurables;

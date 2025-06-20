@@ -216,7 +216,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             boolean isGTNH = false;
             try {
                 //GTNH fork have this class, but original version doesn't.
-                Class.forName("com.darkona.adventurebackpack.block.TileAdventure");
+                Class.forName("com.darkona.adventurebackpack.util.ThaumcraftUtils");
                 isGTNH = true;
             } catch (ClassNotFoundException ignored) {}
 
@@ -224,7 +224,6 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                 Logger.warn("Detected GTNH Fork of adventure backpack! Using the GTNH patch is necessary!");
                 } else {
                 List<String> adventureBackpackMixins = Arrays.asList(
-                        "MixinFontUtils",
                         "MixinInventoryBackpack",
                         "MixinInventoryCopterPack",
                         "MixinInventorySteamJetpack",

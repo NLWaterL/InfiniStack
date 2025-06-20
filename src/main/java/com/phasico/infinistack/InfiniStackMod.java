@@ -51,7 +51,7 @@ public class InfiniStackMod
             boolean patchLoaded = Loader.isModLoaded("infinigtnh");
             try {
                 //GTNH fork have this class, but original version doesn't.
-                Class.forName("com.darkona.adventurebackpack.block.TileAdventure");
+                Class.forName("com.darkona.adventurebackpack.util.ThaumcraftUtils");
                 isGTNH = true;
             } catch (ClassNotFoundException ignored) {}
 
