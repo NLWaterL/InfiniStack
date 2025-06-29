@@ -1,30 +1,24 @@
 package com.phasico.infinistack;
 
-import com.hbm.config.GeneralConfig;
-import com.hbm.handler.HTTPHandler;
-import com.hbm.lib.RefStrings;
 import com.phasico.infinistack.command.InfiniStackCommandGive;
 import com.phasico.infinistack.helper.Configurables;
 import com.phasico.infinistack.helper.Logger;
+import com.phasico.infinistack.helper.ModExtractor;
 import com.phasico.infinistack.main.InfiniStackLateMixin;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatStyle;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 
-@Mod(modid = InfiniStackMod.MODID)
+@Mod(modid = InfiniStackMod.MODID, version = "0.1.0-final")
 public class InfiniStackMod
 {
     public static final String MODID = "infinistack";
@@ -38,6 +32,48 @@ public class InfiniStackMod
 
         }
 
+    // MOD EXTRACTION BEGINS HERE //
+
+    public boolean needPatch;
+    public boolean patchLoaded;
+    public boolean needUpdatePatch;
+    public boolean success;
+
+    @Mod.EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+
+        needPatch = InfiniStackLateMixin.needPatch;
+
+        patchLoaded = Loader.isModLoaded("infinipatch");
+
+        needUpdatePatch = false;
+
+        if(patchLoaded){
+
+            //It will delete newer version, but I'm just trying to make sure that the patch mod is compatible with current version of InfiniStack..
+            needUpdatePatch = !ModExtractor.patchVersion.equals(ModExtractor.getModVersion("infinipatch"));
+
+        }
+
+        if (needPatch && (!patchLoaded || needUpdatePatch)) {
+
+            try {
+                ModExtractor extractor = new ModExtractor();
+
+                success = extractor.extract(needUpdatePatch);
+
+                if (success) {
+                    Logger.info("========================================================================");
+                    Logger.info("It is recommended to restart the game / server for better compatibility!");
+                }
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+    }
+
     @EventHandler
     public void serverLoad(FMLServerStartingEvent event) {
         event.registerServerCommand(new InfiniStackCommandGive());
@@ -47,20 +83,19 @@ public class InfiniStackMod
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if(!event.player.worldObj.isRemote) {
 
-            boolean isGTNH = false;
-            boolean patchLoaded = Loader.isModLoaded("infinigtnh");
-            try {
-                //GTNH fork have this class, but original version doesn't.
-                Class.forName("com.darkona.adventurebackpack.util.ThaumcraftUtils");
-                isGTNH = true;
-            } catch (ClassNotFoundException ignored) {}
+                if (needPatch && (!patchLoaded || needUpdatePatch)) {
 
-                if (isGTNH && !patchLoaded) {
+                    event.player.addChatMessage(new ChatComponentText("================================================================================"));
 
-                    event.player.addChatMessage(new ChatComponentText("InfiniStack Warning: You are using the GTNH fork of adventure backpack, but not using InfiniStack's GTNH Compability Mod!"));
-                    event.player.addChatMessage(new ChatComponentText("It is recommended to download and use InfiniGTNH."));
+                    if (!success){
+                        event.player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "InfiniStack Message: FAILED TO EXTRACT / UPDATE THE PATCH MOD!"));
+                        event.player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Please check if you had changed the name of the extracted mod!"));
+                    } else {
+                        event.player.addChatMessage(new ChatComponentText("InfiniStack Message: It is recommended to restart the game for better compability!"));
+                    }
 
                 }
+
         }
     }
 }

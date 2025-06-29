@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(RenderItem.class)
 public abstract class MixinRenderItem {
 
+    //Client Only
     @Redirect(
             method = "renderItemOverlayIntoGUI(Lnet/minecraft/client/gui/FontRenderer;Lnet/minecraft/client/renderer/texture/TextureManager;Lnet/minecraft/item/ItemStack;IILjava/lang/String;)V",
             at = @At(

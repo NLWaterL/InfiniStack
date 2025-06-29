@@ -7,12 +7,13 @@ import java.util.Set;
 
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
-import com.phasico.infinistack.helper.Logger;
 
 // Define late mixins (mixins targetting non-coremod mod classes) in this class.
 // These mixins get loaded after mod classes are put on the classpath, allowing you to mix into them.
 @LateMixin
 public class InfiniStackLateMixin implements ILateMixinLoader {
+
+    public static boolean needPatch = false;
 
     @Override
     public String getMixinConfig() {
@@ -218,11 +219,10 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                 //GTNH fork have this class, but original version doesn't.
                 Class.forName("com.darkona.adventurebackpack.util.ThaumcraftUtils");
                 isGTNH = true;
+                needPatch = true;
             } catch (ClassNotFoundException ignored) {}
 
-            if (isGTNH){
-                Logger.warn("Detected GTNH Fork of adventure backpack! Using the GTNH patch is necessary!");
-                } else {
+            if (!isGTNH) {
                 List<String> adventureBackpackMixins = Arrays.asList(
                         "MixinInventoryBackpack",
                         "MixinInventoryCopterPack",

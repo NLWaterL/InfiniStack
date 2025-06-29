@@ -6,11 +6,10 @@ public class Logger {
         DEBUG, INFO, WARN, ERROR
     }
 
-    private static Level currentLevel = Configurables.isDebugging ? Level.DEBUG : Level.INFO;
 
-    public static void debug(String msg) {
-        log(Level.DEBUG, msg);
-    }
+    public static void debug(String msg){}
+
+    //public static void debug(String msg) { log(Level.DEBUG, msg); }
 
     public static void info(String msg) {
         log(Level.INFO, msg);
@@ -25,8 +24,6 @@ public class Logger {
     }
 
     private static void log(Level level, String msg) {
-        if (level.ordinal() >= currentLevel.ordinal()) {
             System.out.println("[InfiniStack/" + level.name() + "] " + msg);
-        }
     }
 }

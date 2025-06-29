@@ -33,7 +33,6 @@ public abstract class MixinBlockBase {
         if (tile instanceof TileWorktable && !Configurables.enableWorkTable){
             player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "InfiniStack: Forestry Worktable causes severe conflict with InfiniStack."));
             player.addChatMessage(new ChatComponentText(EnumChatFormatting.GRAY + "To use it, you must enable it in the config."));
-            player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "This is NOT RECOMMENDED because it causes item lost and crashes."));
             player.addChatMessage(new ChatComponentText(                          "------------------------------------------------------------------------"));
             cir.setReturnValue(false);
 

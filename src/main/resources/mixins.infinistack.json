@@ -24,7 +24,6 @@
     "MixinItemStack",
     "MixinPacketBuffer",
     "MixinNEIInfiniteStackSizeHandler",
-    "MixinRenderItem",
     "MixinNEIExtendedCreativeInv",
     "MixinPacketCustom",
     "MixinContainerWorkbench",
@@ -36,5 +35,9 @@
     "MixinContainerBrewingStandIngredient",
     "MixinContainerPlayer",
     "MixinFontUtils"
-    ]
+    ],
+  "client": [
+    "MixinItemStackClient",
+    "MixinRenderItem"
+  ]
   }

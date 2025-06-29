@@ -167,6 +167,10 @@ jar {
 	}
 
 	from outRefMapFile;
+
+	from('libs/extracted') {
+		into 'patch'
+	}
 }
 
 tasks.compileJava.options.compilerArgs += ["-AreobfSrgFile=${tasks.reobf.srg}", "-AoutSrgFile=${outSrgFile}", "-AoutRefMapFile=${outRefMapFile}"];
