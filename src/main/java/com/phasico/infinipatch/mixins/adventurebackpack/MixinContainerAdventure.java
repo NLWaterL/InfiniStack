@@ -1,4 +1,4 @@
-package com.phasico.infinigtnh.mixins.adventurebackpack;
+package com.phasico.infinipatch.mixins.adventurebackpack;
 
 import com.darkona.adventurebackpack.inventory.ContainerBackpack;
 import com.darkona.adventurebackpack.inventory.InventoryCraftingBackpack;

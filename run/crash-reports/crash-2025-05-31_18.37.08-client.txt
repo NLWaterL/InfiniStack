@@ -1,0 +1,86 @@
+---- Minecraft Crash Report ----
+// My bad.
+
+Time: 5/31/25 6:37 PM
+Description: There was a severe problem during mod loading that has caused the game to fail
+
+cpw.mods.fml.common.LoaderException: java.lang.NoSuchMethodError: com.hbm.creativetabs.TemplateTab.func_78025_a(Ljava/lang/String;)Lnet/minecraft/creativetab/CreativeTabs;
+	at cpw.mods.fml.common.LoadController.transition(LoadController.java:163)
+	at cpw.mods.fml.common.Loader.loadMods(Loader.java:544)
+	at cpw.mods.fml.client.FMLClientHandler.beginMinecraftLoading(FMLClientHandler.java:208)
+	at net.minecraft.client.Minecraft.startGame(Minecraft.java:480)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:878)
+	at net.minecraft.client.main.Main.main(SourceFile:148)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at net.minecraft.launchwrapper.Launch.launch(Launch.java:135)
+	at net.minecraft.launchwrapper.Launch.main(Launch.java:28)
+	at net.minecraftforge.gradle.GradleStartCommon.launch(Unknown Source)
+	at GradleStart.main(Unknown Source)
+Caused by: java.lang.NoSuchMethodError: com.hbm.creativetabs.TemplateTab.func_78025_a(Ljava/lang/String;)Lnet/minecraft/creativetab/CreativeTabs;
+	at com.hbm.creativetabs.TemplateTab.<init>(TemplateTab.java:13)
+	at com.hbm.main.MainRegistry.<clinit>(MainRegistry.java:163)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:348)
+	at cpw.mods.fml.common.FMLModContainer.constructMod(FMLModContainer.java:440)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.google.common.eventbus.EventSubscriber.handleEvent(EventSubscriber.java:74)
+	at com.google.common.eventbus.SynchronizedEventSubscriber.handleEvent(SynchronizedEventSubscriber.java:47)
+	at com.google.common.eventbus.EventBus.dispatch(EventBus.java:322)
+	at com.google.common.eventbus.EventBus.dispatchQueuedEvents(EventBus.java:304)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:275)
+	at cpw.mods.fml.common.LoadController.sendEventToModContainer(LoadController.java:212)
+	at cpw.mods.fml.common.LoadController.propogateStateMessage(LoadController.java:190)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.google.common.eventbus.EventSubscriber.handleEvent(EventSubscriber.java:74)
+	at com.google.common.eventbus.SynchronizedEventSubscriber.handleEvent(SynchronizedEventSubscriber.java:47)
+	at com.google.common.eventbus.EventBus.dispatch(EventBus.java:322)
+	at com.google.common.eventbus.EventBus.dispatchQueuedEvents(EventBus.java:304)
+	at com.google.common.eventbus.EventBus.post(EventBus.java:275)
+	at cpw.mods.fml.common.LoadController.distributeStateMessage(LoadController.java:119)
+	at cpw.mods.fml.common.Loader.loadMods(Loader.java:513)
+	... 12 more
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- System Details --
+Details:
+	Minecraft Version: 1.7.10
+	Operating System: Windows 11 (amd64) version 10.0
+	Java Version: 1.8.0_432-432, OpenLogic-OpenJDK
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), OpenLogic-OpenJDK
+	Memory: 284819344 bytes (271 MB) / 596115456 bytes (568 MB) up to 5726797824 bytes (5461 MB)
+	JVM Flags: 2 total; -Xms256M -Xmx6G
+	AABB Pool Size: 0 (0 bytes; 0 MB) allocated, 0 (0 bytes; 0 MB) used
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP v9.05 FML v7.10.99.99 Minecraft Forge 10.13.4.1614 15 mods loaded, 15 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+	UC	mcp{9.05} [Minecraft Coder Pack] (minecraft.jar) 
+	UC	FML{7.10.99.99} [Forge Mod Loader] (forgeBin-1.7.10-10.13.4.1614-1.7.10.jar) 
+	UC	Forge{10.13.4.1614} [Minecraft Forge] (forgeBin-1.7.10-10.13.4.1614-1.7.10.jar) 
+	UE	Forestry{4.2.16.64} [Forestry for Minecraft] (forestry_1.7.10-4.2.16.64.jar) 
+	UE	hbm{1.0.27 BETA (5336)} [Hbm's Nuclear Tech] (HBM-NTM-[1.0.27_X5336].jar) 
+	UC	unimixins{0.1.14} [UniMixins] (unimixins-all-1.7.10-0.1.14-dev.jar) 
+	UC	unimixins-mixin{0.1.14} [UniMixins: Mixin (UniMix)] (unimixins-all-1.7.10-0.1.14-dev.jar) 
+	UC	unimixins-compat{0.1.14} [UniMixins: Compatibility] (unimixins-all-1.7.10-0.1.14-dev.jar) 
+	UC	mixingasm{0.3} [UniMixins: Mixingasm] (unimixins-all-1.7.10-0.1.14-dev.jar) 
+	UC	spongemixins{2.0.1} [UniMixins: SpongeMixins] (unimixins-all-1.7.10-0.1.14-dev.jar) 
+	UC	mixinbooterlegacy{1.2.1} [UniMixins: MixinBooterLegacy] (unimixins-all-1.7.10-0.1.14-dev.jar) 
+	UC	gasstation{0.5.1} [UniMixins: GasStation] (unimixins-all-1.7.10-0.1.14-dev.jar) 
+	UC	gtnhmixins{2.1.15} [UniMixins: GTNHMixins] (unimixins-all-1.7.10-0.1.14-dev.jar) 
+	UC	mixinextras{0.1.14} [UniMixins: MixinExtras] (unimixins-all-1.7.10-0.1.14-dev.jar) 
+	UC	infinigtnh{0.1.0-Beta2} [InfiniStack] (InfiniStack-0.1.0-Beta2.jar)
+	GL info: ' Vendor: 'Microsoft Corporation' Version: '4.6 (Compatibility Profile) Mesa 25.2.0-devel (git-18ad21fdfc)' Renderer: 'D3D12 (Qualcomm(R) Adreno(TM) X1-85 GPU)'
+	Mixins in Stacktrace: 
+		cpw.mods.fml.common.LoadController:
+			mixin.mixinbooterlegacy.json:LoadControllerMixin from mod (unknown)

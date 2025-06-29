@@ -1,7 +1,7 @@
 {
     "required": true,
     "minVersion": "0.4.10",
-    "package": "com.phasico.infinigtnh.mixins",
+    "package": "com.phasico.infinipatch.mixins",
     "refmap": "mixins.infinistack.refmap.json",
     "target": "1.7.10",
     "compatibilityLevel": "JAVA_8",

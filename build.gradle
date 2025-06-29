@@ -28,9 +28,9 @@ buildscript {
 apply plugin: 'forge'
 
 version = "${modVersion}-${build}"
-group= "com.phasico.infinigtnh"
-archivesBaseName = "InfiniGTNH"
-def modid = "infinigtnh"
+group= "com.phasico.infinipatch"
+archivesBaseName = "InfiniPatch"
+def modid = "infinipatch"
 
 minecraft {
 	version = "1.7.10-10.13.4.1614-1.7.10"

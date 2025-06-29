@@ -1,4 +1,4 @@
-package com.phasico.infinigtnh.mixins.adventurebackpack;
+package com.phasico.infinipatch.mixins.adventurebackpack;
 
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;

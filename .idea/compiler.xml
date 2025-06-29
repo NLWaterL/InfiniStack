@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Gradle Imported" enabled="true">
+        <outputRelativeToContentRoot value="true" />
+        <option name="outRefMapFile" value="D:\Program\McMod\InfiniStack\infinigtnh-1.7.10-forge\build\tmp\compileJava/mixins.infinigtnh.refmap.json" />
+        <option name="outSrgFile" value="D:\Program\McMod\InfiniStack\infinigtnh-1.7.10-forge\build\tmp\compileJava/outSrg.srg" />
+        <option name="reobfSrgFile" value="C:\Users\NLWaterL\.gradle\caches\minecraft\net\minecraftforge\forge\1.7.10-10.13.4.1614-1.7.10\srgs\mcp-srg.srg" />
+        <processorPath useClasspath="false">
+          <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.LegacyModdingMC.UniMixins/unimixins-all-1.7.10/0.1.14/a7c92ff207faac7ebc822d72dfb4993f6d618b65/unimixins-all-1.7.10-0.1.14-dev.jar" />
+        </processorPath>
+        <module name="infinigtnh-1.7.10-forge.main" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8" />
+  </component>
+</project>

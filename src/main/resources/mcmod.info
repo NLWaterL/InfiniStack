@@ -1,8 +1,8 @@
 [
 {
-  "modid": "infinigtnh",
-  "name": "InfiniGTNH",
-  "description": "A patch for the GTNH fork of some mods with InfiniStack",
+  "modid": "infinipatch",
+  "name": "InfiniPatch",
+  "description": "A patch for some mods with InfiniStack",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
