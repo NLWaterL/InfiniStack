@@ -1,6 +1,5 @@
 package com.phasico.infinistack.helper;
 
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
@@ -35,7 +34,6 @@ public class ModExtractor {
                 return false;
             }
         }
-
 
         try (InputStream in = getClass().getResourceAsStream("/patch/InfiniPatch-[EXTRACTED].jar");
              OutputStream out = new FileOutputStream(targetFile)) {
@@ -95,6 +93,7 @@ public class ModExtractor {
 
             //Get the mods dir from config dir......
             return new File(Loader.instance().getConfigDir().getParentFile(), "mods/");
+
         }
     }
 

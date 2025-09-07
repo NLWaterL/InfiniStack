@@ -18,7 +18,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 
-@Mod(modid = InfiniStackMod.MODID, version = "0.1.0-final")
+@Mod(modid = InfiniStackMod.MODID, version = "0.1.1-beta2")
 public class InfiniStackMod
 {
     public static final String MODID = "infinistack";
@@ -93,6 +93,12 @@ public class InfiniStackMod
                     } else {
                         event.player.addChatMessage(new ChatComponentText("InfiniStack Message: It is recommended to restart the game for better compability!"));
                     }
+
+                }
+
+                if (Loader.isModLoaded("infinigtnh")){
+
+                    event.player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "InfiniStack Message: Please delete the InfiniGTNH mod! It is now deprecated!"));
 
                 }
 

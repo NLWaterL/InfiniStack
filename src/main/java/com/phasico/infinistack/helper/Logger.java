@@ -1,6 +1,9 @@
 package com.phasico.infinistack.helper;
 
+@Deprecated
 public class Logger {
+
+    //I would remove this temporarily created class very soon.
 
     public enum Level {
         DEBUG, INFO, WARN, ERROR

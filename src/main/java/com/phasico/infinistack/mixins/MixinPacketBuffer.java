@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins;
+/*package com.phasico.infinistack.mixins;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.Item;
@@ -43,4 +43,4 @@ public abstract class MixinPacketBuffer extends ByteBuf {
         return var1;
     }
 
-}
+}*/

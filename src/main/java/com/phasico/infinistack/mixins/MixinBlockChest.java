@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins;
+/*package com.phasico.infinistack.mixins;
 
 import net.minecraft.block.BlockChest;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,4 +24,4 @@ public abstract class MixinBlockChest {
         return random.nextInt(bound);
     }
 
-}
+}*/

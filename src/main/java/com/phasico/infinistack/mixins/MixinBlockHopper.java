@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins;
+/*package com.phasico.infinistack.mixins;
 
 import net.minecraft.block.BlockHopper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,4 +24,4 @@ public abstract class MixinBlockHopper {
         return random.nextInt(bound);
     }
 
-}
+}*/
