@@ -10,7 +10,9 @@ public class Configurables {
     public static int maxStackSize;
     public static boolean alwaysShowCount;
     public static boolean enableWorkTable;
+    public static boolean useAlternateDisplay;
 
+    public static boolean enableFastCraft; //This need to be done for max compact. If it's false, then the crafting table's slot capacity would be limited at 1k.
     private static Configuration config;
 
     public static void init(FMLPreInitializationEvent event) {
@@ -22,10 +24,11 @@ public class Configurables {
 
             config.load();
 
-            maxStackSize = config.getInt("Max Stack Size", Configuration.CATEGORY_GENERAL, (1 << 30) - 1, 1, Integer.MAX_VALUE - 10, "Maximum stack size for items.");
-            alwaysShowCount = config.getBoolean("Always Show Stack Size in Tooltip", Configuration.CATEGORY_GENERAL, false, "Always show the item count in the tooltip, even if shift is not clicked.");
-            enableWorkTable = config.getBoolean("Enable Forestry's Worktable", Configuration.CATEGORY_GENERAL, false, "Enable Forestry's Worktable. NOT RECOMMENDED");
-
+            maxStackSize = config.getInt("maxStackSize", Configuration.CATEGORY_GENERAL, (1 << 30) - 1, 1, Integer.MAX_VALUE - 10, "Maximum stack size for items.");
+            alwaysShowCount = config.getBoolean("alwaysShowCount", Configuration.CATEGORY_GENERAL, false, "Always show the item count in the tooltip, even if shift is not clicked.");
+            enableWorkTable = config.getBoolean("enableForestryWorktable", Configuration.CATEGORY_GENERAL, false, "Enable Forestry's Worktable. NOT RECOMMENDED");
+            useAlternateDisplay = config.getBoolean("useAlternateDisplay", Configuration.CATEGORY_GENERAL, true, "Use an alternate way to format stack size.");
+            
         } catch (Exception e) {
             Logger.error("Failed to load config for Infinistack!");
             e.printStackTrace();

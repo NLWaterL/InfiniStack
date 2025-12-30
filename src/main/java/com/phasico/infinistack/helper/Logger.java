@@ -1,18 +1,13 @@
 package com.phasico.infinistack.helper;
 
-@Deprecated
+@Deprecated //This whole class is really just a debug-helper. Would be removed quickly.
 public class Logger {
-
-    //I would remove this temporarily created class very soon.
 
     public enum Level {
         DEBUG, INFO, WARN, ERROR
     }
 
-
-    public static void debug(String msg){}
-
-    //public static void debug(String msg) { log(Level.DEBUG, msg); }
+    public static void debug(String msg) { log(Level.DEBUG, msg); }
 
     public static void info(String msg) {
         log(Level.INFO, msg);
