@@ -434,6 +434,11 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("StorageDrawers")){
+            mixins.add("storagedrawers.MixinDrawerData");
+            mixins.add("storagedrawers.MixinTileEntityDrawersComp");
+        }
+
         return mixins;
     }
 

@@ -34,7 +34,8 @@
     "MixinBlockHopper",
     "MixinContainerBrewingStandIngredient",
     "MixinContainerPlayer",
-    "MixinFontUtils"
+    "MixinFontUtils",
+    "MixinEntityLivingBase"
     ],
   "client": [
     "MixinItemStackClient",

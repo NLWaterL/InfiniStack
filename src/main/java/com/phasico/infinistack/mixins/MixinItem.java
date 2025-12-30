@@ -1,5 +1,6 @@
 package com.phasico.infinistack.mixins;
 
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,7 +21,7 @@ public abstract class MixinItem {
         maxStackSize = Configurables.maxStackSize;
     }
 
-    /*@Overwrite
+    @Overwrite
     public Item setMaxStackSize(int size) {
         if (size != 1) {
             this.maxStackSize = Configurables.maxStackSize;
@@ -28,7 +29,7 @@ public abstract class MixinItem {
             this.maxStackSize = 1;
         }
         return (Item)(Object)this;
-    }*/
+    }
 
     @Deprecated
     @Overwrite

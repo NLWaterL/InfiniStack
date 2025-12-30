@@ -96,6 +96,12 @@ public class InfiniStackMod
 
                 }
 
+                if (Loader.isModLoaded("infinigtnh")){
+
+                    event.player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "InfiniStack Message: Please delete the InfiniGTNH mod! It is now deprecated!"));
+
+                }
+
         }
     }
 }

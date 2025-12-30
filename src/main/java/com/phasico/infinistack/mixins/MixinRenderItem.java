@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import com.phasico.infinistack.helper.logic.ItemCountDisplay;
+import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(RenderItem.class)
@@ -18,6 +19,10 @@ public abstract class MixinRenderItem {
             )
     )
     private String redirectStackSizeToFormatted(int value) {
-        return ItemCountDisplay.formatStackSize(value);
+    	if(Configurables.useAlternateDisplay){
+            return ItemCountDisplay.formatStackSize(value);
+        } else {
+        	return ItemCountDisplay.formatStackSizeStyle2(value);
+    	}
     }
 }
