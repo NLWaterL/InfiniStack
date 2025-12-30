@@ -4,7 +4,7 @@
     <annotationProcessing>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
-        <option name="outRefMapFile" value="D:\Program\McMod\InfiniStack\infinigtnh-1.7.10-forge\build\tmp\compileJava/mixins.infinigtnh.refmap.json" />
+        <option name="outRefMapFile" value="D:\Program\McMod\InfiniStack\infinigtnh-1.7.10-forge\build\tmp\compileJava/mixins.infinipatch.refmap.json" />
         <option name="outSrgFile" value="D:\Program\McMod\InfiniStack\infinigtnh-1.7.10-forge\build\tmp\compileJava/outSrg.srg" />
         <option name="reobfSrgFile" value="C:\Users\NLWaterL\.gradle\caches\minecraft\net\minecraftforge\forge\1.7.10-10.13.4.1614-1.7.10\srgs\mcp-srg.srg" />
         <processorPath useClasspath="false">
