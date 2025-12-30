@@ -22,10 +22,6 @@ public class InfiniPatchMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-
-        if (mixinClassName.equals("com.phasico.infinistack.mixins.adventurebackpack.MixinContainerAdventure")) {
-            return Configurables.enableFastCraft;
-        }
         return true;
     }
 

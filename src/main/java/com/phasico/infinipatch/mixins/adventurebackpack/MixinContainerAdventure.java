@@ -1,7 +1,7 @@
 package com.phasico.infinipatch.mixins.adventurebackpack;
 
-import com.darkona.adventurebackpack.inventory.ContainerBackpack;
 import com.darkona.adventurebackpack.inventory.InventoryCraftingBackpack;
+import com.phasico.infinistack.helper.Configurables;
 import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
 import com.darkona.adventurebackpack.inventory.ContainerAdventure;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,6 +25,10 @@ public abstract class MixinContainerAdventure {
             remap = false
     )
     private void injectTransferStackInSlot(EntityPlayer player, int slotId, CallbackInfoReturnable<ItemStack> cir) {
+
+        if(!Configurables.enableFastCraft){
+            return;
+        }
 
         if (this.getClass().getSimpleName().equals("ContainerBackpack")) {
             //99 is the result slot.
