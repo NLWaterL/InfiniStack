@@ -32,8 +32,7 @@
     "MixinBlockFurnace",
     "MixinContainerBrewingStandIngredient",
     "MixinContainerPlayer",
-    "MixinFontUtils",
-    "MixinEntityLivingBase"
+    "MixinFontUtils"
     ],
   "client": [
     "MixinItemStackClient",

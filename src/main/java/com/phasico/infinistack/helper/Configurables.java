@@ -13,8 +13,6 @@ public class Configurables {
 
     public static boolean enableFastCraft; //This need to be done for max compact. If it's false, then the crafting table's slot capacity would be limited at 1k.
 
-    public static boolean hideAmbientParticle;
-
     public static boolean enableWorkTable;
     public static int transmutationLimit;
 
@@ -34,8 +32,6 @@ public class Configurables {
             alwaysShowCount = config.getBoolean("Always show count", Configuration.CATEGORY_GENERAL, false, "Always show the item count in the tooltip, even if shift is not clicked");
             useAlternateDisplay = config.getBoolean("Use alternate display", Configuration.CATEGORY_GENERAL, true, "Use an alternate way to format stack size");
             enableFastCraft = config.getBoolean("Enable fast craft logic", Configuration.CATEGORY_GENERAL, true, "Use a faster logic for crafting table and some other compatible work stations");
-
-            hideAmbientParticle = config.getBoolean("Hide ambient potion particle", Configuration.CATEGORY_GENERAL, false, "Ambient potion effects will not produce any particles");
 
             enableWorkTable = config.getBoolean("Enable Forestry worktable", Configuration.CATEGORY_GENERAL, false,"");
             transmutationLimit = config.getInt("Transmutation table limit", Configuration.CATEGORY_GENERAL, 64, 64, 2048, "Amount of item you can take out from a transmutation table in a click");

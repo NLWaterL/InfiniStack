@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins;
+/*package com.phasico.infinistack.mixins;
 
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,4 +22,4 @@ public abstract class MixinEntityLivingBase {
     }
 
 
-}
+}*/
