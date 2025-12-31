@@ -3,6 +3,7 @@
   "minVersion": "0.4.10",
   "package": "com.phasico.infinistack.mixins",
   "refmap": "mixins.infinistack.refmap.json",
+  "plugin": "com.phasico.infinistack.main.InfiniStackMixinPlugin",
   "target": "1.7.10",
   "compatibilityLevel": "JAVA_8",
   "mixins": [

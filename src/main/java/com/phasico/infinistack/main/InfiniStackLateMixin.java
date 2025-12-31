@@ -30,42 +30,6 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             List<String> hbmMixins = Arrays.asList(
                     "AccessorAnvilCraftPacket",
                     "MixinAnvilCraftPacket",
-                    "MixinContainerAnvil",
-                    "MixinContainerBook",
-                    "MixinBufferUtil",
-                    "MixinEntityDeliverDrone",
-                    "MixinEntityMinecartContainerBase",
-                    "MixinEntityRailCarCargo",
-                    "MixinInventoryAmmoBag",
-                    "MixinInventoryCasingBag",
-                    "MixinItemInventory",
-                    "MixinTileEntityCompactLauncher",
-                    "MixinTileEntityCrateBase",
-                    "MixinTileEntityDiFurnaceRTG",
-                    "MixinTileEntityForceField",
-                    "MixinTileEntityFoundryCastingBase",
-                    "MixinTileEntityInventoryBase",
-                    "MixinTileEntityLaunchTable",
-                    "MixinTileEntityMachineArcFurnace",
-                    "MixinTileEntityMachineBase",
-                    "MixinTileEntityMachineKeyForge",
-                    "MixinTileEntityMachineMissileAssembly",
-                    "MixinTileEntityMachineRTG",
-                    "MixinTileEntityMachineSatDock",
-                    "MixinTileEntityMachineSatLinker",
-                    "MixinTileEntityMachineShredder",
-                    "MixinTileEntityMachineSiren",
-                    "MixinTileEntityMachineTurbine",
-                    "MixinTileEntityNukeBoy",
-                    "MixinTileEntityNukeCustom",
-                    "MixinTileEntityNukeFleija",
-                    "MixinTileEntityNukeN2",
-                    "MixinTileEntityNukePrototype",
-                    "MixinTileEntityNukeSolinium",
-                    "MixinTileEntityProxyInventory",
-                    "MixinTileEntityRBMKSlottedBase",
-                    "MixinTileEntityRequestNetworkContainer",
-                    "MixinTileEntityRtgFurnace",
                     "MixinBlockCraneBase",
                     "MixinBlockCustomMachine",
                     "MixinBlockDecoContainer",
@@ -75,14 +39,24 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinBlockMassStorage",
                     "MixinBlockStorageCrate",
                     "MixinBombMulti",
+                    "MixinBufferUtil",
                     "MixinCompactLauncher",
+                    "MixinContainerAnvil",
+                    "MixinContainerBook",
                     "MixinCranePartitioner",
                     "MixinDroneCrate",
                     "MixinDroneDock",
+                    "MixinEntityDeliveryDrone",
+                    "MixinEntityMinecartContainerBase",
+                    "MixinEntityRailCarCargo",
+                    "MixinInventoryAmmoBag",
+                    "MixinInventoryCasingBag",
+                    "MixinItemAmmoBag",
+                    "MixinItemCasingBag",
+                    "MixinItemInventory",
                     "MixinItemStackUtil",
                     "MixinItemToolBox",
                     "MixinLaunchTable",
-                    "MixinMachineArcFurnace",
                     "MixinMachineAutocrafter",
                     "MixinMachineBattery",
                     "MixinMachineDiFurnace",
@@ -117,6 +91,32 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinPistonInserter",
                     "MixinSoyuzCapsule",
                     "MixinSoyuzLauncher",
+                    "MixinTileEntityCompactLauncher",
+                    "MixinTileEntityCrateBase",
+                    "MixinTileEntityDiFurnaceRTG",
+                    "MixinTileEntityForceField",
+                    "MixinTileEntityFoundryCastingBase",
+                    "MixinTileEntityInventoryBase",
+                    "MixinTileEntityLaunchTable",
+                    "MixinTileEntityMachineBase",
+                    "MixinTileEntityMachineKeyForge",
+                    "MixinTileEntityMachineMissileAssembly",
+                    "MixinTileEntityMachineRTG",
+                    "MixinTileEntityMachineSatDock",
+                    "MixinTileEntityMachineSatLinker",
+                    "MixinTileEntityMachineShredder",
+                    "MixinTileEntityMachineSiren",
+                    "MixinTileEntityMachineTurbine",
+                    "MixinTileEntityNukeBoy",
+                    "MixinTileEntityNukeCustom",
+                    "MixinTileEntityNukeFleija",
+                    "MixinTileEntityNukeN2",
+                    "MixinTileEntityNukePrototype",
+                    "MixinTileEntityNukeSolinium",
+                    "MixinTileEntityProxyInventory",
+                    "MixinTileEntityRBMKSlottedBase",
+                    "MixinTileEntityRequestNetworkContainer",
+                    "MixinTileEntityRtgFurnace",
                     "MixinTurretSentry",
                     "MixinWasteDrum"
             );
@@ -150,6 +150,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinCondenserTile",
                     "MixinDMPedestalTile",
                     "MixinEternalDensityInventory",
+                    "MixinFMPEAlchBagInventory",
                     "MixinMercurialEyeInventory",
                     "MixinRelayMK1Tile",
                     "MixinRMFurnaceTile",
@@ -409,13 +410,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         }
 
         if (loadedMods.contains("Muya")){
-            List<String> muyaMixins = Arrays.asList(
-                    "MixinTemporaryWarehouseInventory",
-                    "MixinTileEntityRedstoneChunkLoader"
-            );
-            for (String mixinClass : muyaMixins) {
-                mixins.add("muya." + mixinClass);
-            }
+            mixins.add("muya.MixinTemporaryWarehouseInventory");
+            mixins.add("muya.MixinTileEntityRedstoneChunkLoader");
         }
 
         if (loadedMods.contains("BuildCraft|Core")){
@@ -437,6 +433,24 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         if (loadedMods.contains("StorageDrawers")){
             mixins.add("storagedrawers.MixinDrawerData");
             mixins.add("storagedrawers.MixinTileEntityDrawersComp");
+        }
+
+        if (loadedMods.contains("ironfurnaces")){
+            List<String> ironFurnaceMixins = Arrays.asList(
+                    "MixinCrystalFurnace",
+                    "MixinDiamondFurnace",
+                    "MixinGoldFurnace",
+                    "MixinIronFurnace",
+                    "MixinObsidianFurnace",
+                    "MixinTileEntityCrystalFurnace",
+                    "MixinTileEntityDiamondFurnace",
+                    "MixinTileEntityGoldFurnace",
+                    "MixinTileEntityIronFurnace",
+                    "MixinTileEntityObsidianFurnace"
+            );
+            for (String mixinClass : ironFurnaceMixins){
+                mixins.add("ironfurnace." + mixinClass);
+            }
         }
 
         return mixins;

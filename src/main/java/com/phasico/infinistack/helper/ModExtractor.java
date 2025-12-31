@@ -11,7 +11,7 @@ import java.io.*;
 public class ModExtractor {
 
     //Please don't forget to update patch version when the patch has updated.
-    public static final String patchVersion = "0.1.0";
+    public static final String patchVersion = "0.1.1";
 
     public ModExtractor(){}
 

@@ -1,24 +1,21 @@
-package com.phasico.infinistack.mixins.hbm;
+package com.phasico.infinistack.mixins.ironfurnace;
 
-import com.hbm.blocks.machine.MachineArcFurnace;
+import xenopack.blocks.DiamondFurnace; // blocks\DiamondFurnace.java
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-@Pseudo
-@Mixin(MachineArcFurnace.class)
-public abstract class MixinMachineArcFurnace {
+@Mixin(DiamondFurnace.class)
+public abstract class MixinDiamondFurnace {
 
     @Redirect(
             method = "func_149749_a",
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/Random;nextInt(I)I"
-            ),
-            remap = false
+            ), remap = false
     )
     private int noStackSplit(Random random, int bound) {
         if (bound == 21) {

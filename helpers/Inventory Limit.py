@@ -105,7 +105,7 @@ def get_relative_path(script_dir, file_path):
     except Exception:
         return file_path
 
-def generate_mixin_file(original_file_path, class_name, package_name, script_dir):
+def generate_mixin_file(original_file_path, class_name, package_name, script_dir, mixin_subdir):
     """
     生成Mixin文件
     """
@@ -119,7 +119,7 @@ def generate_mixin_file(original_file_path, class_name, package_name, script_dir
         import_path = class_name
     
     # Mixin文件内容模板
-    mixin_content = f"""package com.phasico.infinistack.mixins.manametal;
+    mixin_content = f"""package com.phasico.infinistack.mixins.{mixin_subdir};
 
 import {import_path}; // {relative_path}
 import org.spongepowered.asm.mixin.Mixin;
@@ -157,8 +157,21 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     print(f"脚本目录: {script_dir}")
     
+    # 询问用户输入子目录名称
+    mixin_subdir = input("请输入Mixin包的子目录名称 (例如: manametal): ").strip()
+    
+    if not mixin_subdir:
+        print("错误: 子目录名称不能为空！")
+        return
+    
+    # 验证子目录名称是否为有效的Java包名
+    if not re.match(r'^[a-z][a-z0-9_]*$', mixin_subdir):
+        print("警告: 子目录名称不符合Java包命名规范，但将继续使用。")
+    
+    print(f"将使用子目录: {mixin_subdir}")
+    
     # 查找包含目标方法的Java文件
-    print("正在查找包含目标方法的Java文件...")
+    print("\n正在查找包含目标方法的Java文件...")
     found_files = find_java_files_with_target_method(script_dir)
     
     if not found_files:
@@ -183,15 +196,16 @@ def main():
         print(f"包名: {package_name}")
         
         # 生成Mixin文件
-        mixin_file = generate_mixin_file(file_path, class_name, package_name, script_dir)
+        mixin_file = generate_mixin_file(file_path, class_name, package_name, script_dir, mixin_subdir)
         
         if mixin_file:
             # 询问是否移除原文件中的方法
-            response = input(f"是否从原文件中移除目标方法? (y/n): ").lower().strip()
-            if response == 'y' or response == 'yes':
-                remove_target_method_from_file(file_path)
-            else:
-                print("跳过移除操作")
+            #response = input(f"是否从原文件中移除目标方法? (y/n): ").lower().strip()
+            #if response == 'y' or response == 'yes':
+            #    remove_target_method_from_file(file_path)
+            #else:
+            #    print("跳过移除操作")
+            pass
     
     print("\n处理完成！")
 

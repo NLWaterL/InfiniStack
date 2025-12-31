@@ -18,7 +18,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.MinecraftForge;
 
-@Mod(modid = InfiniStackMod.MODID, version = "0.1.0-final")
+@Mod(modid = InfiniStackMod.MODID, version = "0.1.1")
 public class InfiniStackMod
 {
     public static final String MODID = "infinistack";

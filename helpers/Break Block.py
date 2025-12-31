@@ -116,7 +116,7 @@ def get_relative_path(script_dir, file_path):
     except Exception:
         return file_path
 
-def generate_nextint_mixin_file(original_file_path, class_name, package_name, script_dir):
+def generate_nextint_mixin_file(original_file_path, class_name, package_name, script_dir, mixin_subdir):
     """
     生成NextInt Mixin文件
     """
@@ -130,7 +130,7 @@ def generate_nextint_mixin_file(original_file_path, class_name, package_name, sc
         import_path = class_name
     
     # Mixin文件内容模板
-    mixin_content = f"""package com.phasico.infinistack.mixins.manametal;
+    mixin_content = f"""package com.phasico.infinistack.mixins.{mixin_subdir};
 
 import {import_path}; // {relative_path}
 import org.spongepowered.asm.mixin.Mixin;
@@ -206,8 +206,21 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
     print(f"脚本目录: {script_dir}")
     
+    # 询问用户输入子目录名称
+    mixin_subdir = input("请输入Mixin包的子目录名称 (例如: manametal): ").strip()
+    
+    if not mixin_subdir:
+        print("错误: 子目录名称不能为空！")
+        return
+    
+    # 验证子目录名称是否为有效的Java包名
+    if not re.match(r'^[a-z][a-z0-9_]*$', mixin_subdir):
+        print("警告: 子目录名称不符合Java包命名规范，但将继续使用。")
+    
+    print(f"将使用子目录: {mixin_subdir}")
+    
     # 查找包含nextInt(21) + 10的Java文件
-    print("正在查找包含 nextInt(21) + 10 的Java文件...")
+    print("\n正在查找包含 nextInt(21) + 10 的Java文件...")
     found_files = find_java_files_with_nextint(script_dir)
     
     if not found_files:
@@ -235,15 +248,16 @@ def main():
         print(f"包名: {package_name}")
         
         # 生成Mixin文件
-        mixin_file = generate_nextint_mixin_file(file_path, class_name, package_name, script_dir)
+        mixin_file = generate_nextint_mixin_file(file_path, class_name, package_name, script_dir, mixin_subdir)
         
         if mixin_file:
             # 询问是否处理原文件
-            response = input(f"是否注释原文件中的 nextInt(21) + 10 相关代码? (y/n): ").lower().strip()
-            if response == 'y' or response == 'yes':
-                remove_nextint_from_file(file_path)
-            else:
-                print("跳过原文件处理")
+            #response = input(f"是否注释原文件中的 nextInt(21) + 10 相关代码? (y/n): ").lower().strip()
+            #if response == 'y' or response == 'yes':
+            #    remove_nextint_from_file(file_path)
+            #else:
+            #    print("跳过原文件处理")
+            pass
     
     print("\n处理完成！")
 
