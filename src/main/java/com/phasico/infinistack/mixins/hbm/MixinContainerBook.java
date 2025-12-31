@@ -2,6 +2,7 @@ package com.phasico.infinistack.mixins.hbm;
 
 import com.hbm.inventory.container.ContainerBook;
 import com.hbm.inventory.recipes.MagicRecipes;
+import com.phasico.infinistack.helper.Configurables;
 import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
@@ -20,6 +21,10 @@ public abstract class MixinContainerBook {
 
     @Inject(method = "func_82846_b", at = @At("HEAD"), remap = false, cancellable = true)
     private void injectTransferStackInSlot(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
+
+        if(!Configurables.enableFastCraft){
+            return;
+        }
 
         if (slotIndex == 0) {
 

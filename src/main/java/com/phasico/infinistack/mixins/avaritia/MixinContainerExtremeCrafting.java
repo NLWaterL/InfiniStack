@@ -1,5 +1,6 @@
 package com.phasico.infinistack.mixins.avaritia;
 
+import com.phasico.infinistack.helper.Configurables;
 import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.gui.ContainerExtremeCrafting;
@@ -28,6 +29,10 @@ public abstract class MixinContainerExtremeCrafting {
 
     @Inject(method = "func_82846_b", at = @At("HEAD"), cancellable = true, remap = false)
     private void fastCraftingLogic(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
+
+        if(!Configurables.enableFastCraft){
+            return;
+        }
 
         if (slotIndex == 0) {
             Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(0);

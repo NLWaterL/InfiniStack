@@ -15,7 +15,7 @@ public abstract class MixinTransmutationInventory {
     @Overwrite(remap = false)
     public int func_70297_j_()
     {
-        return 1000;
+        return Configurables.transmutationLimit;
     }
 
 }

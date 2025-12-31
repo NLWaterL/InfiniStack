@@ -20,9 +20,9 @@ public abstract class MixinRenderItem {
     )
     private String redirectStackSizeToFormatted(int value) {
     	if(Configurables.useAlternateDisplay){
-            return ItemCountDisplay.formatStackSize(value);
-        } else {
         	return ItemCountDisplay.formatStackSizeStyle2(value);
+        } else {
+        	return ItemCountDisplay.formatStackSize(value);
     	}
     }
 }

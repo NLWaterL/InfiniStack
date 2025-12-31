@@ -1,5 +1,6 @@
 package com.phasico.infinistack.mixins;
 
+import com.phasico.infinistack.helper.Configurables;
 import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
@@ -27,6 +28,10 @@ public abstract class MixinContainerWorkbench {
 
     @Inject(method = "transferStackInSlot", at = @At("HEAD"), cancellable = true)
     private void fastCraftingLogic(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
+
+        if(!Configurables.enableFastCraft){
+            return;
+        }
 
         if (slotIndex == 0) {
             Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(0);
