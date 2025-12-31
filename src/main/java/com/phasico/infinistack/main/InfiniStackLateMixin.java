@@ -453,6 +453,27 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("dao_za_vanillaplus")){
+            List<String> daoZaMixins = Arrays.asList(
+                    "MixinCon_4mode",
+                    "MixinInv",
+                    "MixinInventory_book",
+                    "MixinInventory_multiwand",
+                    "MixinInventory_telepearl",
+                    "MixinInv_bag",
+                    "MixinInv_rcp_paper",
+                    "MixinTE_any_machine",
+                    "MixinTE_daoza_shop",
+                    "MixinTE_furniture_shop",
+                    "MixinTE_sp_enchanter",
+                    "MixinTE_sp_enchanter_freedom",
+                    "MixinTE_weather_beacon"
+            );
+            for (String mixinClass : daoZaMixins){
+                mixins.add("daoza." + mixinClass);
+            }
+        }
+
         return mixins;
     }
 

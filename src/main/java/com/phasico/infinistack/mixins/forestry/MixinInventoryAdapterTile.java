@@ -3,8 +3,6 @@ package com.phasico.infinistack.mixins.forestry;
 import com.phasico.infinistack.helper.Configurables;
 import forestry.core.inventory.InventoryAdapterTile;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Constant;
 
