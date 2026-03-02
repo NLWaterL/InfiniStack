@@ -2,12 +2,14 @@ package com.phasico.infinistack.mixins.forestry;
 
 import forestry.core.network.DataOutputStreamForestry;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.io.IOException;
 
 @Mixin(DataOutputStreamForestry.class)
+@Pseudo
 public abstract class MixinDataOutputStreamForestry {
 
     @Redirect(method = "writeItemStack",

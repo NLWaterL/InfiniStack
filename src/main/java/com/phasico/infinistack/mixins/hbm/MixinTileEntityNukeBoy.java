@@ -1,15 +1,13 @@
 package com.phasico.infinistack.mixins.hbm;
 
-import com.hbm.tileentity.bomb.TileEntityNukeBoy;
-import com.phasico.infinistack.helper.Configurables;
+import com.hbm.tileentity.bomb.TileEntityNukeBoy; // hbm\tileentity\bomb\TileEntityNukeBoy.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
+import com.phasico.infinistack.helper.Configurables;
 
-
-
-@Pseudo
 @Mixin(TileEntityNukeBoy.class)
+@Pseudo
 public abstract class MixinTileEntityNukeBoy {
 
     @Overwrite(remap = false)

@@ -6,11 +6,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import java.io.IOException;
 
 @Mixin(DataInputStreamForestry.class)
+@Pseudo
 public abstract class MixinDataInputStreamForestry {
 
     @Shadow(remap = false)

@@ -5,9 +5,11 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(NetworkUtils.class)
+@Pseudo
 public abstract class MixinNetworkUtils {
 
     @Overwrite(remap = false)

@@ -2,10 +2,12 @@ package com.phasico.infinistack.mixins.projecte;
 
 import moze_intel.projecte.gameObjs.tiles.RMFurnaceTile;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import com.phasico.infinistack.helper.Configurables;
 
 @Mixin(RMFurnaceTile.class)
+@Pseudo
 public abstract class MixinRMFurnaceTile {
 
     @Overwrite(remap = false)

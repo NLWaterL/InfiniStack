@@ -4,11 +4,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.Container;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.Set;
 
 @Mixin(Container.class)
+@Pseudo
 public abstract class MixinContainer {
 
     /**

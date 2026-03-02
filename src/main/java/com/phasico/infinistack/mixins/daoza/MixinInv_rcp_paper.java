@@ -2,10 +2,12 @@ package com.phasico.infinistack.mixins.daoza;
 
 import container.Inv_rcp_paper; // container\Inv_rcp_paper.java
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import com.phasico.infinistack.helper.Configurables;
 
 @Mixin(Inv_rcp_paper.class)
+@Pseudo
 public abstract class MixinInv_rcp_paper {
 
     @Overwrite(remap = false)

@@ -3,11 +3,13 @@ package com.phasico.infinistack.mixins.manametal;
 import project.studio.manametalmod.tileentity.TileEntityManaFurnace; // tileentity\TileEntityManaFurnace.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+
 import org.spongepowered.asm.mixin.Overwrite;
 import com.phasico.infinistack.helper.Configurables;
 
-@Pseudo
+
 @Mixin(TileEntityManaFurnace.class)
+@Pseudo
 public abstract class MixinTileEntityManaFurnace {
 
     @Overwrite(remap = false)

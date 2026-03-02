@@ -3,9 +3,11 @@ package com.phasico.infinistack.mixins;
 import net.minecraft.tileentity.TileEntityChest;
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(TileEntityChest.class)
+@Pseudo
 public abstract class MixinTileEntityChest {
 
     @Overwrite

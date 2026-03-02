@@ -2,6 +2,7 @@ package com.phasico.infinistack.mixins;
 
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,6 +12,7 @@ import net.minecraft.item.Item;
 import com.phasico.infinistack.helper.Configurables;
 
 @Mixin(Item.class)
+@Pseudo
 public abstract class MixinItem {
 
     @Shadow

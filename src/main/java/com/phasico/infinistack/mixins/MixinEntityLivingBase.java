@@ -2,11 +2,13 @@ package com.phasico.infinistack.mixins;
 
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import net.minecraft.entity.EntityLivingBase;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(EntityLivingBase.class)
+@Pseudo
 public abstract class MixinEntityLivingBase {
 
     @Redirect(method = "updatePotionEffects",

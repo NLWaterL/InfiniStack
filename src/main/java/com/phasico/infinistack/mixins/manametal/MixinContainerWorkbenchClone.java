@@ -10,14 +10,16 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import project.studio.manametalmod.fashion.ContainerWorkbenchClone;
 
-@Pseudo
+
 @Mixin(ContainerWorkbenchClone.class)
+@Pseudo
 public abstract class MixinContainerWorkbenchClone {
 
     @Shadow(remap = false)

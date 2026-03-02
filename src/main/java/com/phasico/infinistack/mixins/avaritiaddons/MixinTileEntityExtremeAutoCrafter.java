@@ -2,10 +2,12 @@ package com.phasico.infinistack.mixins.avaritiaddons;
 
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import wanion.avaritiaddons.block.extremeautocrafter.TileEntityExtremeAutoCrafter;
 
 @Mixin(TileEntityExtremeAutoCrafter.class)
+@Pseudo
 public abstract class MixinTileEntityExtremeAutoCrafter {
 
     @Overwrite(remap = false)

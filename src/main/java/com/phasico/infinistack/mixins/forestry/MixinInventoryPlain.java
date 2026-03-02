@@ -2,11 +2,13 @@ package com.phasico.infinistack.mixins.forestry;
 
 import forestry.core.inventory.InventoryPlain;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Constant;
 import com.phasico.infinistack.helper.Configurables;
 
 @Mixin(InventoryPlain.class)
+@Pseudo
 public abstract class MixinInventoryPlain {
 
     @ModifyConstant(

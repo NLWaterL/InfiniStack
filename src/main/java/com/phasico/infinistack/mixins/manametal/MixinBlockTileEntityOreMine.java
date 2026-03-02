@@ -3,13 +3,15 @@ package com.phasico.infinistack.mixins.manametal;
 import project.studio.manametalmod.Lapuda.BlockTileEntityOreMine; // Lapuda\BlockTileEntityOreMine.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-@Pseudo
+
 @Mixin(BlockTileEntityOreMine.class)
+@Pseudo
 public abstract class MixinBlockTileEntityOreMine {
 
     @Redirect(

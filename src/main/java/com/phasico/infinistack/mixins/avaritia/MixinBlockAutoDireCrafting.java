@@ -2,12 +2,14 @@ package com.phasico.infinistack.mixins.avaritia;
 
 import fox.spiteful.avaritia.blocks.BlockAutoDireCrafting;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
 @Mixin(BlockAutoDireCrafting.class)
+@Pseudo
 public abstract class MixinBlockAutoDireCrafting {
 
     @Redirect(

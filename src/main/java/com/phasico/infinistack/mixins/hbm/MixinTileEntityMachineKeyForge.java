@@ -1,15 +1,13 @@
 package com.phasico.infinistack.mixins.hbm;
 
-import com.hbm.tileentity.machine.TileEntityMachineKeyForge;
+import com.hbm.tileentity.machine.TileEntityMachineKeyForge; // hbm\tileentity\machine\TileEntityMachineKeyForge.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
-
 import com.phasico.infinistack.helper.Configurables;
 
-
-@Pseudo
 @Mixin(TileEntityMachineKeyForge.class)
+@Pseudo
 public abstract class MixinTileEntityMachineKeyForge {
 
     @Overwrite(remap = false)

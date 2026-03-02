@@ -2,10 +2,12 @@ package com.phasico.infinistack.mixins.muya;
 
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import tw.pearki.mcmod.muya.tileentity.machine.TileEntityRedstoneChuckLoader;
 
 @Mixin(TileEntityRedstoneChuckLoader.class)
+@Pseudo
 public abstract class MixinTileEntityRedstoneChunkLoader {
 
     @Overwrite(remap = false)

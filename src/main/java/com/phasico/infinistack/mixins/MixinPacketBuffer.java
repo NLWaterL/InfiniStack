@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 import java.io.IOException;
 
 @Mixin(PacketBuffer.class)
+@Pseudo
 public abstract class MixinPacketBuffer extends ByteBuf {
 
     @Redirect(

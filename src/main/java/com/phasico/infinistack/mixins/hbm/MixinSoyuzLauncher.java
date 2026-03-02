@@ -1,6 +1,6 @@
 package com.phasico.infinistack.mixins.hbm;
 
-import com.hbm.blocks.machine.SoyuzLauncher;
+import com.hbm.blocks.machine.SoyuzLauncher; // hbm\blocks\machine\SoyuzLauncher.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-@Pseudo
 @Mixin(SoyuzLauncher.class)
+@Pseudo
 public abstract class MixinSoyuzLauncher {
 
     @Redirect(
@@ -17,8 +17,7 @@ public abstract class MixinSoyuzLauncher {
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/Random;nextInt(I)I"
-            ),
-            remap = false
+            ), remap = false
     )
     private int noStackSplit(Random random, int bound) {
         if (bound == 21) {

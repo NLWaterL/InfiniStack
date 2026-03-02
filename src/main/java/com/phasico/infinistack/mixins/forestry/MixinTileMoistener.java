@@ -7,9 +7,11 @@ import forestry.core.inventory.IInventoryAdapter;
 import forestry.factory.inventory.InventoryMoistener;
 import forestry.factory.tiles.TileMoistener;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(TileMoistener.class)
+@Pseudo
 public abstract class MixinTileMoistener {
 
 
