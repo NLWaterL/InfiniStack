@@ -3,11 +3,13 @@ package com.phasico.infinistack.mixins.manametal;
 import project.studio.manametalmod.world.thuliumempire.TileEntitySacrificialCeremony; // world\thuliumempire\TileEntitySacrificialCeremony.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+
 import org.spongepowered.asm.mixin.Overwrite;
 import com.phasico.infinistack.helper.Configurables;
 
-@Pseudo
+
 @Mixin(TileEntitySacrificialCeremony.class)
+@Pseudo
 public abstract class MixinTileEntitySacrificialCeremony {
 
     @Overwrite(remap = false)

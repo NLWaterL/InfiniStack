@@ -3,11 +3,13 @@ package com.phasico.infinistack.mixins.buildcraft;
 import buildcraft.silicon.TilePackager;
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.Overwrite;
 
-@Pseudo
+
+
 @Mixin(TilePackager.class)
+@Pseudo
 public abstract class MixinTilePackager {
 
     @Overwrite(remap = false)

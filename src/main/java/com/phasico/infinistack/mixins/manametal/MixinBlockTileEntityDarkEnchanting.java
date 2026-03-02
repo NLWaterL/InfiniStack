@@ -3,13 +3,15 @@ package com.phasico.infinistack.mixins.manametal;
 import project.studio.manametalmod.dark_magic.BlockTileEntityDarkEnchanting; // dark_magic\BlockTileEntityDarkEnchanting.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-@Pseudo
+
 @Mixin(BlockTileEntityDarkEnchanting.class)
+@Pseudo
 public abstract class MixinBlockTileEntityDarkEnchanting {
 
     @Redirect(

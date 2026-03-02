@@ -3,10 +3,12 @@ package com.phasico.infinistack.mixins.storagedrawers;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(targets = "com.jaquadro.minecraft.storagedrawers.block.tile.TileEntityDrawersComp$CompCentralInventory")
+@Pseudo
 public abstract class MixinTileEntityDrawersComp {
 
     @Redirect(

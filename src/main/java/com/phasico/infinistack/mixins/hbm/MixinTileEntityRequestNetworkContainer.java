@@ -1,15 +1,13 @@
 package com.phasico.infinistack.mixins.hbm;
 
-import com.hbm.tileentity.network.TileEntityRequestNetworkContainer;
-import com.phasico.infinistack.helper.Configurables;
+import com.hbm.tileentity.network.TileEntityRequestNetworkContainer; // hbm\tileentity\network\TileEntityRequestNetworkContainer.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
+import com.phasico.infinistack.helper.Configurables;
 
-
-
-@Pseudo
 @Mixin(TileEntityRequestNetworkContainer.class)
+@Pseudo
 public abstract class MixinTileEntityRequestNetworkContainer {
 
     @Overwrite(remap = false)

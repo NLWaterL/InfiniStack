@@ -1,13 +1,13 @@
 package com.phasico.infinistack.mixins.hbm;
 
-import com.hbm.tileentity.machine.storage.TileEntityCrateBase;
-import com.phasico.infinistack.helper.Configurables;
+import com.hbm.tileentity.machine.storage.TileEntityCrateBase; // hbm\tileentity\machine\storage\TileEntityCrateBase.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
+import com.phasico.infinistack.helper.Configurables;
 
-@Pseudo
 @Mixin(TileEntityCrateBase.class)
+@Pseudo
 public abstract class MixinTileEntityCrateBase {
 
     @Overwrite(remap = false)

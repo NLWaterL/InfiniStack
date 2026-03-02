@@ -1,10 +1,12 @@
 package com.phasico.infinistack.mixins;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import com.phasico.infinistack.helper.Configurables;
 
 @Mixin(targets = "net.minecraft.inventory.ContainerBrewingStand$Ingredient")
+@Pseudo
 public abstract class MixinContainerBrewingStandIngredient {
 
     @Overwrite

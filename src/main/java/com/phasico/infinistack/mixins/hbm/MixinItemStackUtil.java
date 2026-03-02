@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-@Pseudo
 @Mixin(ItemStackUtil.class)
+@Pseudo
 public abstract class MixinItemStackUtil {
 
     @Redirect(
@@ -17,8 +17,7 @@ public abstract class MixinItemStackUtil {
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/Random;nextInt(I)I"
-            ),
-            remap = false
+            ), remap = false
     )
     private static int noStackSplit(Random random, int bound) {
         if (bound == 21) {

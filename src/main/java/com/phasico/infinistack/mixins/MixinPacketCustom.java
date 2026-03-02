@@ -6,11 +6,13 @@ import codechicken.lib.packet.PacketCustom;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.Overwrite;
 
-@Pseudo
+
+
 @Mixin(PacketCustom.class)
+@Pseudo
 public abstract class MixinPacketCustom implements MCDataInput, MCDataOutput {
 
     @Overwrite(remap = false)

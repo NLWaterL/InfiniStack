@@ -2,12 +2,14 @@ package com.phasico.infinistack.mixins.projecte;
 
 import moze_intel.projecte.utils.WorldHelper;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Random;
 
 @Mixin(WorldHelper.class)
+@Pseudo
 public abstract class MixinWorldHelper {
 
     @Redirect(

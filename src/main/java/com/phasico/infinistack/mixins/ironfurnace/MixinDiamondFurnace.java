@@ -2,12 +2,14 @@ package com.phasico.infinistack.mixins.ironfurnace;
 
 import xenopack.blocks.DiamondFurnace; // blocks\DiamondFurnace.java
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
 @Mixin(DiamondFurnace.class)
+@Pseudo
 public abstract class MixinDiamondFurnace {
 
     @Redirect(

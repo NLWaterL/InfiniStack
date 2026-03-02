@@ -3,13 +3,15 @@ package com.phasico.infinistack.mixins.manametal;
 import project.studio.manametalmod.blocks.BlockTileEntityAirMobSpawn; // blocks\BlockTileEntityAirMobSpawn.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-@Pseudo
+
 @Mixin(BlockTileEntityAirMobSpawn.class)
+@Pseudo
 public abstract class MixinBlockTileEntityAirMobSpawn {
 
     @Redirect(

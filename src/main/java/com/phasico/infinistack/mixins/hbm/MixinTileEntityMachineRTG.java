@@ -1,15 +1,13 @@
 package com.phasico.infinistack.mixins.hbm;
 
-import com.hbm.tileentity.machine.TileEntityMachineRTG;
+import com.hbm.tileentity.machine.TileEntityMachineRTG; // hbm\tileentity\machine\TileEntityMachineRTG.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
-
 import com.phasico.infinistack.helper.Configurables;
 
-
-@Pseudo
 @Mixin(TileEntityMachineRTG.class)
+@Pseudo
 public abstract class MixinTileEntityMachineRTG {
 
     @Overwrite(remap = false)

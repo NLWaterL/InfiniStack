@@ -3,10 +3,12 @@ package com.phasico.infinistack.mixins;
 import codechicken.lib.render.FontUtils;
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(FontUtils.class)
+@Pseudo
 public abstract class MixinFontUtils {
 
     //Maybe later, I will add a config option to let it use my own display logic.

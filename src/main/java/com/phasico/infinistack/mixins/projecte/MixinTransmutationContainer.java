@@ -4,10 +4,12 @@ import com.phasico.infinistack.helper.Configurables;
 import moze_intel.projecte.gameObjs.container.TransmutationContainer;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(TransmutationContainer.class)
+@Pseudo
 public abstract class MixinTransmutationContainer {
 
     @Redirect(

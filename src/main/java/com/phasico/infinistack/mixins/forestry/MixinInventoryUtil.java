@@ -5,6 +5,7 @@ import forestry.core.utils.InventoryUtil;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,6 +14,7 @@ import java.util.Random;
 import static forestry.core.utils.InventoryUtil.getStacks;
 
 @Mixin(InventoryUtil.class)
+@Pseudo
 public abstract class MixinInventoryUtil {
 
     @Redirect(

@@ -1,11 +1,13 @@
 package com.phasico.infinistack.mixins;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import net.minecraft.inventory.InventoryBasic;
 import com.phasico.infinistack.helper.Configurables;
 
 @Mixin(InventoryBasic.class)
+@Pseudo
 public abstract class MixinInventoryBasic {
 
     @Overwrite

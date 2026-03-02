@@ -3,13 +3,15 @@ package com.phasico.infinistack.mixins.manametal;
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Pseudo
+
 @Mixin(targets = "project.studio.manametalmod.produce.brewing.SlotPotion")
+@Pseudo
 public abstract class MixinSlotPotion {
 
     @Shadow(remap = false)

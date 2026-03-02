@@ -3,13 +3,15 @@ package com.phasico.infinistack.mixins.manametal;
 import project.studio.manametalmod.produce.casting.BlockCastingFurnace; // produce\casting\BlockCastingFurnace.java
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
+
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-@Pseudo
+
 @Mixin(BlockCastingFurnace.class)
+@Pseudo
 public abstract class MixinBlockCastingFurnace {
 
     @Redirect(

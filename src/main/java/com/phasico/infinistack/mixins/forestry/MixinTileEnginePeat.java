@@ -3,10 +3,12 @@ package com.phasico.infinistack.mixins.forestry;
 import com.phasico.infinistack.helper.Configurables;
 import forestry.energy.tiles.TileEnginePeat;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Constant;
 
 @Mixin(TileEnginePeat.class)
+@Pseudo
 public abstract class MixinTileEnginePeat {
 
     @ModifyConstant(

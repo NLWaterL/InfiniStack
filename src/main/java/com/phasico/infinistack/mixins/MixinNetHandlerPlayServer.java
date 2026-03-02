@@ -7,11 +7,13 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.C10PacketCreativeInventoryAction;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import com.phasico.infinistack.helper.Configurables;
 
 @Mixin(NetHandlerPlayServer.class)
+@Pseudo
 public abstract class MixinNetHandlerPlayServer {
 
     @Shadow
