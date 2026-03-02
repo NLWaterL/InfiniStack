@@ -35,6 +35,6 @@ public abstract class MixinItemStack {
 
     @Overwrite
     public int getMaxStackSize() {
-        return ((ItemStack)(Object)this).getItem().getItemStackLimit() == 1 ? 1 : Configurables.maxStackSize;
+        return ((ItemStack)(Object)this).getItem().getItemStackLimit() == 1 && !Configurables.allStackable ? 1 : Configurables.maxStackSize;
     }
 }

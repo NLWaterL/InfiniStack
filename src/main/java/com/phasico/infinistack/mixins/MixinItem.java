@@ -20,15 +20,17 @@ public abstract class MixinItem {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void onInit(CallbackInfo ci) {
-        maxStackSize = Configurables.maxStackSize;
+        if (this.maxStackSize != 1 || Configurables.allStackable) {
+            maxStackSize = Configurables.maxStackSize;
+        }
     }
 
     @Overwrite
     public Item setMaxStackSize(int size) {
-        if (size != 1) {
-            this.maxStackSize = Configurables.maxStackSize;
-        } else {
+        if (size == 1 && !Configurables.allStackable) {
             this.maxStackSize = 1;
+        } else {
+            this.maxStackSize = Configurables.maxStackSize;
         }
         return (Item)(Object)this;
     }
@@ -36,6 +38,6 @@ public abstract class MixinItem {
     @Deprecated
     @Overwrite
     public int getItemStackLimit() {
-        return this.maxStackSize == 1 ? 1 : Configurables.maxStackSize;
+        return this.maxStackSize == 1 && !Configurables.allStackable ? 1 : Configurables.maxStackSize;
     }
 }

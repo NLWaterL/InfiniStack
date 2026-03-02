@@ -8,6 +8,7 @@ import java.io.File;
 public class Configurables {
 
     public static int maxStackSize;
+    public static boolean allStackable;
 
     public static boolean alwaysShowCount;
     public static boolean useAlternateDisplay;
@@ -28,6 +29,7 @@ public class Configurables {
             config.load();
 
             maxStackSize = config.getInt("Max stack size", Configuration.CATEGORY_GENERAL, (1 << 30) - 1, 1, Integer.MAX_VALUE - 10, "Maximum stack size for items");
+            allStackable = config.getBoolean("Stack everything", Configuration.CATEGORY_GENERAL, false, "Make everything stackable, even items with stack size 1");
 
             alwaysShowCount = config.getBoolean("Always show count", Configuration.CATEGORY_GENERAL, false, "Always show the item count in the tooltip, even if shift is not clicked");
             useAlternateDisplay = config.getBoolean("Use alternate display", Configuration.CATEGORY_GENERAL, false, "Use an alternate way to format stack size");
@@ -35,7 +37,7 @@ public class Configurables {
 
             hideAmbientParticle = config.getBoolean("Hide ambient potion particle", Configuration.CATEGORY_GENERAL, false, "Ambient potion effects will not produce any particles");
 
-            enableWorkTable = config.getBoolean("Enable Forestry worktable", Configuration.CATEGORY_GENERAL, false,"");
+            enableWorkTable = config.getBoolean("Enable Forestry worktable", Configuration.CATEGORY_GENERAL, false,"Enable Forestry worktable");
             transmutationLimit = config.getInt("Transmutation table limit", Configuration.CATEGORY_GENERAL, 64, 64, 2048, "Amount of item you can take out from a transmutation table in a click");
 
         } catch (Exception e) {
