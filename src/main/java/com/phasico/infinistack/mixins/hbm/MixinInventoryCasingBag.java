@@ -8,8 +8,6 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import com.phasico.infinistack.helper.Configurables;
 
-
-
 @Mixin(InventoryCasingBag.class)
 @Pseudo
 public abstract class MixinInventoryCasingBag {
