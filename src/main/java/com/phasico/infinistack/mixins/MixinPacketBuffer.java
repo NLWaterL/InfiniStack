@@ -1,56 +1,43 @@
 package com.phasico.infinistack.mixins;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import java.io.IOException;
 
-@Mixin(value = PacketBuffer.class, priority = 1001) //EndlessIDs also overwrites the methods, I had to overwrite the changes
+@Mixin(value = PacketBuffer.class, priority = 1001) //Modular UI does the same thing
 public abstract class MixinPacketBuffer extends ByteBuf {
     
     @Shadow
-    public abstract void writeNBTTagCompoundToBuffer(NBTTagCompound tag) throws IOException;
-
-    @Overwrite
-    public void writeItemStackToBuffer(ItemStack stack) throws IOException {
-        if (stack == null) {
-            this.writeInt(-1);
-        } else {
-            this.writeInt(Item.getIdFromItem(stack.getItem())); //To make the mod compatible with EndlessIDs
-            this.writeInt(stack.stackSize);
-            this.writeShort(stack.getItemDamage());
-            NBTTagCompound nbttagcompound = null;
-
-            if (stack.getItem().isDamageable() || stack.getItem().getShareTag()) {
-                nbttagcompound = stack.stackTagCompound;
-            }
-
-            this.writeNBTTagCompoundToBuffer(nbttagcompound);
-        }
-    }
+    public abstract void writeVarIntToBuffer(int p_150787_1_);
 
     @Shadow
-    public abstract NBTTagCompound readNBTTagCompoundFromBuffer() throws IOException;
+    public abstract int readVarIntFromBuffer();
 
-    @Overwrite
-    public ItemStack readItemStackFromBuffer() throws IOException {
-
-        ItemStack stack = null;
-        int id = this.readInt(); //To make the mod compatible with EndlessIDs
-
-        if (id >= 0) {
-            int size = this.readInt();
-            short dmg = this.readShort();
-            stack = new ItemStack(Item.getItemById(id), size, dmg);
-            stack.stackTagCompound = this.readNBTTagCompoundFromBuffer();
+    @Inject(
+            method = "writeItemStackToBuffer",
+            at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/network/PacketBuffer;writeNBTTagCompoundToBuffer(Lnet/minecraft/nbt/NBTTagCompound;)V",
+                    shift = At.Shift.AFTER))
+    public void writeIntegerSize(ItemStack stack, CallbackInfo ci) {
+        this.writeVarIntToBuffer(stack.stackSize);
         }
-        return stack;
+
+    @Inject(
+            method = "readItemStackFromBuffer",
+            at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/network/PacketBuffer;readNBTTagCompoundFromBuffer()Lnet/minecraft/nbt/NBTTagCompound;",
+                    shift = At.Shift.AFTER),
+            locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+    public void readIntegerSize(CallbackInfoReturnable<ItemStack> cir, ItemStack stack){
+        stack.stackSize = this.readVarIntFromBuffer();
     }
 
 }
