@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Overwrite;
 @Pseudo
 public abstract class MixinTransmutationInventory {
 
-    //Well, transmutation table just eat EMC if it exceeds it's limit (which is not high enough)
+    //Well, transmutation table just consume EMC if it exceeds it's limit (which is not high enough)
 
     //Also, it cause so much lag.
 

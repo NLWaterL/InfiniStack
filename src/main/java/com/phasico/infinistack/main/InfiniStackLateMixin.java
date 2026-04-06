@@ -150,6 +150,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinMercurialEyeInventory",
                     "MixinRelayMK1Tile",
                     "MixinRMFurnaceTile",
+                    "MixinTransmutationContainer",
                     "MixinTransmutationInventory",
                     "MixinWorldHelper"
             );

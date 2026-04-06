@@ -28,18 +28,18 @@ public abstract class MixinItemStack {
     @Shadow public abstract boolean isItemStackDamageable();
     @Shadow public abstract ItemStack copy();
 
-    @Redirect(method = "writeToNBT", at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NBTTagCompound;setByte(Ljava/lang/String;B)V"))
-    private void redirectSetByte(NBTTagCompound compound, String key, byte value) {
-        if ("Count".equals(key)) {
-            compound.setInteger("Count", this.stackSize);
-        } else {
-            compound.setByte(key, value);
-        }
+    @Inject(method = "writeToNBT", at = @At("RETURN"))
+    private void afterWrite(NBTTagCompound nbt, CallbackInfoReturnable<NBTTagCompound> cir) {
+        nbt.setInteger("Count", this.stackSize);
     }
 
     @Inject(method = "readFromNBT", at = @At("RETURN"))
-    public void onReadFromNBT(NBTTagCompound compound, CallbackInfo ci) {
-        ((ItemStack)(Object)this).stackSize = compound.getInteger("Count");
+    private void afterRead(NBTTagCompound nbt, CallbackInfo ci) {
+        if (nbt.hasKey("Count", 3)) { // 3 = int
+            ((ItemStack)(Object)this).stackSize = nbt.getInteger("Count");
+        } else {
+            ((ItemStack)(Object)this).stackSize = nbt.getByte("Count");
+        }
     }
 
     @Overwrite

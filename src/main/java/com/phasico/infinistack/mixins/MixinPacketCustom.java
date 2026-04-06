@@ -9,8 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 
-
-
 @Mixin(PacketCustom.class)
 @Pseudo
 public abstract class MixinPacketCustom implements MCDataInput, MCDataOutput {

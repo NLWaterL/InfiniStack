@@ -6,27 +6,33 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import java.io.IOException;
 
-@Mixin(PacketBuffer.class)
-@Pseudo
+@Mixin(value = PacketBuffer.class, priority = 1001) //EndlessIDs also overwrites the methods, I had to overwrite the changes
 public abstract class MixinPacketBuffer extends ByteBuf {
+    
+    @Shadow
+    public abstract void writeNBTTagCompoundToBuffer(NBTTagCompound tag) throws IOException;
 
-    @Redirect(
-            method = "writeItemStackToBuffer",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/network/PacketBuffer;writeByte(I)Lio/netty/buffer/ByteBuf;"
-            )
-    )
-    private ByteBuf redirectWriteStackSize(PacketBuffer instance, int value) {
-        return instance.writeInt(value);
+    @Overwrite
+    public void writeItemStackToBuffer(ItemStack stack) throws IOException {
+        if (stack == null) {
+            this.writeInt(-1);
+        } else {
+            this.writeInt(Item.getIdFromItem(stack.getItem())); //To make the mod compatible with EndlessIDs
+            this.writeInt(stack.stackSize);
+            this.writeShort(stack.getItemDamage());
+            NBTTagCompound nbttagcompound = null;
+
+            if (stack.getItem().isDamageable() || stack.getItem().getShareTag()) {
+                nbttagcompound = stack.stackTagCompound;
+            }
+
+            this.writeNBTTagCompoundToBuffer(nbttagcompound);
+        }
     }
 
     @Shadow
@@ -34,15 +40,17 @@ public abstract class MixinPacketBuffer extends ByteBuf {
 
     @Overwrite
     public ItemStack readItemStackFromBuffer() throws IOException {
-        ItemStack var1 = null;
-        short var2 = this.readShort();
-        if (var2 >= 0) {
-            int var3 = this.readInt();
-            short var4 = this.readShort();
-            var1 = new ItemStack(Item.getItemById(var2), var3, var4);
-            var1.stackTagCompound = this.readNBTTagCompoundFromBuffer();
+
+        ItemStack stack = null;
+        int id = this.readInt(); //To make the mod compatible with EndlessIDs
+
+        if (id >= 0) {
+            int size = this.readInt();
+            short dmg = this.readShort();
+            stack = new ItemStack(Item.getItemById(id), size, dmg);
+            stack.stackTagCompound = this.readNBTTagCompoundFromBuffer();
         }
-        return var1;
+        return stack;
     }
 
 }

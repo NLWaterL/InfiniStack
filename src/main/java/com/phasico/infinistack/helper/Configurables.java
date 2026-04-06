@@ -12,6 +12,7 @@ public class Configurables {
 
     public static boolean alwaysShowCount;
     public static boolean useAlternateDisplay;
+    
     public static boolean enableFastCraft; //This need to be done for max compact. If it's false, then the crafting table's slot capacity would be limited at 1k.
 
     public static boolean hideAmbientParticle;
@@ -22,10 +23,12 @@ public class Configurables {
     private static Configuration config;
 
     public static void init(FMLPreInitializationEvent event) {
+    	
         File configFile = new File(event.getModConfigurationDirectory(), "infinistack.cfg");
         config = new Configuration(configFile);
 
         try {
+        	
             config.load();
 
             maxStackSize = config.getInt("Max stack size", Configuration.CATEGORY_GENERAL, (1 << 30) - 1, 1, Integer.MAX_VALUE - 10, "Maximum stack size for items");

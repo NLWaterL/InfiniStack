@@ -6,8 +6,6 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import com.phasico.infinistack.helper.Configurables;
 
-
-
 @Mixin(AlchBagInventory.class)
 @Pseudo
 public abstract class MixinFMPEAlchBagInventory {

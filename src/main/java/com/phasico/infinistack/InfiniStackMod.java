@@ -62,11 +62,6 @@ public class InfiniStackMod
 
                 success = extractor.extract(needUpdatePatch);
 
-                if (success) {
-                    Logger.info("========================================================================");
-                    Logger.info("It is recommended to restart the game / server for better compatibility!");
-                }
-
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -85,13 +80,11 @@ public class InfiniStackMod
 
                 if (needPatch && (!patchLoaded || needUpdatePatch)) {
 
-                    event.player.addChatMessage(new ChatComponentText("================================================================================"));
-
                     if (!success){
                         event.player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "InfiniStack Message: FAILED TO EXTRACT / UPDATE THE PATCH MOD!"));
                         event.player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Please check if you had changed the name of the extracted mod!"));
                     } else {
-                        event.player.addChatMessage(new ChatComponentText("InfiniStack Message: It is recommended to restart the game for better compability!"));
+                        event.player.addChatMessage(new ChatComponentText("InfiniStack Message: It is recommended to restart the game for better compatibility!"));
                     }
 
                 }
