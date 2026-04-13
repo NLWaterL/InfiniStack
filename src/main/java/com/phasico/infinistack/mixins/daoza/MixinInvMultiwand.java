@@ -1,14 +1,14 @@
 package com.phasico.infinistack.mixins.daoza;
 
-import container.Inventory_multiwand; // container\Inventory_multiwand.java
+import com.daozcraft.container.InvMultiwand;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import com.phasico.infinistack.helper.Configurables;
+import org.spongepowered.asm.mixin.Pseudo;
 
-@Mixin(Inventory_multiwand.class)
+@Mixin(InvMultiwand.class)
 @Pseudo
-public abstract class MixinInventory_multiwand {
+public abstract class MixinInvMultiwand {
 
     @Overwrite(remap = false)
     public int func_70297_j_() {

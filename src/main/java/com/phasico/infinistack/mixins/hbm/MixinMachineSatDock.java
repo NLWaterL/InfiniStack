@@ -21,7 +21,7 @@ public abstract class MixinMachineSatDock {
     )
     private int noStackSplit(Random random, int bound) {
         if (bound == 21) {
-            return Integer.MAX_VALUE - 10;
+            return Integer.MAX_VALUE;
         }
         return random.nextInt(bound);
     }

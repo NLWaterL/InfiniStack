@@ -1,8 +1,8 @@
 package com.phasico.infinistack.mixins.daoza;
 
+import com.daozcraft.container.ConEX;
 import com.phasico.infinistack.helper.Configurables;
 import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
-import container.Con_4mode;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
@@ -15,13 +15,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import teplus.TE_anyinv_machine.TE_any_machine;
-import teplus.TE_anyinv_machine.TE_bedtable;
-import teplus.TE_anyinv_machine.TE_chest_multifunction;
 
-@Mixin(Con_4mode.class)
+@Mixin(ConEX.class)
 @Pseudo
-public abstract class MixinCon_4mode {
+public abstract class MixinConEX {
 
     @Shadow(remap = false)
     public InventoryCrafting craftMatrix;
@@ -30,7 +27,10 @@ public abstract class MixinCon_4mode {
     public IInventory craftResult;
 
     @Shadow(remap = false)
-    public TE_any_machine te;
+    public int slot_craft_result;
+
+    @Shadow(remap = false)
+    public abstract void save3X3AndMarkInvEX();
 
     @Inject(method = "func_82846_b", at = @At("HEAD"), cancellable = true, remap = false)
     private void fastCraftingLogic(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
@@ -39,13 +39,7 @@ public abstract class MixinCon_4mode {
             return;
         }
 
-        if(!(te instanceof TE_bedtable || te instanceof TE_chest_multifunction)){
-            return;
-        }
-
-        Container self = (Container)(Object)this;
-
-        if (slotIndex < 0 || slotIndex >= self.inventorySlots.size()) {
+        if(!(slotIndex == slot_craft_result)){
             return;
         }
 
@@ -56,13 +50,15 @@ public abstract class MixinCon_4mode {
 
             if (slotStack != null) {
 
-                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player.inventory, player, 9);
+                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player.inventory, player, 3);
 
                 if (success) {
 
                     craftResult.setInventorySlotContents(0, null);
 
                     ((Container)(Object)this).onCraftMatrixChanged(craftMatrix);
+
+                    save3X3AndMarkInvEX();
 
                     ((Container)(Object)this).detectAndSendChanges();
 
@@ -89,5 +85,5 @@ public abstract class MixinCon_4mode {
         }
         return null;
     }
-}
 
+}

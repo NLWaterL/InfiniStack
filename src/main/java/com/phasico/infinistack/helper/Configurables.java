@@ -29,7 +29,7 @@ public class Configurables {
         	
             config.load();
 
-            maxStackSize = config.getInt("Max stack size", Configuration.CATEGORY_GENERAL, (1 << 30) - 1, 1, Integer.MAX_VALUE - 10, "Maximum stack size for items");
+            maxStackSize = config.getInt("Max stack size", Configuration.CATEGORY_GENERAL, (1 << 30) - 1, 1, Integer.MAX_VALUE, "Maximum stack size for items");
             allStackable = config.getBoolean("Stack everything", Configuration.CATEGORY_GENERAL, false, "Make everything stackable, even items with stack size 1");
 
             alwaysShowCount = config.getBoolean("Always show count", Configuration.CATEGORY_GENERAL, false, "Always show the item count in the tooltip, even if shift is not clicked");
