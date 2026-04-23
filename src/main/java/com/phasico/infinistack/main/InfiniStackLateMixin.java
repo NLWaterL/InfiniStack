@@ -468,7 +468,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("gregtech_nh")){    //This is for the GTNH Version of GregTech
             List<String> gregtechMixins = Arrays.asList(
-                    "MixinGTUtility"
+                    "MixinServerEventHandler"
             );
             for(String mixinClass : gregtechMixins){
                 mixins.add("gregtech." + mixinClass);

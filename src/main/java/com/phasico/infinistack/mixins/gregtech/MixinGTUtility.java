@@ -14,6 +14,8 @@ import static gregtech.api.util.GTUtility.isStackInvalid;
 @Pseudo
 public abstract class MixinGTUtility {
 
+    //UNUSED FOR NOW
+
     @Overwrite(remap = false)
     public static ItemStack copyAmount(int aAmount, ItemStack aStack) {
         ItemStack rStack = copy(aStack);

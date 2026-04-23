@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Pseudo
 public abstract class MixinServerEventHandler {
 
-    //UNUSED FOR NOW
-
     @Redirect(
             method = "onPlayerTickEventServer",
             at = @At(
