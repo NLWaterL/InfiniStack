@@ -466,12 +466,35 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
-        if (loadedMods.contains("gregtech_nh")){    //This is for the GTNH Version of GregTech
+        if (loadedMods.contains("gregtech_nh")){
             List<String> gregtechMixins = Arrays.asList(
-                    "MixinServerEventHandler"
+                    "MixinServerEventHandler",
+                    "MixinCoverItemMeter"
             );
             for(String mixinClass : gregtechMixins){
                 mixins.add("gregtech." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("HopperDuctMod")){
+            List<String> hopperDuctMixins = Arrays.asList(
+                    "MixinBlockGratedHopper",
+                    "MixinBlockHopperDuct",
+                    "MixinTileEntityGratedHopper",
+                    "MixinTileEntityHopperDuct"
+            );
+            for(String mixinClass : hopperDuctMixins){
+                mixins.add("hopperduct." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("chesthopper")) {
+            List<String> chestHopperMixins = Arrays.asList(
+                    "MixinBlockChestHopperBase",
+                    "MixinTileEntityBaseChestHopper"
+            );
+            for(String mixinClass : chestHopperMixins){
+                mixins.add("chesthopper." + mixinClass);
             }
         }
 

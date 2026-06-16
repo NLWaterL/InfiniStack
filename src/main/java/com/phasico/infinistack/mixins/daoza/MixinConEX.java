@@ -64,11 +64,6 @@ public abstract class MixinConEX {
 
                     cir.setReturnValue(null);
 
-                } else {
-
-                    //Edge case
-                    cir.setReturnValue(null);
-
                 }
             }
         }

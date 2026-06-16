@@ -133,6 +133,12 @@ public class InstantCraftingLogic {
         for (int i = 0; i < (size * size); i++) {
             ItemStack craftItem = craftMatrix.getStackInSlot(i);
             if (craftItem != null) {
+                // Items that stay in the grid (e.g. reusable identifiers) are never consumed,
+                // so they must not cap the batch count.
+                if (craftItem.getItem().hasContainerItem(craftItem)
+                        && !craftItem.getItem().doesContainerItemLeaveCraftingGrid(craftItem)) {
+                    continue;
+                }
                 maxCraft = Math.min(maxCraft, craftItem.stackSize);
             }
         }
@@ -146,11 +152,16 @@ public class InstantCraftingLogic {
             if (stack != null) {
                 if (stack.getItem().hasContainerItem(stack)) {
                     ItemStack containerItem = stack.getItem().getContainerItem(stack);
-                    if (containerItem != null) {
-                        containerItem.stackSize = craftCount;
-                        returnResult(playerInventory, containerItem, player);
+                    if (!stack.getItem().doesContainerItemLeaveCraftingGrid(stack)) {
+                        // Reusable ingredient: leave its container copy in the slot.
+                        craftMatrix.setInventorySlotContents(i, containerItem);
+                    } else {
+                        if (containerItem != null) {
+                            containerItem.stackSize = craftCount;
+                            returnResult(playerInventory, containerItem, player);
+                        }
+                        craftMatrix.setInventorySlotContents(i, null);
                     }
-                    craftMatrix.setInventorySlotContents(i, null);
                 } else {
                     stack.stackSize -= craftCount;
                     if (stack.stackSize <= 0) {

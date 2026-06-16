@@ -27,7 +27,7 @@ public abstract class MixinInv {
     )
     private static int noStackSplit(Random random, int bound) {
         if (bound == 21) {
-            return Integer.MAX_VALUE;
+            return Integer.MAX_VALUE - 10;
         }
         return random.nextInt(bound);
     }

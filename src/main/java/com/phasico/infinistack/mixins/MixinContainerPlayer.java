@@ -55,11 +55,6 @@ public abstract class MixinContainerPlayer {
 
                     cir.setReturnValue(null);
 
-                } else {
-
-                    //Edge case
-                    cir.setReturnValue(null);
-
                 }
             }
         }

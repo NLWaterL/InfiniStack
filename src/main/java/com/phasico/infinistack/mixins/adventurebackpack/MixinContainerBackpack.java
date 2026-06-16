@@ -57,11 +57,6 @@ public abstract class MixinContainerBackpack {
 
                     cir.setReturnValue(null);
 
-                } else {
-
-                    //Edge case
-                    cir.setReturnValue(null);
-
                 }
             }
         }

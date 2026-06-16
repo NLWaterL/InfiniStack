@@ -6,7 +6,7 @@
 .gradle/
 build/
 out/
-
+context/
 
 !gradle/wrapper/gradle-wrapper.jar
 
