@@ -1,0 +1,3 @@
+dependencies {
+    compile files("${rootProject.projectDir}/libs/Avaritia-1.13.jar")
+}

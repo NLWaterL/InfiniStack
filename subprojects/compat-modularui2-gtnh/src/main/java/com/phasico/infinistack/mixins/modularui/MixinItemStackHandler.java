@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins.gregtech;
+package com.phasico.infinistack.mixins.modularui;
 
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import com.phasico.infinistack.helper.Configurables;
@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 
 @Mixin(ItemStackHandler.class)
 @Pseudo
-public abstract class MixinMD2ItemStackHandler {
+public abstract class MixinItemStackHandler {
 
     @Overwrite(remap = false)
     public int getSlotLimit(int slot) {

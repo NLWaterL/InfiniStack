@@ -1,0 +1,3 @@
+dependencies {
+    compile files("${rootProject.projectDir}/libs/Avaritiaddons-1.4b.jar")
+}

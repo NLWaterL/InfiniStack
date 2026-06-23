@@ -1,0 +1,5 @@
+dependencies {
+    compile files("${rootProject.projectDir}/libs/ProjectE-1.7.10-PE1.10.1.jar")
+    // FMProjectE is a ProjectE add-on; its classes appear in projecte mixin targets
+    compile files("${rootProject.projectDir}/libs/FMProjectE-2.2.0.jar")
+}

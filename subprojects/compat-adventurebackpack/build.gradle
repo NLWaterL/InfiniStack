@@ -1,0 +1,3 @@
+dependencies {
+    compile files("${rootProject.projectDir}/libs/adventurebackpack-1.7.10-0.8c.jar")
+}

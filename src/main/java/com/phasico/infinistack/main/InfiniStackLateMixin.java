@@ -13,8 +13,6 @@ import com.gtnewhorizon.gtnhmixins.LateMixin;
 @LateMixin
 public class InfiniStackLateMixin implements ILateMixinLoader {
 
-    public static boolean needPatch = false;
-
     @Override
     public String getMixinConfig() {
         return "mixins.infinistack.late.json";
@@ -211,26 +209,23 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         }
 
         if (loadedMods.contains("adventurebackpack")){
-
-            boolean isGTNH = false;
-            try {
-                //GTNH fork have this class, but original version doesn't.
-                Class.forName("com.darkona.adventurebackpack.util.ThaumcraftUtils");
-                isGTNH = true;
-                needPatch = true;
-            } catch (ClassNotFoundException ignored) {}
-
-            if (!isGTNH) {
-                List<String> adventureBackpackMixins = Arrays.asList(
-                        "MixinInventoryBackpack",
-                        "MixinInventoryCopterPack",
-                        "MixinInventorySteamJetpack",
-                        "MixinTileAdventureBackpack",
-                        "MixinContainerBackpack"
-                );
-                for (String mixinClass : adventureBackpackMixins) {
-                    mixins.add("adventurebackpack." + mixinClass);
-                }
+            // Register ALL adventurebackpack mixins (both versions).
+            // InfiniStackMixinPlugin.shouldApplyMixin() filters to the correct set at apply time.
+            List<String> adventureBackpackMixins = Arrays.asList(
+                    // original version
+                    "MixinInventoryBackpack",
+                    "MixinInventoryCopterPack",
+                    "MixinInventorySteamJetpack",
+                    "MixinTileAdventureBackpack",
+                    "MixinContainerBackpack",
+                    // GTNH fork
+                    "AccessorContainerBackpack",
+                    "MixinContainerAdventure",
+                    "MixinInventoryAdventure",
+                    "MixinTileAdventure"
+            );
+            for (String mixinClass : adventureBackpackMixins) {
+                mixins.add("adventurebackpack." + mixinClass);
             }
         }
 
@@ -473,7 +468,6 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinBTF_Inventory",
                     "MixinCommonMetaTileEntity",
                     "MixinCoverItemMeter",
-                    "MixinMD2ItemStackHandler",
                     "MixinGTMetaItemBase",
                     "MixinInventoryCircuitProgrammer",
                     "MixinInventoryFishTrap",
@@ -495,6 +489,10 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             for(String mixinClass : gregtechMixins){
                 mixins.add("gregtech." + mixinClass);
             }
+        }
+
+        if (loadedMods.contains("modularui")){
+            mixins.add("modularui.MixinItemStackHandler");
         }
 
         if (loadedMods.contains("HopperDuctMod")){

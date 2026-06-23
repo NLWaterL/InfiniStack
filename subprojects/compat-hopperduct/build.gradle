@@ -1,0 +1,3 @@
+dependencies {
+    compile files("${rootProject.projectDir}/libs/hopperductmod-1.7.10-1.3.2.jar")
+}

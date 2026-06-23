@@ -1,0 +1,6 @@
+rootProject.name = 'InfiniStack'
+
+new File(settingsDir, 'subprojects').eachDir { dir ->
+    include ":${dir.name}"
+    project(":${dir.name}").projectDir = dir
+}

@@ -1,3 +1,38 @@
+// ── Shared subproject configuration ──────────────────────────────────────────
+// Must come BEFORE evaluationDependsOnChildren() so that the java plugin is
+// applied to child projects before their own build scripts are evaluated.
+// (evaluationDependsOnChildren evaluates children immediately when called;
+//  anything registered after it is too late for the children's build scripts.)
+
+subprojects {
+	apply plugin: 'java'
+	sourceCompatibility = '1.8'
+	targetCompatibility = '1.8'
+}
+
+// Give every compat subproject root's compile classpath (Minecraft, Forge, UniMixins)
+// without depending on :jar. The closure is evaluated lazily at task-execution time,
+// by which point root is fully configured — no circular task dependency.
+configure(subprojects) {
+	def sp = project
+	dependencies {
+		compileOnly files { rootProject.configurations.compileClasspath }
+	}
+	// projectsEvaluated fires after ALL projects finish evaluating, so root's
+	// sourceSets exist and ForgeGradle has been fully applied by then.
+	gradle.projectsEvaluated {
+		// Ensure root compiles before each compat subproject.
+		sp.tasks.compileJava.dependsOn(':compileJava')
+		// Add root's own compiled classes (Configurables, helpers, etc.) to the
+		// subproject's compile classpath without creating a dependency on :jar.
+		sp.tasks.compileJava.classpath += rootProject.sourceSets.main.output
+	}
+}
+
+// Ensure all subprojects are fully configured before the root jar task runs,
+// so that sourceSets and task references resolve correctly.
+evaluationDependsOnChildren()
+
 buildscript {
 	repositories {
 		mavenCentral()
@@ -106,7 +141,7 @@ repositories {
 def unimixinsVersion = "0.1.14"
 
 dependencies {
-	implementation("com.github.LegacyModdingMC.UniMixins:unimixins-all-1.7.10:$unimixinsVersion:dev")
+	compile("com.github.LegacyModdingMC.UniMixins:unimixins-all-1.7.10:$unimixinsVersion:dev")
 	annotationProcessor("com.github.LegacyModdingMC.UniMixins:unimixins-all-1.7.10:$unimixinsVersion:dev")
 }
 
@@ -166,10 +201,12 @@ jar {
 		)
 	}
 
-	from outRefMapFile;
+	from outRefMapFile
 
-	from('libs/extracted') {
-		into 'patch'
+	// Pull compiled classes from every compat subproject into the root jar.
+	subprojects.each { sp ->
+		dependsOn sp.tasks.getByName('classes')
+		from sp.sourceSets.main.output
 	}
 }
 
@@ -178,3 +215,4 @@ tasks.compileJava.options.compilerArgs += ["-AreobfSrgFile=${tasks.reobf.srg}", 
 reobf {
 	addExtraSrgFile outSrgFile
 }
+

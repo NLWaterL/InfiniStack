@@ -2,9 +2,6 @@ package com.phasico.infinistack;
 
 import com.phasico.infinistack.command.InfiniStackCommandGive;
 import com.phasico.infinistack.helper.Configurables;
-import com.phasico.infinistack.helper.Logger;
-import com.phasico.infinistack.helper.ModExtractor;
-import com.phasico.infinistack.main.InfiniStackLateMixin;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -25,48 +22,13 @@ public class InfiniStackMod
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-
         FMLCommonHandler.instance().bus().register(this);
         Configurables.init(event);
         MinecraftForge.EVENT_BUS.register(this);
-
-        }
-
-    // MOD EXTRACTION BEGINS HERE //
-
-    public boolean needPatch;
-    public boolean patchLoaded;
-    public boolean needUpdatePatch;
-    public boolean success;
+    }
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-
-        needPatch = InfiniStackLateMixin.needPatch;
-
-        patchLoaded = Loader.isModLoaded("infinipatch");
-
-        needUpdatePatch = false;
-
-        if(patchLoaded){
-
-            //It will delete newer version, but I'm just trying to make sure that the patch mod is compatible with current version of InfiniStack..
-            needUpdatePatch = !ModExtractor.patchVersion.equals(ModExtractor.getModVersion("infinipatch"));
-
-        }
-
-        if (needPatch && (!patchLoaded || needUpdatePatch)) {
-
-            try {
-                ModExtractor extractor = new ModExtractor();
-
-                success = extractor.extract(needUpdatePatch);
-
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-
     }
 
     @EventHandler
@@ -76,25 +38,11 @@ public class InfiniStackMod
 
     @SubscribeEvent
     public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if(!event.player.worldObj.isRemote) {
-
-                if (needPatch && (!patchLoaded || needUpdatePatch)) {
-
-                    if (!success){
-                        event.player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "InfiniStack Message: FAILED TO EXTRACT / UPDATE THE PATCH MOD!"));
-                        event.player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "Please check if you had changed the name of the extracted mod!"));
-                    } else {
-                        event.player.addChatMessage(new ChatComponentText("InfiniStack Message: It is recommended to restart the game for better compatibility!"));
-                    }
-
-                }
-
-                if (Loader.isModLoaded("infinigtnh")){
-
-                    event.player.addChatMessage(new ChatComponentText(EnumChatFormatting.RED + "InfiniStack Message: Please delete the InfiniGTNH mod! It is now deprecated!"));
-
-                }
-
+        if (!event.player.worldObj.isRemote) {
+            if (Loader.isModLoaded("infinigtnh")) {
+                event.player.addChatMessage(new ChatComponentText(
+                    EnumChatFormatting.RED + "InfiniStack Message: Please delete the InfiniGTNH mod! It is now deprecated!"));
+            }
         }
     }
 }

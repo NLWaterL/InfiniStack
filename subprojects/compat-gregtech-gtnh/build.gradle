@@ -1,0 +1,4 @@
+dependencies {
+    compile files("${rootProject.projectDir}/libs/gregtech-5.09.51.482.jar")
+    compile files("${rootProject.projectDir}/libs/bugtorch-1.2.14-GTNH.jar")
+}
