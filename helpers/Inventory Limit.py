@@ -124,9 +124,11 @@ def generate_mixin_file(original_file_path, class_name, package_name, script_dir
 import {import_path}; // {relative_path}
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Pseudo;
 import com.phasico.infinistack.helper.Configurables;
 
 @Mixin({class_name}.class)
+@Pseudo
 public abstract class Mixin{class_name} {{
 
     @Overwrite(remap = false)

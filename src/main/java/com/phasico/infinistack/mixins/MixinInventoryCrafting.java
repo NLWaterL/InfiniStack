@@ -13,6 +13,6 @@ public abstract class MixinInventoryCrafting {
     @Overwrite
     public int getInventoryStackLimit()
     {
-        return Configurables.enableFastCraft ? Configurables.maxStackSize : 1024;
+        return Configurables.maxStackSize;
     }
 }

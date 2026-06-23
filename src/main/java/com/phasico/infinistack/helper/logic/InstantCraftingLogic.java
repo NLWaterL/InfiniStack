@@ -4,6 +4,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.inventory.InventoryCrafting;
@@ -133,11 +134,14 @@ public class InstantCraftingLogic {
         for (int i = 0; i < (size * size); i++) {
             ItemStack craftItem = craftMatrix.getStackInSlot(i);
             if (craftItem != null) {
-                // Items that stay in the grid (e.g. reusable identifiers) are never consumed,
+                // If an item's container is itself, they never get consumed
                 // so they must not cap the batch count.
-                if (craftItem.getItem().hasContainerItem(craftItem)
-                        && !craftItem.getItem().doesContainerItemLeaveCraftingGrid(craftItem)) {
-                    continue;
+                if (craftItem.getItem().hasContainerItem(craftItem)) {
+                    ItemStack containerStack = craftItem.getItem().getContainerItem(craftItem);
+                    if (!craftItem.getItem().doesContainerItemLeaveCraftingGrid(craftItem)
+                            && containerStack != null && containerStack.getItem() == craftItem.getItem()) {
+                        continue;
+                    }
                 }
                 maxCraft = Math.min(maxCraft, craftItem.stackSize);
             }

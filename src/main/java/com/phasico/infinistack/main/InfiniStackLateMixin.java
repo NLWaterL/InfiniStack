@@ -468,8 +468,29 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("gregtech_nh")){
             List<String> gregtechMixins = Arrays.asList(
+                    "MixinBaseMetaPipeEntity",
+                    "MixinBaseMetaTileEntity",
+                    "MixinBTF_Inventory",
+                    "MixinCommonMetaTileEntity",
+                    "MixinCoverItemMeter",
+                    "MixinMD2ItemStackHandler",
+                    "MixinGTMetaItemBase",
+                    "MixinInventoryCircuitProgrammer",
+                    "MixinInventoryFishTrap",
+                    "MixinInventoryPestKiller",
+                    "MixinInventoryProjectMain",
+                    "MixinInventoryProjectOutput",
+                    "MixinInventoryTradeMain",
+                    "MixinInventoryTradeOutput",
+                    "MixinInventoryUtils",
+                    "MixinMetaBaseItem",
+                    "MixinMetaGeneratedItem98",
+                    "MixinMetaGeneratedItem99",
                     "MixinServerEventHandler",
-                    "MixinCoverItemMeter"
+                    "MixinSlotGeneric",
+                    "MixinSlotIntegratedCircuit",
+                    "MixinTeaAcceptorTile",
+                    "MixinTileEntityHeatedWaterPump"
             );
             for(String mixinClass : gregtechMixins){
                 mixins.add("gregtech." + mixinClass);

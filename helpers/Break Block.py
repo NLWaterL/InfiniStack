@@ -134,12 +134,14 @@ def generate_nextint_mixin_file(original_file_path, class_name, package_name, sc
 
 import {import_path}; // {relative_path}
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
 @Mixin({class_name}.class)
+@Pseudo
 public abstract class Mixin{class_name} {{
 
     @Redirect(
