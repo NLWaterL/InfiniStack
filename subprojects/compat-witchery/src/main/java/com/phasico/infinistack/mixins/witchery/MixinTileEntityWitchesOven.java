@@ -1,14 +1,13 @@
 package com.phasico.infinistack.mixins.witchery;
 
-import com.emoniph.witchery.blocks.BlockSilverVat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
 import com.phasico.infinistack.helper.Configurables;
 
-@Mixin(BlockSilverVat.class)
+@Mixin(targets = "com.emoniph.witchery.blocks.BlockWitchesOven$TileEntityWitchesOven")
 @Pseudo
-public abstract class MixinBlockSilverVat {
+public abstract class MixinTileEntityWitchesOven {
 
     @Overwrite(remap = false)
     public int func_70297_j_() {

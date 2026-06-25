@@ -1,14 +1,13 @@
 package com.phasico.infinistack.mixins.witchery;
 
-import com.emoniph.witchery.blocks.BlockSpinningWheel;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
 import com.phasico.infinistack.helper.Configurables;
 
-@Mixin(BlockSpinningWheel.class)
+@Mixin(targets = "com.emoniph.witchery.blocks.BlockSpinningWheel$TileEntitySpinningWheel")
 @Pseudo
-public abstract class MixinBlockSpinningWheel {
+public abstract class MixinTileEntitySpinningWheel {
 
     @Overwrite(remap = false)
     public int func_70297_j_() {
