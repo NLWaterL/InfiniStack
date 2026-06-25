@@ -7,9 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
-
 import org.spongepowered.asm.mixin.Overwrite;
-
 
 @Mixin(BufferUtil.class)
 @Pseudo

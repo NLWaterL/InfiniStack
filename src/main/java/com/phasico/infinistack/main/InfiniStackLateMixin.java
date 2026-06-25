@@ -526,6 +526,748 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("AdvancedSolarPanel")){
+            List<String> advsolarpanelMixins = Arrays.asList(
+                    "MixinTileEntityMolecularTransformer",
+                    "MixinTileEntitySolarPanel"
+            );
+            for(String mixinClass : advsolarpanelMixins){
+                mixins.add("advsolarpanel." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("ae2fc")){
+            mixins.add("ae2fc.MixinAeItemStackHandler");
+        }
+
+        if (loadedMods.contains("appliedenergistics2")){
+            List<String> ae2Mixins = Arrays.asList(
+                    "MixinAEBaseInvTile",
+                    "MixinLayerISidedInventory",
+                    "MixinWrapperBCPipe"
+            );
+            for(String mixinClass : ae2Mixins){
+                mixins.add("ae2." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("AFSU")){
+            mixins.add("afsu.MixinAFSUBlock");
+        }
+
+        if (loadedMods.contains("alchgrate")){
+            mixins.add("alchgrate.MixinTileChestGrate");
+        }
+
+        if (loadedMods.contains("GalacticraftAmunRa")){
+            List<String> amunraMixins = Arrays.asList(
+                    "MixinBlockARChest",
+                    "MixinBlockHydroponics",
+                    "MixinInventorySchematicShuttle",
+                    "MixinTileEntityARChest",
+                    "MixinTileEntityGravitation",
+                    "MixinTileEntityHydroponics",
+                    "MixinTileEntityIsotopeGenerator",
+                    "MixinTileEntityMothershipSettings",
+                    "MixinTileEntityShuttleDock"
+            );
+            for(String mixinClass : amunraMixins){
+                mixins.add("amunra." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("ArchitectureCraft")){
+            mixins.add("architecture.MixinInventoryHelper");
+        }
+
+        if (loadedMods.contains("asielib")){
+            List<String> asielibMixins = Arrays.asList(
+                    "MixinInventoryBase",
+                    "MixinTileEntityInventory",
+                    "MixinTileMachine"
+            );
+            for(String mixinClass : asielibMixins){
+                mixins.add("asielib." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("Automagy")){
+            List<String> automagyMixins = Arrays.asList(
+                    "MixinInventorySimple",
+                    "MixinModTileEntityWithInventory",
+                    "MixinTileEntityMirrorWithEye",
+                    "MixinTjUtil"
+            );
+            for(String mixinClass : automagyMixins){
+                mixins.add("automagy." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("bdlib")){
+            mixins.add("bdlib.MixinResourceInventoryOutput");
+        }
+
+        if (loadedMods.contains("betterquesting")){
+            mixins.add("betterquesting.MixinBlockSubmitStation");
+        }
+
+        if (loadedMods.contains("BiblioCraft")){
+            List<String> bibliocraftMixins = Arrays.asList(
+                    "MixinTileEntityBookcase",
+                    "MixinTileEntityCookieJar",
+                    "MixinTileEntityDinnerPlate",
+                    "MixinTileEntityDiscRack",
+                    "MixinTileEntityFancyWorkbench",
+                    "MixinTileEntityFramedChest",
+                    "MixinTileEntityFurniturePaneler",
+                    "MixinTileEntityGenericShelf",
+                    "MixinTileEntityLabel",
+                    "MixinTileEntityPaintPress",
+                    "MixinTileEntityPotionShelf",
+                    "MixinTileEntityPrintPress",
+                    "MixinTileEntityTable",
+                    "MixinTileEntityTypeMachine",
+                    "MixinTileEntityTypewriter",
+                    "MixinTileEntityWeaponCase",
+                    "MixinTileEntityWeaponRack",
+                    "MixinTileEntityWritingDesk"
+            );
+            for(String mixinClass : bibliocraftMixins){
+                mixins.add("bibliocraft." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("BinnieCore")){
+            List<String> binniemodsMixins = Arrays.asList(
+                    "MixinComponentInventorySlots",
+                    "MixinDefaultInventory",
+                    "MixinWindowInventory"
+            );
+            for(String mixinClass : binniemodsMixins){
+                mixins.add("binniemods." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("BloodArsenal")){
+            mixins.add("bloodarsenal.MixinTilePortableAltar");
+        }
+
+        if (loadedMods.contains("AWWayofTime")){
+            List<String> bloodmagicMixins = Arrays.asList(
+                    "MixinTEAlchemicCalcinator",
+                    "MixinTEInventory"
+            );
+            for(String mixinClass : bloodmagicMixins){
+                mixins.add("bloodmagic." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("Botania")){
+            List<String> botaniaMixins = Arrays.asList(
+                    "MixinBlockAltar",
+                    "MixinBlockAvatar",
+                    "MixinBlockBrewery",
+                    "MixinBlockCorporeaBase",
+                    "MixinBlockEnchanter",
+                    "MixinBlockHourglass",
+                    "MixinBlockOpenCrate",
+                    "MixinBlockPrism",
+                    "MixinBlockRuneAltar",
+                    "MixinBlockSparkChanger",
+                    "MixinBlockSpreader",
+                    "MixinGenericInventory",
+                    "MixinTileSimpleInventory"
+            );
+            for(String mixinClass : botaniaMixins){
+                mixins.add("botania." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("BrandonsCore")){
+            mixins.add("brandonscore.MixinGenericInventory");
+        }
+
+        if (loadedMods.contains("CarpentersBlocks")){
+            mixins.add("carpentersblocks.MixinTECarpentersSafe");
+        }
+
+        if (loadedMods.contains("cookingforblockheads")){
+            List<String> cfbhMixins = Arrays.asList(
+                    "MixinBaseKitchenTileWithInventory",
+                    "MixinBlockOven",
+                    "MixinBlockToolRack",
+                    "MixinInventoryLarge",
+                    "MixinInventoryNormal",
+                    "MixinInventoryRecipeBook",
+                    "MixinInventoryRecipeBookMatrix",
+                    "MixinTileOven"
+            );
+            for(String mixinClass : cfbhMixins){
+                mixins.add("cfbh." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("chisel")){
+            List<String> chiselMixins = Arrays.asList(
+                    "MixinInventoryChiselSelection",
+                    "MixinTileEntityAutoChisel",
+                    "MixinTileEntityPresent"
+            );
+            for(String mixinClass : chiselMixins){
+                mixins.add("chisel." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("CoFHCore")){
+            List<String> cofhcoreMixins = Arrays.asList(
+                    "MixinCustomInventoryWrapper",
+                    "MixinInventoryContainerItemWrapper",
+                    "MixinInventoryCraftingCustom"
+            );
+            for(String mixinClass : cofhcoreMixins){
+                mixins.add("cofhcore." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("DraconicEvolution")){
+            List<String> draconicMixins = Arrays.asList(
+                    "MixinGenericInventory",
+                    "MixinInventoryCraftingChest",
+                    "MixinInventoryCraftingChestResult",
+                    "MixinTileContainerTemplate",
+                    "MixinTileDissEnchanter",
+                    "MixinTileDraconiumChest",
+                    "MixinTileGenerator",
+                    "MixinTileGrinder",
+                    "MixinTileReactorCore",
+                    "MixinTileUpgradeModifier",
+                    "MixinTileWeatherController"
+            );
+            for(String mixinClass : draconicMixins){
+                mixins.add("draconic." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("DummyCore")){
+            mixins.add("dummycore.MixinMiscUtils");
+        }
+
+        if (loadedMods.contains("EMT")){
+            List<String> emtMixins = Arrays.asList(
+                    "MixinTileEntityEtherealMacerator",
+                    "MixinTileEntityIndustrialWandRecharge"
+            );
+            for(String mixinClass : emtMixins){
+                mixins.add("emt." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("endercore")){
+            mixins.add("endercore.MixinArrayInventory");
+        }
+
+        if (loadedMods.contains("EnderIO")){
+            List<String> enderioMixins = Arrays.asList(
+                    "MixinAbstractMachineEntity",
+                    "MixinCompositeInventory",
+                    "MixinTileEnchanter",
+                    "MixinTileHyperCube",
+                    "MixinTileVacuumChest"
+            );
+            for(String mixinClass : enderioMixins){
+                mixins.add("enderio." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("EnderStorage")){
+            List<String> enderstorageMixins = Arrays.asList(
+                    "MixinEnderItemStorage",
+                    "MixinTileEnderChest"
+            );
+            for(String mixinClass : enderstorageMixins){
+                mixins.add("enderstorage." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("enhancedlootbags")){
+            mixins.add("enhancedlootbags.MixinFakeLootBagInventory");
+        }
+
+        if (loadedMods.contains("etfuturum")){
+            List<String> etfuturumMixins = Arrays.asList(
+                    "MixinBlockBarrel",
+                    "MixinBlockBlastFurnace",
+                    "MixinBlockSmoker",
+                    "MixinEntityNewBoatWithChest",
+                    "MixinTileEntityBarrel",
+                    "MixinTileEntityBlastFurnace",
+                    "MixinTileEntityShulkerBox",
+                    "MixinTileEntitySmoker"
+            );
+            for(String mixinClass : etfuturumMixins){
+                mixins.add("etfuturum." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("ExtraUtilities")){
+            List<String> extrautilitiesMixins = Arrays.asList(
+                    "MixinBlockEnderConstructor",
+                    "MixinBlockFullChest",
+                    "MixinBlockGenerator",
+                    "MixinBlockMiniChest",
+                    "MixinBlockTransferNode",
+                    "MixinBlockTransferPipe",
+                    "MixinBlockTrashCan",
+                    "MixinInventoryKraft",
+                    "MixinTileEnderCollector",
+                    "MixinTileEnderConstructor",
+                    "MixinTileEntityTransferNodeInventory",
+                    "MixinTileEntityTrashCan",
+                    "MixinXUHelper"
+            );
+            for(String mixinClass : extrautilitiesMixins){
+                mixins.add("extrautilities." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("FloodLights")){
+            mixins.add("floodlights.MixinTileEntityMetaFloodlight");
+        }
+
+        if (loadedMods.contains("gadomancy")){
+            List<String> gadomancyMixins = Arrays.asList(
+                    "MixinTileArcaneDropper",
+                    "MixinTileArcaneHand",
+                    "MixinTileArcanePackager"
+            );
+            for(String mixinClass : gadomancyMixins){
+                mixins.add("gadomancy." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("GalacticraftCore")){
+            List<String> galacticraftMixins = Arrays.asList(
+                    "MixinBlockAdvancedTile",
+                    "MixinBlockParaChest",
+                    "MixinBlockRefinery",
+                    "MixinBlockT1TreasureChest",
+                    "MixinBlockTier2TreasureChest",
+                    "MixinBlockTier3TreasureChest",
+                    "MixinBlockTileGC",
+                    "MixinEntityAstroMiner",
+                    "MixinEntityAutoRocket",
+                    "MixinEntityBuggy",
+                    "MixinInventoryBuggyBench",
+                    "MixinInventoryEntity",
+                    "MixinInventoryExtended",
+                    "MixinInventoryRocketBench",
+                    "MixinInventorySchematic",
+                    "MixinInventorySchematicAstroMiner",
+                    "MixinInventorySchematicCargoRocket",
+                    "MixinInventorySchematicTier2Rocket",
+                    "MixinInventorySchematicTier3Rocket",
+                    "MixinInventorySlimeling",
+                    "MixinPersistantInventoryCrafting",
+                    "MixinTileBaseElectricBlockWithInventory",
+                    "MixinTileEntityCoalGenerator",
+                    "MixinTileEntityDish",
+                    "MixinTileEntityElectricIngotCompressor",
+                    "MixinTileEntityIngotCompressor",
+                    "MixinTileEntityMinerBase",
+                    "MixinTileEntityOxygenCollector",
+                    "MixinTileEntityOxygenDistributor",
+                    "MixinTileEntityOxygenSealer",
+                    "MixinTileEntityOxygenStorageModule",
+                    "MixinTileEntityParaChest",
+                    "MixinTileEntityShortRangeTelepad",
+                    "MixinTileEntitySolar",
+                    "MixinTileEntityTreasureChest",
+                    "MixinTileEntityTreasureChestAsteroids",
+                    "MixinTileEntityTreasureChestMars"
+            );
+            for(String mixinClass : galacticraftMixins){
+                mixins.add("galacticraft." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("GalaxySpace")){
+            List<String> galaxyspaceMixins = Arrays.asList(
+                    "MixinTileEntityAssemblyMachine",
+                    "MixinTileEntityFuelGenerator",
+                    "MixinTileEntityGeothermalGenerator",
+                    "MixinTileEntityOxStorageModule",
+                    "MixinTileEntitySolarPanel",
+                    "MixinTileEntitySolarWind"
+            );
+            for(String mixinClass : galaxyspaceMixins){
+                mixins.add("galaxyspace." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("dreamcraft")){
+            mixins.add("gtnhcoremod.MixinTileEntityBabyChest");
+        }
+
+        if (loadedMods.contains("harvestcraft")){
+            List<String> harvestcraftMixins = Arrays.asList(
+                    "MixinBlockPamAnimalTrap",
+                    "MixinBlockPamApiary",
+                    "MixinBlockPamChurn",
+                    "MixinBlockPamFishTrap",
+                    "MixinBlockPamOven",
+                    "MixinBlockPamQuern",
+                    "MixinTileEntityChurn",
+                    "MixinTileEntityMarket",
+                    "MixinTileEntityOven",
+                    "MixinTileEntityPamAnimalTrap",
+                    "MixinTileEntityPamApiary",
+                    "MixinTileEntityPamFishTrap",
+                    "MixinTileEntityPamGrinder",
+                    "MixinTileEntityPamPresser",
+                    "MixinTileEntityQuern"
+            );
+            for(String mixinClass : harvestcraftMixins){
+                mixins.add("harvestcraft." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("HardcoreEnderExpansion")){
+            mixins.add("hee.MixinTileEntityAbstractInventory");
+        }
+
+        if (loadedMods.contains("holoinventory")){
+            mixins.add("holoinventory.MixinFakeInventory");
+        }
+
+        if (loadedMods.contains("IC2")){
+            List<String> ic2Mixins = Arrays.asList(
+                    "MixinHandHeldInventory",
+                    "MixinDataEncoder"
+            );
+            for(String mixinClass : ic2Mixins){
+                mixins.add("ic2." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("IC2NuclearControl")){
+            List<String> ic2nuclearMixins = Arrays.asList(
+                    "MixinTileEntityAverageCounter",
+                    "MixinTileEntityEnergyCounter",
+                    "MixinTileEntityInfoPanel",
+                    "MixinTileEntityRangeTrigger",
+                    "MixinTileEntityRemoteThermo"
+            );
+            for(String mixinClass : ic2nuclearMixins){
+                mixins.add("ic2nuclear." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("LogisticsPipes")){
+            mixins.add("logisticspipes.MixinCardManagmentInventory");
+        }
+
+        if (loadedMods.contains("MagicBees")){
+            mixins.add("magicbees.MixinTileEntityEffectJar");
+        }
+
+        if (loadedMods.contains("malisisdoors")){
+            mixins.add("malisisdoors.MixinTileEntitySidedInventory");
+        }
+
+        if (loadedMods.contains("Mantle")){
+            List<String> mantleMixins = Arrays.asList(
+                    "MixinAdaptiveInventoryLogic",
+                    "MixinExpandableInventoryLogic",
+                    "MixinInventoryBlock"
+            );
+            for(String mixinClass : mantleMixins){
+                mixins.add("mantle." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("Natura")){
+            List<String> naturaMixins = Arrays.asList(
+                    "MixinNetherrackFurnaceBlock",
+                    "MixinNetherrackFurnaceLogic"
+            );
+            for(String mixinClass : naturaMixins){
+                mixins.add("natura." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("OpenComputers")){
+            List<String> opencomputersMixins = Arrays.asList(
+                    "MixinDrone",
+                    "MixinRobot"
+            );
+            for(String mixinClass : opencomputersMixins){
+                mixins.add("opencomputers." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("OpenMods")){
+            mixins.add("openmodslibs.MixinGenericInventory");
+        }
+
+        if (loadedMods.contains("openprinter")){
+            List<String> openprinterMixins = Arrays.asList(
+                    "MixinBlockFileCabinet",
+                    "MixinBlockPrinter",
+                    "MixinBlockShredder",
+                    "MixinFileCabinetTE",
+                    "MixinFolderInventory",
+                    "MixinPrinterTE",
+                    "MixinShredderTE"
+            );
+            for(String mixinClass : openprinterMixins){
+                mixins.add("openprinter." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("opensecurity")){
+            List<String> opensecurityMixins = Arrays.asList(
+                    "MixinBlockCardWriter",
+                    "MixinBlockEnergyTurret",
+                    "MixinTileEntityCardWriter"
+            );
+            for(String mixinClass : opensecurityMixins){
+                mixins.add("opensecurity." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("openmodularturrets")){
+            List<String> openturretsMixins = Arrays.asList(
+                    "MixinExpanderInvTierFiveTileEntity",
+                    "MixinTileEntityContainer"
+            );
+            for(String mixinClass : openturretsMixins){
+                mixins.add("openturrets." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("ProjectBlue")){
+            mixins.add("projectblue.MixinBaseContainerBlock");
+        }
+
+        if (loadedMods.contains("Railcraft")){
+            List<String> railcraftMixins = Arrays.asList(
+                    "MixinDataTools",
+                    "MixinInventoryConcatenator",
+                    "MixinInvTools",
+                    "MixinStandaloneInventory",
+                    "MixinTileBoilerFirebox",
+                    "MixinTileDispenserCart",
+                    "MixinTileDispenserTrain",
+                    "MixinTileEngineSteamHobby",
+                    "MixinTileMultiBlockInventory",
+                    "MixinTileRollingMachine"
+            );
+            for(String mixinClass : railcraftMixins){
+                mixins.add("railcraft." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("RandomThings")){
+            mixins.add("randomthings.MixinBlockAdvancedItemCollector");
+        }
+
+        if (loadedMods.contains("RIO")){
+            List<String> remoteioMixins = Arrays.asList(
+                    "MixinInventoryArray",
+                    "MixinInventoryHelper",
+                    "MixinInventoryTileCrafting"
+            );
+            for(String mixinClass : remoteioMixins){
+                mixins.add("remoteio." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("StevesFactoryManager")){
+            List<String> sfmMixins = Arrays.asList(
+                    "MixinTileEntityBreaker",
+                    "MixinTileEntityCreative",
+                    "MixinTileEntityIntake"
+            );
+            for(String mixinClass : sfmMixins){
+                mixins.add("sfm." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("SGCraft")){
+            mixins.add("sgcraft.MixinInventoryHelper");
+        }
+
+        if (loadedMods.contains("StevesCarts")){
+            List<String> stevescartsMixins = Arrays.asList(
+                    "MixinBlockCargoManager",
+                    "MixinBlockCartAssembler",
+                    "MixinBlockLiquidManager",
+                    "MixinBlockUpgrade",
+                    "MixinMinecartModular",
+                    "MixinTileEntityCartAssembler",
+                    "MixinTileEntityDistributor",
+                    "MixinTileEntityManager",
+                    "MixinTileEntityUpgrade"
+            );
+            for(String mixinClass : stevescartsMixins){
+                mixins.add("stevescarts." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("TConstruct")){
+            List<String> tconstructMixins = Arrays.asList(
+                    "MixinArmorExtended",
+                    "MixinEquipBlock",
+                    "MixinInventoryCraftingStation",
+                    "MixinInventoryCraftingStationResult",
+                    "MixinKnapsackInventory",
+                    "MixinSmelteryLogic",
+                    "MixinTileEntityLandmine"
+            );
+            for(String mixinClass : tconstructMixins){
+                mixins.add("tconstruct." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("Thaumcraft")){
+            List<String> thaumcraftMixins = Arrays.asList(
+                    "MixinBlockChestHungry",
+                    "MixinInventoryFake",
+                    "MixinInventoryHandMirror",
+                    "MixinInventoryPech",
+                    "MixinTileAlchemyFurnace",
+                    "MixinTileArcaneBore",
+                    "MixinTileChestHungry",
+                    "MixinTileDeconstructionTable",
+                    "MixinTileGrate",
+                    "MixinTileMagicBox",
+                    "MixinTileMagicWorkbench",
+                    "MixinTileMirror",
+                    "MixinTileResearchTable",
+                    "MixinTileSpa",
+                    "MixinTileThaumatorium",
+                    "MixinTileThaumatoriumTop",
+                    "MixinTileThaumcraftInventory"
+            );
+            for(String mixinClass : thaumcraftMixins){
+                mixins.add("thaumcraft." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("thaumicenergistics")){
+            mixins.add("thaumicenergistics.MixinPartArcaneCraftingTerminal");
+        }
+
+        if (loadedMods.contains("ThaumicExploration")){
+            List<String> thaumicexplorationMixins = Arrays.asList(
+                    "MixinBlockBoundChest",
+                    "MixinBlockThinkTank",
+                    "MixinSortingInventory",
+                    "MixinTempInventory",
+                    "MixinTileEntityBoundChest",
+                    "MixinTileEntityThinkTank",
+                    "MixinTXEventHandler"
+            );
+            for(String mixinClass : thaumicexplorationMixins){
+                mixins.add("thaumicexploration." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("ThaumicHorizons")){
+            List<String> thaumichorizonsMixins = Arrays.asList(
+                    "MixinInventoryFingers",
+                    "MixinTileBloodInfuser",
+                    "MixinTileInspiratron",
+                    "MixinTileSoulExtractor",
+                    "MixinTileVat"
+            );
+            for(String mixinClass : thaumichorizonsMixins){
+                mixins.add("thaumichorizons." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("ThaumicTinkerer")){
+            List<String> thaumictinkererMixins = Arrays.asList(
+                    "MixinBlockAnimationTablet",
+                    "MixinBlockAspectAnalyzer",
+                    "MixinBlockEnchanter",
+                    "MixinBlockFunnel",
+                    "MixinBlockMagnet",
+                    "MixinBlockRepairer",
+                    "MixinBlockWarpGate",
+                    "MixinFakeInventory",
+                    "MixinInventoryIchorPouch",
+                    "MixinTileAnimationTablet",
+                    "MixinTileAspectAnalyzer",
+                    "MixinTileRPlacer"
+            );
+            for(String mixinClass : thaumictinkererMixins){
+                mixins.add("thaumictinkerer." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("TwilightForest")){
+            List<String> twilightforestMixins = Arrays.asList(
+                    "MixinBlockTFCinderFurnace",
+                    "MixinInventoryTFGoblinInput",
+                    "MixinInventoryTFGoblinUncrafting",
+                    "MixinTileEntityTFCinderFurnace"
+            );
+            for(String mixinClass : twilightforestMixins){
+                mixins.add("twilightforest." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("ae2wct")){
+            List<String> wirelesscraftingMixins = Arrays.asList(
+                    "MixinWCTInventoryCrafting",
+                    "MixinWCTInventoryCraftResult",
+                    "MixinWCTInventoryTrash"
+            );
+            for(String mixinClass : wirelesscraftingMixins){
+                mixins.add("wirelesscrafting." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("witchery")){
+            List<String> witcheryMixins = Arrays.asList(
+                    "MixinBlockBrazier",
+                    "MixinBlockDistillery",
+                    "MixinBlockGrassper",
+                    "MixinBlockLeechChest",
+                    "MixinBlockPoppetShelf",
+                    "MixinBlockSpinningWheel",
+                    "MixinBlockWitchesOven",
+                    "MixinTileEntityBrazier",
+                    "MixinTileEntityDistillery",
+                    "MixinTileEntityKettle",
+                    "MixinTileEntityLeechChest",
+                    "MixinTileEntityPoppetShelf",
+                    "MixinTileEntitySilverVat",
+                    "MixinTileEntitySpinningWheel",
+                    "MixinTileEntityWitchesOven"
+            );
+            for(String mixinClass : witcheryMixins){
+                mixins.add("witchery." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("WitchingGadgets")){
+            List<String> witchinggadgetsMixins = Arrays.asList(
+                    "MixinBlockWGWoodenDevice",
+                    "MixinInventoryBag",
+                    "MixinInventoryCloak",
+                    "MixinInventoryPrimordialGlove",
+                    "MixinInventoryPrimordialRing",
+                    "MixinTileEntityCuttingTable",
+                    "MixinTileEntityLabelLibrary",
+                    "MixinTileEntitySpinningWheel"
+            );
+            for(String mixinClass : witchinggadgetsMixins){
+                mixins.add("witchinggadgets." + mixinClass);
+            }
+        }
+
         return mixins;
     }
 

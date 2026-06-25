@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins.codechickencore;
+package com.phasico.infinistack.mixins;
 
 import codechicken.lib.inventory.InventoryNBT;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,7 +8,7 @@ import com.phasico.infinistack.helper.Configurables;
 
 @Mixin(InventoryNBT.class)
 @Pseudo
-public abstract class MixinInventoryNBT {
+public abstract class MixinCCLInventoryNBT {
 
     @Overwrite(remap = false)
     public int func_70297_j_() {

@@ -27,7 +27,7 @@ public abstract class MixinPacketBuffer extends ByteBuf {
                     shift = At.Shift.AFTER))
     public void writeIntegerSize(ItemStack stack, CallbackInfo ci) {
         this.writeVarIntToBuffer(stack.stackSize);
-        }
+    }
 
     @Inject(
             method = "readItemStackFromBuffer",

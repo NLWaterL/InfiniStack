@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins.codechickencore;
+package com.phasico.infinistack.mixins;
 
 import codechicken.lib.inventory.InventoryCopy;
 import org.spongepowered.asm.mixin.Mixin;
@@ -8,7 +8,7 @@ import com.phasico.infinistack.helper.Configurables;
 
 @Mixin(InventoryCopy.class)
 @Pseudo
-public abstract class MixinInventoryCopy {
+public abstract class MixinCCLInventoryCopy {
 
     @Overwrite(remap = false)
     public int func_70297_j_() {
