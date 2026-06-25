@@ -3,7 +3,6 @@ package com.phasico.infinistack.mixins;
 import net.minecraft.entity.item.EntityMinecartContainer;
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -11,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.util.Random;
 
 @Mixin(EntityMinecartContainer.class)
-@Pseudo
 public abstract class MixinEntityMinecartContainer {
 
     @Overwrite

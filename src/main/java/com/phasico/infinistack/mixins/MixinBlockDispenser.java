@@ -2,14 +2,12 @@ package com.phasico.infinistack.mixins;
 
 import net.minecraft.block.BlockDispenser;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
 @Mixin(BlockDispenser.class)
-@Pseudo
 public abstract class MixinBlockDispenser {
 
     @Redirect(

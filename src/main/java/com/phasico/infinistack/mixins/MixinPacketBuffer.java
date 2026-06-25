@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-
 @Mixin(value = PacketBuffer.class, priority = 1001) //Modular UI does the same thing
 public abstract class MixinPacketBuffer extends ByteBuf {
     

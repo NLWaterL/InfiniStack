@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins.modularui;
+package com.phasico.infinistack.mixins.modularui2;
 
 import com.cleanroommc.modularui.utils.item.ItemStackHandler;
 import com.phasico.infinistack.helper.Configurables;
