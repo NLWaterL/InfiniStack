@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/Mantle-0.5.1.jar")
+}

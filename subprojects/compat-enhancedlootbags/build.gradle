@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/EnhancedLootBags-1.2.8.jar")
+}

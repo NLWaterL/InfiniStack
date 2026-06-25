@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/TwilightForest-2.7.13.jar")
+}

@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/WirelessCraftingTerminal-1.12.7.jar")
+}

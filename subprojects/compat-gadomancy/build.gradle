@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/gadomancy-1.4.8.jar")
+}

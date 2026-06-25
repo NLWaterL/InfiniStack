@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/witchery-1.7.10-0.24.1.jar")
+}

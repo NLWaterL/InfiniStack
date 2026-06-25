@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/GTNewHorizonsCoreMod-2.7.268.jar")
+}

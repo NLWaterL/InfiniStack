@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/BiblioCraft[v1.11.7][MC1.7.10].jar")
+}

@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/AdvancedSolarPanel-1.7.10-3.5.1a.jar")
+}

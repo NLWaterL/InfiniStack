@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/Automagy-1.7.10-0.28.2.jar")
+}

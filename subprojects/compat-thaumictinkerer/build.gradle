@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/ThaumicTinkerer-2.11.27.jar")
+}

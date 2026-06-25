@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/BloodArsenal-1.4.10.jar")
+}

@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/CodeChickenCore-1.4.10.jar")
+}

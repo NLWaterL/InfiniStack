@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/AmunRa-GC-0.8.2.jar")
+}

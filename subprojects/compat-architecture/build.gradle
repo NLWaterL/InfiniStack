@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/ArchitectureCraft-1.11.6.jar")
+}

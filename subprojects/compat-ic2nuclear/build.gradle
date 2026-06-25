@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/IC2NuclearControl-2.6.20.jar")
+}
