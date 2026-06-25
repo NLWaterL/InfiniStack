@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/SGCraft-1.4.5-GTNH.jar")
+}

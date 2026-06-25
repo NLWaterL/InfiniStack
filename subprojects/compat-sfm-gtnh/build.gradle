@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/StevesFactoryManager-1.3.4-GTNH.jar")
+}

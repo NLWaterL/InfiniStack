@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/Draconic-Evolution-1.4.27-GTNH.jar")
+}

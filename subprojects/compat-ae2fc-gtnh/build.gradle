@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/ae2fc-1.4.120-gtnh.jar")
+}

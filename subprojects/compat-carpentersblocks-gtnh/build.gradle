@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/CarpentersBlocks-3.7.0-GTNH.jar")
+}

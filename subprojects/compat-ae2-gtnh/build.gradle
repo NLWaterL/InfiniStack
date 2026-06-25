@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/appliedenergistics2-rv3-beta-695-GTNH.jar")
+}

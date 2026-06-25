@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/ProjectBlue-1.2.1-GTNH.jar")
+}

@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/HardcoreEnderExpansion-1.12.16-GTNH.jar")
+}

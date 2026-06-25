@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/Botania-1.12.28-GTNH.jar")
+}

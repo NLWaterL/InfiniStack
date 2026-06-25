@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/WitchingGadgets-1.7.25-GTNH.jar")
+}

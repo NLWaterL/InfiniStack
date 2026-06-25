@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/thaumicenergistics-1.7.14-GTNH.jar")
+}

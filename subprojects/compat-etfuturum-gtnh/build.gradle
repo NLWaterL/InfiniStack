@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/etfuturum-2.6.2.25-GTNH.jar")
+}

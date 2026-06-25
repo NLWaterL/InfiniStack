@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/CookingForBlockheads-1.4.4-GTNH.jar")
+}

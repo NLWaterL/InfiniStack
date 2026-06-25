@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/Galacticraft-3.3.13-GTNH.jar")
+}

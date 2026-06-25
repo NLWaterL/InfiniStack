@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/GalaxySpace-1.1.121-GTNH.jar")
+}

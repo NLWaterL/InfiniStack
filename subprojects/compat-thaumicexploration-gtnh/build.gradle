@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/Thaumic-Exploration-1.4.8-GTNH.jar")
+}
