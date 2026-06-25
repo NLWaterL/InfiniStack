@@ -1,14 +1,13 @@
-package com.phasico.infinistack.mixins.thaumictinkerer;
+package com.phasico.infinistack.mixins.enhancedlootbags;
 
-import thaumic.tinkerer.common.block.tile.container.kami.ContainerIchorPouch;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
 import com.phasico.infinistack.helper.Configurables;
 
-@Mixin(ContainerIchorPouch.class)
+@Mixin(targets = "eu.usrv.enhancedlootbags.core.ContainerLootBag$FakeLootBagInventory")
 @Pseudo
-public abstract class MixinContainerIchorPouch {
+public abstract class MixinFakeLootBagInventory {
 
     @Overwrite(remap = false)
     public int func_70297_j_() {

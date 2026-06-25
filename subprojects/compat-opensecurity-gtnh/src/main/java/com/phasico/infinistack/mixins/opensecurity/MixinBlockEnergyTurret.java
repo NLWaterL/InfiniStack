@@ -13,7 +13,7 @@ import java.util.Random;
 public abstract class MixinBlockEnergyTurret {
 
     @Redirect(
-            method = "func_149749_a",
+            method = "dropContent",
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/Random;nextInt(I)I"

@@ -13,7 +13,7 @@ import java.util.Random;
 public abstract class MixinAdaptiveInventoryLogic {
 
     @Redirect(
-            method = "func_149749_a",
+            method = "adjustInventory",
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/Random;nextInt(I)I"

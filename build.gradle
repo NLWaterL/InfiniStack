@@ -210,7 +210,7 @@ jar {
 	}
 }
 
-tasks.compileJava.options.compilerArgs += ["-AreobfSrgFile=${tasks.reobf.srg}", "-AoutSrgFile=${outSrgFile}", "-AoutRefMapFile=${outRefMapFile}"];
+tasks.compileJava.options.compilerArgs += ["-AreobfSrgFile=${tasks.reobf.srg}", "-AoutSrgFile=${outSrgFile}", "-AoutRefMapFile=${outRefMapFile}"]
 
 reobf {
 	addExtraSrgFile outSrgFile

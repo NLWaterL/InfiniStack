@@ -13,7 +13,7 @@ import java.util.Random;
 public abstract class MixinTXEventHandler {
 
     @Redirect(
-            method = "func_149749_a",
+            method = "handleEnchantmentAttack",
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/Random;nextInt(I)I"

@@ -13,13 +13,13 @@ import java.util.Random;
 public abstract class MixinInvTools {
 
     @Redirect(
-            method = "func_149749_a",
+            method = "spewItem",
             at = @At(
                     value = "INVOKE",
                     target = "Ljava/util/Random;nextInt(I)I"
             ), remap = false
     )
-    private int noStackSplit(Random random, int bound) {
+    private static int noStackSplit(Random random, int bound) {
         if (bound == 21) {
             return Integer.MAX_VALUE - 10;
         }
