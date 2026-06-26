@@ -197,8 +197,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinItemStackUtil",
                     "MixinTileEnginePeat",
                     "MixinTileMoistener",
-                    "MixinTileTrader",
-                    "MixinBlockBase"
+                    "MixinTileTrader"
                     );
             for (String mixinClass : forestryMixins) {
                 mixins.add("forestry." + mixinClass);

@@ -13,10 +13,9 @@ public class Configurables {
     public static boolean alwaysShowCount;
     public static boolean useAlternateDisplay;
     
-    public static boolean enableFastCraft; //This need to be done for max compact. If it's false, then the crafting table's slot capacity would be limited at 1k.
-
-    public static boolean enableWorkTable;
+    public static boolean enableFastCraft;
     public static int transmutationLimit;
+    public static int retryLimit;
 
     private static Configuration config;
 
@@ -29,15 +28,15 @@ public class Configurables {
         	
             config.load();
 
-            maxStackSize = config.getInt("Max stack size", Configuration.CATEGORY_GENERAL, (1 << 30) - 1, 1, Integer.MAX_VALUE, "Maximum stack size for items");
+            maxStackSize = config.getInt("Max stack size", Configuration.CATEGORY_GENERAL, 1_000_000_000, 1, Integer.MAX_VALUE, "Maximum stack size for items");
             allStackable = config.getBoolean("Stack everything", Configuration.CATEGORY_GENERAL, false, "Make everything stackable, even items with stack size 1");
 
             alwaysShowCount = config.getBoolean("Always show count", Configuration.CATEGORY_GENERAL, false, "Always show the item count in the tooltip, even if shift is not clicked");
             useAlternateDisplay = config.getBoolean("Use alternate display", Configuration.CATEGORY_GENERAL, false, "Use an alternate way to format stack size");
-            enableFastCraft = config.getBoolean("Enable fast craft logic", Configuration.CATEGORY_GENERAL, true, "Use a faster logic for crafting table and some other compatible work stations");
 
-            enableWorkTable = config.getBoolean("Enable Forestry worktable", Configuration.CATEGORY_GENERAL, false,"Enable Forestry worktable");
+            enableFastCraft = config.getBoolean("Enable fast craft logic", Configuration.CATEGORY_GENERAL, true, "Use a faster logic for crafting table and some other compatible work stations");
             transmutationLimit = config.getInt("Transmutation table limit", Configuration.CATEGORY_GENERAL, 64, 64, 2048, "Amount of item you can take out from a transmutation table in a click");
+            retryLimit = config.getInt("Shift-Click recursion limit", Configuration.CATEGORY_GENERAL, 1000, 64, 2048, "Amount of item you can craft in one shift-click");
 
         } catch (Exception e) {
             Logger.error("Failed to load config for Infinistack!");
