@@ -604,7 +604,13 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         }
 
         if (loadedMods.contains("bdlib")){
-            mixins.add("bdlib.MixinResourceInventoryOutput");
+            List<String> bdlibMixins = Arrays.asList(
+                    "MixinItemStackSerialize",
+                    "MixinResourceInventoryOutput"
+            );
+            for(String mixinClass : bdlibMixins){
+                mixins.add("bdlib." + mixinClass);
+            }
         }
 
         if (loadedMods.contains("betterquesting")){
@@ -1266,6 +1272,14 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             for(String mixinClass : witchinggadgetsMixins){
                 mixins.add("witchinggadgets." + mixinClass);
             }
+        }
+
+        if (loadedMods.contains("JABBA")) {
+            mixins.add("jabba.MixinBarrelPacketHandler");
+        }
+
+        if (loadedMods.contains("serverutilities")) {
+            mixins.add("serverutilities.MixinItemStackSerializer");
         }
 
         return mixins;

@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/ServerUtilities-2.2.2.jar")
+}
