@@ -1,21 +1,16 @@
  Description
  ---
- I found that there is no mod in 1.7.10 doing a good job at breaking the 64 item stack size limit, so I make one with mixin.
+ I found that there is no mod in 1.7.10 doing a good job at breaking the 64 item stack size limit, so I made one with mixins.
 
  Need UniMixin as a dependency to work.
 
- Mod Compactibility
+ Mod Support
  ---
- The mod is still in beta-stage, I am trying to add more compact to popular mods as fast as I can.
+ If you'd like InfiniStack to support another mod, please **open an issue** here.
 
- If you know a mod that have a compactibility issue with this mod you can tell me directly.
+ If you plan to use this mod with GTNH, **back up your world frequently**. Support for this modpack is still under development. The recommended GTNH version is **2.8.4**.
 
- You can see what mods does it compact at a specific version in the changelog and release description.
-
- WARNING
- ---
- Breaking containers with extra-large item stacks will cause lag! Always remove items before breaking.
-
+ **Important:** Once a world has been loaded with this mod installed, removing the mod and loading the same world again may cause serious issues.
 
  License
  ---

@@ -618,6 +618,27 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("BiblioCraft")){
             List<String> bibliocraftMixins = Arrays.asList(
+                    "MixinSlotAtlas",
+                    "MixinSlotBlankBook",
+                    "MixinSlotBook",
+                    "MixinSlotChase",
+                    "MixinSlotCookie",
+                    "MixinSlotDisc",
+                    "MixinSlotFood",
+                    "MixinSlotGenericShelf",
+                    "MixinSlotInk",
+                    "MixinSlotLabel",
+                    "MixinSlotPanalerPanels",
+                    "MixinSlotPanelerInput",
+                    "MixinSlotPotionShelf",
+                    "MixinSlotSlottedBook",
+                    "MixinSlotTable",
+                    "MixinSlotTesterSlot",
+                    "MixinSlotWeaponCase",
+                    "MixinSlotWeaponRack",
+                    "MixinSlotWorkbenchBook",
+                    "MixinSlotWritingDeskBooks",
+                    "MixinSlotWrittenBook",
                     "MixinTileEntityBookcase",
                     "MixinTileEntityCookieJar",
                     "MixinTileEntityDinnerPlate",
@@ -734,11 +755,17 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("computronics")){
+            mixins.add("computronics.MixinSlotSecureInput");
+        }
+
         if (loadedMods.contains("DraconicEvolution")){
             List<String> draconicMixins = Arrays.asList(
                     "MixinGenericInventory",
                     "MixinInventoryCraftingChest",
                     "MixinInventoryCraftingChestResult",
+                    "MixinSlotBook",
+                    "MixinSlotOutput",
                     "MixinTileContainerTemplate",
                     "MixinTileDissEnchanter",
                     "MixinTileDraconiumChest",
@@ -921,6 +948,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinBlockPamFishTrap",
                     "MixinBlockPamOven",
                     "MixinBlockPamQuern",
+                    "MixinSlotPamAnimalTrap",
+                    "MixinSlotPamFishTrap",
                     "MixinTileEntityChurn",
                     "MixinTileEntityMarket",
                     "MixinTileEntityOven",
@@ -937,7 +966,14 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         }
 
         if (loadedMods.contains("HardcoreEnderExpansion")){
-            mixins.add("hee.MixinTileEntityAbstractInventory");
+            List<String> heeMixins = Arrays.asList(
+                    "MixinSlotBrewingStandIngredient",
+                    "MixinSlotReadOnly",
+                    "MixinTileEntityAbstractInventory"
+            );
+            for(String mixinClass : heeMixins){
+                mixins.add("hee." + mixinClass);
+            }
         }
 
         if (loadedMods.contains("holoinventory")){
@@ -1059,6 +1095,12 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinDataTools",
                     "MixinInventoryConcatenator",
                     "MixinInvTools",
+                    "MixinSlotEnergy",
+                    "MixinSlotFeed",
+                    "MixinSlotFuel",
+                    "MixinSlotLinked",
+                    "MixinSlotStackFilter",
+                    "MixinSlotUpgrade",
                     "MixinStandaloneInventory",
                     "MixinTileBoilerFirebox",
                     "MixinTileDispenserCart",
@@ -1074,6 +1116,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("RandomThings")){
             mixins.add("randomthings.MixinBlockAdvancedItemCollector");
+            mixins.add("randomthings.MixinSlotVoid");
         }
 
         if (loadedMods.contains("RIO")){
@@ -1109,6 +1152,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinBlockLiquidManager",
                     "MixinBlockUpgrade",
                     "MixinMinecartModular",
+                    "MixinSlotAssemblerFuel",
                     "MixinTileEntityCartAssembler",
                     "MixinTileEntityDistributor",
                     "MixinTileEntityManager",
@@ -1243,6 +1287,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinBlockPoppetShelf",
                     "MixinBlockSpinningWheel",
                     "MixinBlockWitchesOven",
+                    "MixinSlotClayJar",
                     "MixinTileEntityBrazier",
                     "MixinTileEntityDistillery",
                     "MixinTileEntityKettle",
