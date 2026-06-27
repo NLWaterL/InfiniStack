@@ -1,14 +1,11 @@
 package com.phasico.infinistack;
 
-import com.phasico.infinistack.command.InfiniStackCommandGive;
 import com.phasico.infinistack.helper.Configurables;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.LoaderException;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
 import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid = InfiniStackMod.MODID, version = "1.1.0")
@@ -26,11 +23,6 @@ public class InfiniStackMod
         FMLCommonHandler.instance().bus().register(this);
         Configurables.init(event);
         MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    @EventHandler
-    public void serverLoad(FMLServerStartingEvent event) {
-        event.registerServerCommand(new InfiniStackCommandGive());
     }
 
 }

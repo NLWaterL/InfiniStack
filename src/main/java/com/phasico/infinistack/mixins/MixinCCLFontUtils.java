@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(FontUtils.class)
 @Pseudo
-public abstract class MixinFontUtils {
+public abstract class MixinCCLFontUtils {
 
     //Maybe later, I will add a config option to let it use my own display logic.
     //Right now, just let it calculate stack number based on maxStackSize.

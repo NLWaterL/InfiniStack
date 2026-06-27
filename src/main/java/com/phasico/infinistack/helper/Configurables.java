@@ -35,8 +35,8 @@ public class Configurables {
             useAlternateDisplay = config.getBoolean("Use alternate display", Configuration.CATEGORY_GENERAL, false, "Use an alternate way to format stack size");
 
             enableFastCraft = config.getBoolean("Enable fast craft logic", Configuration.CATEGORY_GENERAL, true, "Use a faster logic for crafting table and some other compatible work stations");
-            transmutationLimit = config.getInt("Transmutation table limit", Configuration.CATEGORY_GENERAL, 64, 64, 2048, "Amount of item you can take out from a transmutation table in a click");
-            retryLimit = config.getInt("Shift-Click recursion limit", Configuration.CATEGORY_GENERAL, 1000, 64, 2048, "Amount of item you can craft in one shift-click");
+            transmutationLimit = config.getInt("Transmutation table limit", Configuration.CATEGORY_GENERAL, 64, 1, Integer.MAX_VALUE, "Amount of item you can take out from a transmutation table in a click");
+            retryLimit = config.getInt("Shift-Click recursion limit", Configuration.CATEGORY_GENERAL, 10000, 1, Integer.MAX_VALUE, "Amount of item you can craft in one shift-click");
 
         } catch (Exception e) {
             Logger.error("Failed to load config for Infinistack!");

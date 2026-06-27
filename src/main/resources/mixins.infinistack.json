@@ -38,7 +38,8 @@
     "MixinBlockHopper",
     "MixinContainerBrewingStandIngredient",
     "MixinContainerPlayer",
-    "MixinFontUtils"
+    "MixinCCLFontUtils",
+    "MixinCommandGive"
     ],
   "client": [
     "MixinItemStackClient",
