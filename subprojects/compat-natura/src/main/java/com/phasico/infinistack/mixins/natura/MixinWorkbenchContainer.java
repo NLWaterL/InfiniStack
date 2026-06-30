@@ -1,7 +1,8 @@
-package com.phasico.infinistack.mixins.manametal;
+package com.phasico.infinistack.mixins.natura;
 
 import com.phasico.infinistack.helper.Configurables;
 import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
+import mods.natura.gui.WorkbenchContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
@@ -14,12 +15,10 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import project.studio.manametalmod.fashion.ContainerWorkbenchClone;
 
-
-@Mixin(ContainerWorkbenchClone.class)
+@Mixin(WorkbenchContainer.class)
 @Pseudo
-public abstract class MixinContainerWorkbenchClone {
+public abstract class MixinWorkbenchContainer {
 
     @Shadow(remap = false)
     public InventoryCrafting craftMatrix;
@@ -71,4 +70,5 @@ public abstract class MixinContainerWorkbenchClone {
         }
         return null;
     }
+
 }

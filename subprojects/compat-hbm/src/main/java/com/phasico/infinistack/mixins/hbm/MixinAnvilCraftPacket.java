@@ -86,7 +86,7 @@ public abstract class MixinAnvilCraftPacket {
 
                 long resultSize = (long) maxCraft * finalResult.stackSize;
 
-                InstantCraftingLogic.returnBigResult(player.inventory, finalResult, player, resultSize);
+                InstantCraftingLogic.returnResultToPlayer(finalResult, player, resultSize);
 
             }
 

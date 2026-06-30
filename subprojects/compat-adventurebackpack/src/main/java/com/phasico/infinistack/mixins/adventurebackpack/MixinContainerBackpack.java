@@ -32,21 +32,21 @@ public abstract class MixinContainerBackpack {
             cancellable = true,
             remap = false
     )
-    private void injectTransferStackInSlot(EntityPlayer player, int slotId, CallbackInfoReturnable<ItemStack> cir){
+    private void fastCraftingLogic(EntityPlayer player, int slotId, CallbackInfoReturnable<ItemStack> cir){
 
         if(!Configurables.enableFastCraft){
             return;
         }
 
-        //90 is the result slot.
-        if (slotId == 90){
-            Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(90);
+        Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(slotId);
+
+        if (slot instanceof SlotCrafting) {
             ItemStack slotStack = slot.getStack();
             IRecipe recipe = findMatchingRecipe(craftMatrix, player.worldObj);
 
             if (slotStack != null) {
 
-                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player.inventory, player, 3);
+                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player, 3);
 
                 if (success) {
                     craftResult.setInventorySlotContents(0, null);

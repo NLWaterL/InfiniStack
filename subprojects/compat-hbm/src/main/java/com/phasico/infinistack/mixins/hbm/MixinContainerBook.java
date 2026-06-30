@@ -39,7 +39,7 @@ public abstract class MixinContainerBook {
 
             int maxCraft = InstantCraftingLogic.calculateMaxCraft(craftMatrix,2);
 
-            long inventorySpace = InstantCraftingLogic.calculateMaxFit(player.inventory, result);
+            long inventorySpace = InstantCraftingLogic.calculateMaxFit(player.inventory, result, 0, 36);
 
             maxCraft = (int)Math.min(maxCraft, inventorySpace);
             if(maxCraft <= 0){
@@ -49,9 +49,9 @@ public abstract class MixinContainerBook {
 
             result.stackSize = maxCraft;
 
-            InstantCraftingLogic.consumeIngredients(craftMatrix, maxCraft, player.inventory, player, 2);
+            InstantCraftingLogic.consumeIngredients(craftMatrix, maxCraft, 2);
 
-            InstantCraftingLogic.returnResult(player.inventory, result, player);
+            InstantCraftingLogic.returnResultToPlayer(result, player);
 
             ((ContainerBook)(Object)this).onCraftMatrixChanged(craftMatrix);
 

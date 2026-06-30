@@ -42,17 +42,22 @@ public abstract class MixinContainer {
         at = @At(value = "INVOKE",
                  target = "Lnet/minecraft/inventory/Container;retrySlotClick(IIZLnet/minecraft/entity/player/EntityPlayer;)V")
     )
-    private void limitedRetrySlotClick(Container self, int slotId, int clickedButton,
-                                        boolean flag, EntityPlayer player) {
+    private void limitedRetrySlotClick(Container self, int slotId, int clickedButton, boolean flag, EntityPlayer player) {
+        if (slotId < 0) {
+            return;
+        }
+
         Slot slot = (Slot) self.inventorySlots.get(slotId);
         if (slot == null) return;
 
         for (int i = 0; i < Configurables.retryLimit - 1; i++) {
             if (!slot.canTakeStack(player)) break;
+
             ItemStack transferred = self.transferStackInSlot(player, slotId);
             if (transferred == null) break;
+
             ItemStack current = slot.getStack();
-            if (current == null || current.getItem() != transferred.getItem()) break;
+            if (current == null || !transferred.isItemEqual(current)) break;
         }
     }
 }

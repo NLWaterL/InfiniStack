@@ -41,18 +41,19 @@ public abstract class MixinConbag {
             return;
         }
 
-        if(!(totalslot == TOTALSLOT_CRAFT && slotIndex == 0)){
+        if(!(totalslot == TOTALSLOT_CRAFT)){
             return;
         }
 
         Slot slot = (Slot)((Container)(Object)this).inventorySlots.get(slotIndex);
+
         if (slot instanceof SlotCrafting) {
             ItemStack slotStack = slot.getStack();
             IRecipe recipe = findMatchingRecipe(craft3x3, player.worldObj);
 
             if (slotStack != null) {
 
-                boolean success = InstantCraftingLogic.instantCraft(craft3x3, (SlotCrafting)slot, recipe, player.inventory, player, 3);
+                boolean success = InstantCraftingLogic.instantCraft(craft3x3, (SlotCrafting)slot, recipe, player, 3);
 
                 if (success) {
 

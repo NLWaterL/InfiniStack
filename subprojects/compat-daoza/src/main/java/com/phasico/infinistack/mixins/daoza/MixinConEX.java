@@ -50,7 +50,7 @@ public abstract class MixinConEX {
 
             if (slotStack != null) {
 
-                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player.inventory, player, 3);
+                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player, 3);
 
                 if (success) {
 

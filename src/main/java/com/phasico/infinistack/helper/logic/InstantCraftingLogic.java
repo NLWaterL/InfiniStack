@@ -2,19 +2,18 @@ package com.phasico.infinistack.helper.logic;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.inventory.InventoryCrafting;
 
 public class InstantCraftingLogic {
 
     /**
      * Performs instant crafting of items with large stack size without lag!
+     * Doesn't support container items anymore.
      * @param size The dimension of the crafting matrix. For example, vanilla workbench is 3.
-     * */
-    public static boolean instantCraft(InventoryCrafting craftMatrix, SlotCrafting craftingSlot, IRecipe recipe, InventoryPlayer playerInventory, EntityPlayer player, int size) {
+     */
+    public static boolean instantCraft(InventoryCrafting craftMatrix, SlotCrafting craftingSlot, IRecipe recipe, EntityPlayer player, int size) {
 
         if (recipe == null) return false;
 
@@ -25,12 +24,10 @@ public class InstantCraftingLogic {
         if (maxCraft <= 0) return false;
 
         // Check inventory space BEFORE doing anything
-        long inventorySpace = calculateMaxFit(playerInventory, recipeResult);
+        long inventorySpace = calculateMaxFit(player.inventory, recipeResult, 0, 36);
         if (inventorySpace <= 0) {
             return false; // No space available, don't consume ingredients
         }
-
-        ItemStack finalResult = recipeResult.copy();
 
         long totalAmount = (long) recipeResult.stackSize * maxCraft;
 
@@ -46,85 +43,125 @@ public class InstantCraftingLogic {
             }
         }
 
-        if (totalAmount > Integer.MAX_VALUE) {
-            consumeIngredients(craftMatrix, maxCraft, playerInventory, player, size);
-            returnBigResult(playerInventory, finalResult, player, totalAmount);
-        } else {
-            finalResult.stackSize = (int) totalAmount;
-            consumeIngredients(craftMatrix, maxCraft, playerInventory, player, size);
-            returnResult(playerInventory, finalResult, player);
-        }
-
+        consumeIngredients(craftMatrix, maxCraft, size);
+        returnResultToPlayer(recipeResult, player, totalAmount);
 
         //Achievement & Stuff
 
         FMLCommonHandler.instance().firePlayerCraftingEvent(player, recipeResult, craftMatrix);
-        craftingSlot.onCrafting(recipeResult);
+        craftingSlot.onCrafting(recipeResult, maxCraft);
 
         return true;
     }
 
-    //Each method can be used alone for different purposes. This is more like a util class.
-    //You can even use these things for non-crafting logic.
-    public static long calculateMaxFit(InventoryPlayer inventory, ItemStack result) {
-        long total = 0;
-        int maxStack = result.getMaxStackSize();
+    public static long calculateMaxFit(IInventory inventory, ItemStack stack, int startIndex, int endIndex) {
+        long fit = 0;
 
-        for (int i = 0; i < 36; i++) {
-            ItemStack slot = inventory.getStackInSlot(i);
-            if (slot == null) {
-                total += maxStack;
-            } else if (inventory.isItemValidForSlot(i, result) &&
-                    slot.isItemEqual(result) &&
-                    ItemStack.areItemStackTagsEqual(slot, result)) {
-                total += (maxStack - slot.stackSize);
+        for (int i = startIndex; i < endIndex; i++) {
+            ItemStack slotStack = inventory.getStackInSlot(i);
+
+            if (inventory.isItemValidForSlot(i, stack)) {
+
+                if (slotStack == null) {
+                    int freeSpace = Math.min(stack.getMaxStackSize(), inventory.getInventoryStackLimit());
+                    fit += freeSpace;
+                    continue;
+                }
+
+                if (stack.isStackable() &&
+                        stack.isItemEqual(slotStack) &&
+                        ItemStack.areItemStackTagsEqual(stack, slotStack)) {
+
+                    int freeSpace = Math.min(stack.getMaxStackSize(), inventory.getInventoryStackLimit()) - slotStack.stackSize;
+
+                    if (freeSpace > 0) {
+                        fit += freeSpace;
+                    }
+                }
             }
         }
 
-        return total;
+        return fit;
     }
 
-    public static void returnResult(InventoryPlayer playerInventory, ItemStack result, EntityPlayer player) {
-        if (result == null || result.stackSize <= 0) return;
+    public static long calculateMaxFit(Container container, ItemStack stack, int startIndex, int endIndex) {
+        long fit = 0;
+        Slot slot;
+        ItemStack slotStack;
 
-        ItemStack remaining = result.copy();
-        int maxStackSize = remaining.getMaxStackSize();
+        for (int slotIndex = startIndex; slotIndex < endIndex; slotIndex++) {
 
-        while (remaining.stackSize > 0) {
-            ItemStack toAdd = remaining.copy();
-            if (toAdd.stackSize > maxStackSize) {
-                toAdd.stackSize = maxStackSize;
-                remaining.stackSize -= maxStackSize;
-            } else {
-                remaining.stackSize = 0;
+            slot = (Slot) container.inventorySlots.get(slotIndex);
+            slotStack = slot.getStack();
+
+            if (slot.isItemValid(stack)) {
+
+                if (slotStack == null) {
+                    int freeSpace = Math.min(stack.getMaxStackSize(), slot.getSlotStackLimit());
+                    fit += freeSpace;
+                    continue;
+                }
+
+                if (stack.isStackable() &&
+                        stack.isItemEqual(slotStack) &&
+                        ItemStack.areItemStackTagsEqual(stack, slotStack)) {
+
+                    int freeSpace = Math.min(stack.getMaxStackSize(), slot.getSlotStackLimit()) - slotStack.stackSize;
+
+                    if (freeSpace > 0) {
+                        fit += freeSpace;
+                    }
+                }
+
             }
+        }
 
-            if (!playerInventory.addItemStackToInventory(toAdd)) {
-                player.dropPlayerItemWithRandomChoice(toAdd,false);
+        return fit;
+    }
+
+
+    public static void returnResultToPlayer(ItemStack result, EntityPlayer player){
+        returnResultToPlayer(result, player, result.stackSize);
+    }
+
+    public static void returnResultToPlayer(ItemStack result, EntityPlayer player, long count) {
+        if (result == null || count <= 0) return;
+
+        int maxStackSize = result.getMaxStackSize();
+
+        while (count > 0) {
+            ItemStack toAdd = result.copy();
+            toAdd.stackSize = (int) Math.min(count, maxStackSize);
+            count -= toAdd.stackSize;
+
+            if (!player.inventory.addItemStackToInventory(toAdd)) {
+                player.dropPlayerItemWithRandomChoice(toAdd, false);
             }
         }
     }
 
-    public static void returnBigResult(InventoryPlayer playerInventory, ItemStack result, EntityPlayer player, long returnSize){
-        if (result == null || returnSize <= 0) return;
 
-        long size = returnSize;
-        ItemStack remaining = result.copy();
+    public static long returnResult(Container container, ItemStack result, int startIndex, int endIndex, long size) {
+        if (result == null || size <= 0) return size;
 
-        while (size > 0) {
+        long remaining = size;
+        int maxStackSize = result.getMaxStackSize();
 
-            ItemStack toAdd = remaining.copy();
+        while (remaining > 0) {
+            ItemStack batch = result.copy();
+            batch.stackSize = (int) Math.min(remaining, maxStackSize);
+            int attempted = batch.stackSize;
 
-            if (size > Integer.MAX_VALUE) {
-                toAdd.stackSize = Integer.MAX_VALUE;
-                size -= Integer.MAX_VALUE;
-            } else {
-                toAdd.stackSize = (int)size;
-                size = 0;
+            container.mergeItemStack(batch, startIndex, endIndex, false);
+
+            remaining -= (attempted - batch.stackSize);
+
+            if (batch.stackSize > 0) {
+                break;
             }
-
-            returnResult(playerInventory, toAdd, player);
         }
+
+        return remaining;
     }
 
     public static int calculateMaxCraft(InventoryCrafting craftMatrix, int size) {
@@ -133,14 +170,8 @@ public class InstantCraftingLogic {
         for (int i = 0; i < (size * size); i++) {
             ItemStack craftItem = craftMatrix.getStackInSlot(i);
             if (craftItem != null) {
-                // If an item's container is itself, they never get consumed
-                // so they must not cap the batch count.
                 if (craftItem.getItem().hasContainerItem(craftItem)) {
-                    ItemStack containerStack = craftItem.getItem().getContainerItem(craftItem);
-                    if (!craftItem.getItem().doesContainerItemLeaveCraftingGrid(craftItem)
-                            && containerStack != null && containerStack.getItem() == craftItem.getItem()) {
-                        continue;
-                    }
+                    return -1;  //We're not handling container items anymore - fallback to the limitedRetrySlotClick
                 }
                 maxCraft = Math.min(maxCraft, craftItem.stackSize);
             }
@@ -149,29 +180,17 @@ public class InstantCraftingLogic {
         return maxCraft == Integer.MAX_VALUE ? 0 : maxCraft;
     }
 
-    public static void consumeIngredients(InventoryCrafting craftMatrix, int craftCount, InventoryPlayer playerInventory, EntityPlayer player, int size) {
+    public static void consumeIngredients(InventoryCrafting craftMatrix, int craftCount, int size) {
         for (int i = 0; i < (size * size); i++) {
             ItemStack stack = craftMatrix.getStackInSlot(i);
             if (stack != null) {
-                if (stack.getItem().hasContainerItem(stack)) {
-                    ItemStack containerItem = stack.getItem().getContainerItem(stack);
-                    if (!stack.getItem().doesContainerItemLeaveCraftingGrid(stack)) {
-                        // Reusable ingredient: leave its container copy in the slot.
-                        craftMatrix.setInventorySlotContents(i, containerItem);
-                    } else {
-                        if (containerItem != null) {
-                            containerItem.stackSize = craftCount;
-                            returnResult(playerInventory, containerItem, player);
-                        }
-                        craftMatrix.setInventorySlotContents(i, null);
-                    }
-                } else {
-                    stack.stackSize -= craftCount;
-                    if (stack.stackSize <= 0) {
-                        craftMatrix.setInventorySlotContents(i, null);
-                    }
+                stack.stackSize -= craftCount;
+                if (stack.stackSize <= 0) {
+                    craftMatrix.setInventorySlotContents(i, null);
+                    //Maybe log something if it went negative?
                 }
             }
         }
     }
+
 }

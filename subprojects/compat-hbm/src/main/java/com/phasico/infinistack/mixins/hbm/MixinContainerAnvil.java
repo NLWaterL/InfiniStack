@@ -37,7 +37,7 @@ public abstract class MixinContainerAnvil {
     public void injectTransferStackInSlot(EntityPlayer player, int slotId, CallbackInfoReturnable<ItemStack> cir){
 
         if (slotId == 2) {
-            //Normally it is 0 but for HBM Anvil, 2 is output.
+            //2 is output.
 
             ItemStack left = this.input.getStackInSlot(0);
             ItemStack right = this.input.getStackInSlot(1);
@@ -58,7 +58,7 @@ public abstract class MixinContainerAnvil {
 
                     int maxCraft = calculateMaxAnvilCraft(left, right, rec);
 
-                    long inventorySpace = InstantCraftingLogic.calculateMaxFit(player.inventory, output);
+                    long inventorySpace = InstantCraftingLogic.calculateMaxFit(player.inventory, output, 0, 36);
 
                     if(maxCraft == -1){
 
@@ -67,16 +67,16 @@ public abstract class MixinContainerAnvil {
                             //Doesn't consume left, consume right.
                             this.input.decrStackSize(1, rec.amountConsumed(1, i == 1) * right.stackSize);
                             output.stackSize = (int)Math.min(right.stackSize, inventorySpace);
-                            InstantCraftingLogic.returnResult(player.inventory, output, player);
 
                         } else {
 
                             //Doesn't consume right, consume left.
                             this.input.decrStackSize(0, rec.amountConsumed(0, i == 1) * left.stackSize);
                             output.stackSize = (int)Math.min(left.stackSize, inventorySpace);
-                            InstantCraftingLogic.returnResult(player.inventory, output, player);
 
                         }
+
+                        InstantCraftingLogic.returnResultToPlayer(output, player);
 
                     } else if(maxCraft > 0) {
 
@@ -87,7 +87,7 @@ public abstract class MixinContainerAnvil {
 
                         output.stackSize = maxCraft;
 
-                        InstantCraftingLogic.returnResult(player.inventory, output, player);
+                        InstantCraftingLogic.returnResultToPlayer(output, player);
 
                     }
 

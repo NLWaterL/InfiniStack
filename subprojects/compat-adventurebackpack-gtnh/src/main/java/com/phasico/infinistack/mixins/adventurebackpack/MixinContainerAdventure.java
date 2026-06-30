@@ -24,21 +24,21 @@ public abstract class MixinContainerAdventure {
             cancellable = true,
             remap = false
     )
-    private void injectTransferStackInSlot(EntityPlayer player, int slotId, CallbackInfoReturnable<ItemStack> cir) {
+    private void fastCraftingLogic(EntityPlayer player, int slotId, CallbackInfoReturnable<ItemStack> cir) {
 
         if(!Configurables.enableFastCraft){
             return;
         }
 
         if (this.getClass().getSimpleName().equals("ContainerBackpack")) {
-            //99 is the result slot.
-            if (slotId == 99) {
+            Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(slotId);
+
+            if (slot instanceof SlotCrafting) {
 
                 InventoryCraftingBackpack craftMatrix = ((AccessorContainerBackpack)this).getCraftMatrix();
 
                 IInventory craftResult = ((AccessorContainerBackpack)this).getCraftResult();
 
-                Slot slot = (Slot) ((Container) (Object) this).inventorySlots.get(99);
                 ItemStack slotStack = slot.getStack();
                 IRecipe recipe = findMatchingRecipe(craftMatrix, player.worldObj);
 
@@ -46,7 +46,7 @@ public abstract class MixinContainerAdventure {
 
                     ((AccessorContainerBackpack)this).invokeSyncCraftMatrixWithInventory(true);
 
-                    boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting) slot, recipe, player.inventory, player, 3);
+                    boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting) slot, recipe, player, 3);
 
                     if (success) {
 
@@ -54,11 +54,6 @@ public abstract class MixinContainerAdventure {
 
                         ((AccessorContainerBackpack)this).invokeSyncCraftMatrixWithInventory(false);
 
-                        cir.setReturnValue(null);
-
-                    } else {
-
-                        //Edge case
                         cir.setReturnValue(null);
 
                     }

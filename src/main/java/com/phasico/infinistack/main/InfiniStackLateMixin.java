@@ -8,7 +8,7 @@ import java.util.Set;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
 
-// Define late mixins (mixins targetting non-coremod mod classes) in this class.
+// Define late mixins (mixins targeting non-coremod mod classes) in this class.
 // These mixins get loaded after mod classes are put on the classpath, allowing you to mix into them.
 @LateMixin
 public class InfiniStackLateMixin implements ILateMixinLoader {
@@ -542,11 +542,22 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         if (loadedMods.contains("appliedenergistics2")){
             List<String> ae2Mixins = Arrays.asList(
                     "MixinAEBaseInvTile",
+                    "MixinAppEngInternalInventory",
+                    "MixinAppEngInternalAEInventory",
                     "MixinLayerISidedInventory",
                     "MixinWrapperBCPipe"
             );
             for(String mixinClass : ae2Mixins){
                 mixins.add("ae2." + mixinClass);
+            }
+        }
+
+        if (loadedMods.contains("ae2stuff")){
+            List<String> ae2stuffMixins = Arrays.asList(
+
+            );
+            for(String mixinClass : ae2stuffMixins){
+                mixins.add("ae2stuff." + mixinClass);
             }
         }
 
@@ -604,6 +615,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("bdlib")){
             List<String> bdlibMixins = Arrays.asList(
+                    "MixinBaseInventoryClass",
+                    "MixinInventoryProxyClass",
                     "MixinItemStackSerialize",
                     "MixinResourceInventoryOutput"
             );
@@ -618,6 +631,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("BiblioCraft")){
             List<String> bibliocraftMixins = Arrays.asList(
+                    "MixinContainerFancyWorkbench",
                     "MixinSlotAtlas",
                     "MixinSlotBlankBook",
                     "MixinSlotBook",
@@ -761,6 +775,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("DraconicEvolution")){
             List<String> draconicMixins = Arrays.asList(
+                    "MixinContainerDraconiumChest",
                     "MixinGenericInventory",
                     "MixinInventoryCraftingChest",
                     "MixinInventoryCraftingChestResult",
@@ -1019,7 +1034,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             List<String> mantleMixins = Arrays.asList(
                     "MixinAdaptiveInventoryLogic",
                     "MixinExpandableInventoryLogic",
-                    "MixinInventoryBlock"
+                    "MixinInventoryBlock",
+                    "MixinInventoryLogic"
             );
             for(String mixinClass : mantleMixins){
                 mixins.add("mantle." + mixinClass);
@@ -1029,7 +1045,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         if (loadedMods.contains("Natura")){
             List<String> naturaMixins = Arrays.asList(
                     "MixinNetherrackFurnaceBlock",
-                    "MixinNetherrackFurnaceLogic"
+                    "MixinNetherrackFurnaceLogic",
+                    "MixinWorkbenchContainer"
             );
             for(String mixinClass : naturaMixins){
                 mixins.add("natura." + mixinClass);
@@ -1092,9 +1109,11 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("Railcraft")){
             List<String> railcraftMixins = Arrays.asList(
+                    "AccessorContainerCartWork",
                     "MixinDataTools",
                     "MixinInventoryConcatenator",
                     "MixinInvTools",
+                    "MixinRailcraftContainer",
                     "MixinSlotEnergy",
                     "MixinSlotFeed",
                     "MixinSlotFuel",
@@ -1166,6 +1185,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         if (loadedMods.contains("TConstruct")){
             List<String> tconstructMixins = Arrays.asList(
                     "MixinArmorExtended",
+                    "MixinCraftingStationContainer",
                     "MixinEquipBlock",
                     "MixinInventoryCraftingStation",
                     "MixinInventoryCraftingStationResult",

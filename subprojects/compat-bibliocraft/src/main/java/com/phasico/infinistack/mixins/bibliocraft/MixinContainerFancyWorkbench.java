@@ -1,4 +1,4 @@
-package com.phasico.infinistack.mixins.manametal;
+package com.phasico.infinistack.mixins.bibliocraft;
 
 import com.phasico.infinistack.helper.Configurables;
 import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
@@ -14,21 +14,21 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import project.studio.manametalmod.fashion.ContainerWorkbenchClone;
+import jds.bibliocraft.blocks.ContainerFancyWorkbench;
 
 
-@Mixin(ContainerWorkbenchClone.class)
+@Mixin(ContainerFancyWorkbench.class)
 @Pseudo
-public abstract class MixinContainerWorkbenchClone {
+public abstract class MixinContainerFancyWorkbench {
 
     @Shadow(remap = false)
-    public InventoryCrafting craftMatrix;
+    public InventoryCrafting playerCraftMatrix;
 
     @Shadow(remap = false)
     public IInventory craftResult;
 
     @Shadow(remap = false)
-    private World worldObj;
+    private World world;
 
     @Inject(method = "func_82846_b", at = @At("HEAD"), cancellable = true, remap = false)
     private void fastCraftingLogic(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
@@ -41,17 +41,17 @@ public abstract class MixinContainerWorkbenchClone {
 
         if (slot instanceof SlotCrafting) {
             ItemStack slotStack = slot.getStack();
-            IRecipe recipe = findMatchingRecipe(craftMatrix, worldObj);
+            IRecipe recipe = findMatchingRecipe(playerCraftMatrix, world);
 
             if (slotStack != null) {
 
-                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player, 3);
+                boolean success = InstantCraftingLogic.instantCraft(playerCraftMatrix, (SlotCrafting)slot, recipe, player, 3);
 
                 if (success) {
 
                     craftResult.setInventorySlotContents(0, null);
 
-                    ((Container)(Object)this).onCraftMatrixChanged(craftMatrix);
+                    ((Container)(Object)this).onCraftMatrixChanged(playerCraftMatrix);
 
                     ((Container)(Object)this).detectAndSendChanges();
 
@@ -71,4 +71,5 @@ public abstract class MixinContainerWorkbenchClone {
         }
         return null;
     }
+
 }

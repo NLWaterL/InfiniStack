@@ -36,14 +36,15 @@ public abstract class MixinContainerExtremeCrafting {
             return;
         }
 
-        if (slotIndex == 0) {
-            Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(0);
+        Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(slotIndex);
+
+        if (slot instanceof SlotCrafting) {
             ItemStack slotStack = slot.getStack();
             IRecipe recipe = findMatchingRecipe(craftMatrix, worldObj);
 
             if (slotStack != null) {
 
-                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player.inventory, player, 9);
+                boolean success = InstantCraftingLogic.instantCraft(craftMatrix, (SlotCrafting)slot, recipe, player, 9);
 
                 if (success) {
 
