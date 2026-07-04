@@ -38,6 +38,10 @@ public abstract class MixinContainerBackpack {
             return;
         }
 
+        if(slotId < 0 || slotId >= ((Container)(Object)this).inventorySlots.size()){
+            return;
+        }
+
         Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(slotId);
 
         if (slot instanceof SlotCrafting) {

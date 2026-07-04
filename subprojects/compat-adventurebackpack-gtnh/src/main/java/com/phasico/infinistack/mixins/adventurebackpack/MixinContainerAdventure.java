@@ -31,6 +31,11 @@ public abstract class MixinContainerAdventure {
         }
 
         if (this.getClass().getSimpleName().equals("ContainerBackpack")) {
+
+            if(slotId < 0 || slotId >= ((Container)(Object)this).inventorySlots.size()){
+                return;
+            }
+
             Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(slotId);
 
             if (slot instanceof SlotCrafting) {

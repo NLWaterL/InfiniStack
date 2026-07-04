@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
+import javax.annotation.Nonnull;
 
 // Define late mixins (mixins targeting non-coremod mod classes) in this class.
 // These mixins get loaded after mod classes are put on the classpath, allowing you to mix into them.
@@ -26,6 +26,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
     }
 
     @Override
+    @Nonnull
     public List<String> getMixins(Set<String> loadedMods) {
         List<String> mixins = new ArrayList<>();
 
@@ -516,23 +517,13 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         }
 
         if (loadedMods.contains("chesthopper")) {
-            List<String> chestHopperMixins = Arrays.asList(
-                    "MixinBlockChestHopperBase",
-                    "MixinTileEntityBaseChestHopper"
-            );
-            for(String mixinClass : chestHopperMixins){
-                mixins.add("chesthopper." + mixinClass);
-            }
+            mixins.add("chesthopper.MixinBlockChestHopperBase");
+            mixins.add("chesthopper.MixinTileEntityBaseChestHopper");
         }
 
         if (loadedMods.contains("AdvancedSolarPanel")){
-            List<String> advsolarpanelMixins = Arrays.asList(
-                    "MixinTileEntityMolecularTransformer",
-                    "MixinTileEntitySolarPanel"
-            );
-            for(String mixinClass : advsolarpanelMixins){
-                mixins.add("advsolarpanel." + mixinClass);
-            }
+            mixins.add("advsolarpanel.MixinTileEntityMolecularTransformer");
+            mixins.add("advsolarpanel.MixinTileEntitySolarPanel");
         }
 
         if (loadedMods.contains("ae2fc")){
@@ -545,19 +536,11 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinAppEngInternalInventory",
                     "MixinAppEngInternalAEInventory",
                     "MixinLayerISidedInventory",
+                    "MixinSlotCraftingTerm",
                     "MixinWrapperBCPipe"
             );
             for(String mixinClass : ae2Mixins){
                 mixins.add("ae2." + mixinClass);
-            }
-        }
-
-        if (loadedMods.contains("ae2stuff")){
-            List<String> ae2stuffMixins = Arrays.asList(
-
-            );
-            for(String mixinClass : ae2stuffMixins){
-                mixins.add("ae2stuff." + mixinClass);
             }
         }
 
@@ -611,6 +594,10 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             for(String mixinClass : automagyMixins){
                 mixins.add("automagy." + mixinClass);
             }
+        }
+
+        if(loadedMods.contains("Backpack")){
+            mixins.add("backpack.MixinAbstractInventoryBackpack");
         }
 
         if (loadedMods.contains("bdlib")){
@@ -1140,6 +1127,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("RIO")){
             List<String> remoteioMixins = Arrays.asList(
+                    "MixinContainerIntelligentWorkbench",
                     "MixinInventoryArray",
                     "MixinInventoryHelper",
                     "MixinInventoryTileCrafting"

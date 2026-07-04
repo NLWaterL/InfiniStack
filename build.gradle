@@ -138,7 +138,7 @@ repositories {
 	}
 }
 
-def unimixinsVersion = "0.3.1"
+def unimixinsVersion = "0.1.14"
 
 dependencies {
 	compile("com.github.LegacyModdingMC.UniMixins:unimixins-all-1.7.10:$unimixinsVersion:dev")

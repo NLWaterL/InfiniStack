@@ -32,6 +32,10 @@ public abstract class MixinContainerWorkbench {
             return;
         }
 
+        if(slotIndex < 0 || slotIndex >= ((Container)(Object)this).inventorySlots.size()){
+            return;
+        }
+
         Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(slotIndex);
 
         if (slot instanceof SlotCrafting) {

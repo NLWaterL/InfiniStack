@@ -41,6 +41,10 @@ public abstract class MixinConbag {
             return;
         }
 
+        if(slotIndex < 0 || slotIndex >= ((Container)(Object)this).inventorySlots.size()){
+            return;
+        }
+
         if(!(totalslot == TOTALSLOT_CRAFT)){
             return;
         }
