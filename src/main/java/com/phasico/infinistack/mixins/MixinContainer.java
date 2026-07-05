@@ -2,6 +2,7 @@ package com.phasico.infinistack.mixins;
 
 import com.phasico.infinistack.helper.Configurables;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.inventory.Container;
@@ -59,5 +60,9 @@ public abstract class MixinContainer {
             ItemStack current = slot.getStack();
             if (current == null || !transferred.isItemEqual(current)) break;
         }
+
+        player.inventory.markDirty();
+        player.openContainer.detectAndSendChanges();
+
     }
 }

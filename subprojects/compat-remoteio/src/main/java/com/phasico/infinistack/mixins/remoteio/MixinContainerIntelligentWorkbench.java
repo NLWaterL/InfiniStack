@@ -13,12 +13,15 @@ import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import remoteio.common.inventory.InventoryTileCrafting;
 import remoteio.common.inventory.container.ContainerIntelligentWorkbench;
 import remoteio.common.tile.TileIntelligentWorkbench;
 
 import java.util.List;
+
+import static remoteio.common.inventory.container.ContainerIntelligentWorkbench.getAllCraftingResults;
 
 @Mixin(ContainerIntelligentWorkbench.class)
 @Pseudo
@@ -37,6 +40,78 @@ public abstract class MixinContainerIntelligentWorkbench {
     @Shadow(remap = false)
     private List<ItemStack> results;
 
+    @Shadow(remap = false)
+    public abstract void func_75142_b();
+
+    @Unique
+    private ItemStack[] matrixSnapshot = null;
+
+    @Overwrite(remap = false)
+    public void func_75130_a(IInventory inventory) {
+
+        if (!snapshotsMatch(tileIntelligentWorkbench.craftMatrix, matrixSnapshot)) {
+
+            matrixSnapshot = takeSnapshot(tileIntelligentWorkbench.craftMatrix);
+            results = getAllCraftingResults(tileIntelligentWorkbench.craftMatrix, tileIntelligentWorkbench.getWorldObj());
+
+            recipeIndex = 0;
+            func_75142_b();
+        }
+
+        this.craftResult.setInventorySlotContents(0, !results.isEmpty() ? results.get(recipeIndex).copy() : null);
+    }
+
+    @Redirect(
+            method = "func_75140_a",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ljava/util/List;get(I)Ljava/lang/Object;"
+            ), remap = false
+    )
+    private Object returnCopy(List self, int index){
+        return this.results.get(index).copy();
+    }
+
+    @Unique
+    private ItemStack[] takeSnapshot(IInventory craftMatrix) {
+        int size = craftMatrix.getSizeInventory();
+        ItemStack[] snapshot = new ItemStack[size];
+        for (int i = 0; i < size; i++) {
+            ItemStack stack = craftMatrix.getStackInSlot(i);
+            if (stack != null) {
+                snapshot[i] = stack.copy();
+            }
+        }
+        return snapshot;
+    }
+
+    @Unique
+    private static boolean snapshotsMatch(IInventory craftMatrix, ItemStack[] snapshot) {
+
+        if (snapshot == null || craftMatrix.getSizeInventory() != snapshot.length) return false;
+
+        for (int i = 0; i < snapshot.length; i++) {
+            if(!itemStackMatch(snapshot[i], craftMatrix.getStackInSlot(i))) return false;
+        }
+
+        return true;
+    }
+
+    @Unique
+    private static boolean itemStackMatch(ItemStack a, ItemStack b){
+
+        if(a == b) return true;
+        if(a == null || b == null) return false;
+
+        if(a.getItem() != b.getItem()) return false;
+        if(!ItemStack.areItemStackTagsEqual(a,b)) return false;
+
+        return a.getItemDamage() == b.getItemDamage() || a.getItem().isDamageable();
+
+    }
+
+
+    //Fast Crafting Logic
     @Inject(method = "func_82846_b", at = @At("HEAD"), cancellable = true, remap = false)
     private void fastCraftingLogic(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
 
