@@ -24,10 +24,6 @@ public abstract class MixinContainerBook {
     @Inject(method = "func_82846_b", at = @At("HEAD"), remap = false, cancellable = true)
     private void injectTransferStackInSlot(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
 
-        if(!Configurables.enableFastCraft){
-            return;
-        }
-
         if (slotIndex == 0) {
 
             ItemStack recipeResult = MagicRecipes.getRecipe(craftMatrix);

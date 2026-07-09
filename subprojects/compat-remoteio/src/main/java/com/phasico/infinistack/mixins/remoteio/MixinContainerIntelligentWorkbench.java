@@ -2,19 +2,15 @@ package com.phasico.infinistack.mixins.remoteio;
 
 
 import com.google.common.collect.Lists;
-import com.phasico.infinistack.helper.Configurables;
-import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.*;
+import com.phasico.infinistack.helper.FixedCraftingContainer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import remoteio.common.inventory.InventoryTileCrafting;
 import remoteio.common.inventory.container.ContainerIntelligentWorkbench;
 import remoteio.common.tile.TileIntelligentWorkbench;
@@ -23,9 +19,13 @@ import java.util.List;
 
 import static remoteio.common.inventory.container.ContainerIntelligentWorkbench.getAllCraftingResults;
 
+// The grid (InventoryTileCrafting) fires the change event itself - silenced by
+// MixinInventoryTileCrafting while MixinSlotCrafting batches a craft to one fire. This container
+// can't use MixinCraftingManager's memo (it collects ALL matching recipes for its conflict
+// carousel, not the first), so it carries its own recipe memory below.
 @Mixin(ContainerIntelligentWorkbench.class)
 @Pseudo
-public abstract class MixinContainerIntelligentWorkbench {
+public abstract class MixinContainerIntelligentWorkbench implements FixedCraftingContainer {
 
     @Shadow(remap = false)
     @Final
@@ -43,22 +43,51 @@ public abstract class MixinContainerIntelligentWorkbench {
     @Shadow(remap = false)
     public abstract void func_75142_b();
 
+    // Last set of IRecipe that matched the crafting grid, mirroring AE2's Platform.lastUsedRecipe cache
+    // (appeng.util.Platform.findMatchingRecipe): re-checking whether these specific recipes still match
+    // is a handful of IRecipe.matches() calls, vs. a full linear scan of every registered recipe (GTNH's
+    // CraftingManager list can be enormous). A snapshot/diff of the grid's item identities doesn't work here
+    // because a tool's container-item replacement (decrStackSize -> null, then setInventorySlotContents ->
+    // damaged copy) fires onCraftMatrixChanged with the slot transiently null, which always looks "changed".
+    // Re-validating the actual matched recipes instead degrades gracefully through that transient state.
     @Unique
-    private ItemStack[] matrixSnapshot = null;
+    private List<IRecipe> lastRecipes = null;
 
     @Overwrite(remap = false)
     public void func_75130_a(IInventory inventory) {
 
-        if (!snapshotsMatch(tileIntelligentWorkbench.craftMatrix, matrixSnapshot)) {
+        InventoryTileCrafting craftMatrix = tileIntelligentWorkbench.craftMatrix;
+        World world = tileIntelligentWorkbench.getWorldObj();
 
-            matrixSnapshot = takeSnapshot(tileIntelligentWorkbench.craftMatrix);
-            results = getAllCraftingResults(tileIntelligentWorkbench.craftMatrix, tileIntelligentWorkbench.getWorldObj());
+        // The repair pseudo-recipe (null sentinel) is damage-dependent, so it's never cached - but detecting
+        // it is a cheap 9-slot scan, not a CraftingManager search, so re-deriving it every call is fine.
+        boolean cacheHit = lastRecipes != null && !lastRecipes.isEmpty() && !lastRecipes.contains(null);
+        if (cacheHit) {
+            for (IRecipe recipe : lastRecipes) {
+                if (!recipe.matches(craftMatrix, world)) {
+                    cacheHit = false;
+                    break;
+                }
+            }
+        }
 
+        if (!cacheHit) {
+            lastRecipes = findAllMatchingRecipe(craftMatrix, world);
             recipeIndex = 0;
-            func_75142_b();
+        }
+
+        if (lastRecipes.contains(null)) {
+            results = getAllCraftingResults(craftMatrix, world);
+        } else {
+            results = Lists.newArrayList();
+            for (IRecipe recipe : lastRecipes) {
+                results.add(recipe.getCraftingResult(craftMatrix));
+            }
         }
 
         this.craftResult.setInventorySlotContents(0, !results.isEmpty() ? results.get(recipeIndex).copy() : null);
+
+        if(!cacheHit) func_75142_b();
     }
 
     @Redirect(
@@ -71,96 +100,6 @@ public abstract class MixinContainerIntelligentWorkbench {
     private Object returnCopy(List self, int index){
         return this.results.get(index).copy();
     }
-
-    @Unique
-    private ItemStack[] takeSnapshot(IInventory craftMatrix) {
-        int size = craftMatrix.getSizeInventory();
-        ItemStack[] snapshot = new ItemStack[size];
-        for (int i = 0; i < size; i++) {
-            ItemStack stack = craftMatrix.getStackInSlot(i);
-            if (stack != null) {
-                snapshot[i] = stack.copy();
-            }
-        }
-        return snapshot;
-    }
-
-    @Unique
-    private static boolean snapshotsMatch(IInventory craftMatrix, ItemStack[] snapshot) {
-
-        if (snapshot == null || craftMatrix.getSizeInventory() != snapshot.length) return false;
-
-        for (int i = 0; i < snapshot.length; i++) {
-            if(!itemStackMatch(snapshot[i], craftMatrix.getStackInSlot(i))) return false;
-        }
-
-        return true;
-    }
-
-    @Unique
-    private static boolean itemStackMatch(ItemStack a, ItemStack b){
-
-        if(a == b) return true;
-        if(a == null || b == null) return false;
-
-        if(a.getItem() != b.getItem()) return false;
-        if(!ItemStack.areItemStackTagsEqual(a,b)) return false;
-
-        return a.getItemDamage() == b.getItemDamage() || a.getItem().isDamageable();
-
-    }
-
-
-    //Fast Crafting Logic
-    @Inject(method = "func_82846_b", at = @At("HEAD"), cancellable = true, remap = false)
-    private void fastCraftingLogic(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
-
-        if(!Configurables.enableFastCraft){
-            return;
-        }
-
-        if(slotIndex < 0 || slotIndex >= ((Container)(Object)this).inventorySlots.size()){
-            return;
-        }
-
-        Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(slotIndex);
-
-        if (slot instanceof SlotCrafting) {
-            ItemStack slotStack = slot.getStack();
-
-            //Handles Recipe Conflict
-            List<IRecipe> recipes = findAllMatchingRecipe(tileIntelligentWorkbench.craftMatrix, player.worldObj);
-
-            if(recipeIndex >= recipes.size() || recipeIndex >= results.size()) return;
-            IRecipe recipe = recipes.get(recipeIndex);
-            ItemStack resultStack = results.get(recipeIndex);
-
-            if(recipe == null || resultStack == null) return;
-            ItemStack recipeStack = recipe.getCraftingResult(tileIntelligentWorkbench.craftMatrix);
-
-            if(!(ItemStack.areItemStacksEqual(recipeStack, resultStack) && ItemStack.areItemStackTagsEqual(recipeStack, resultStack))) {
-                return;
-            }
-
-            if (slotStack != null) {
-
-                boolean success = InstantCraftingLogic.instantCraft(tileIntelligentWorkbench.craftMatrix, (SlotCrafting)slot, recipe, player, 3);
-
-                if (success) {
-
-                    craftResult.setInventorySlotContents(0, null);
-
-                    ((Container)(Object)this).onCraftMatrixChanged(tileIntelligentWorkbench.craftMatrix);
-
-                    ((Container)(Object)this).detectAndSendChanges();
-
-                    cir.setReturnValue(null);
-
-                }
-            }
-        }
-    }
-
 
     @Unique
     private static List<IRecipe> findAllMatchingRecipe(InventoryTileCrafting craftMatrix, World world) {

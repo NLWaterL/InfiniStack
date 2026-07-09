@@ -137,7 +137,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinTileEntityCompressor",
                     "MixinTileEntityDireCrafting",
                     "MixinTileEntityNeutron",
-                    "MixinContainerExtremeCrafting"
+                    "MixinContainerExtremeCrafting",
+                    "MixinInventoryDireCrafting"
             );
             for (String mixinClass : avaritiaMixins) {
                 mixins.add("avaritia." + mixinClass);

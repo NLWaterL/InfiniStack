@@ -31,6 +31,8 @@
     "MixinCCLInventoryUtils",
     "MixinCCLMCDataOutputWrapper",
     "MixinContainerWorkbench",
+    "MixinSlotCrafting",
+    "MixinCraftingManager",
     "MixinBlockDispenser",
     "MixinBlockBrewingStand",
     "MixinBlockChest",
