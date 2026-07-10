@@ -19,10 +19,6 @@ import java.util.List;
 
 import static remoteio.common.inventory.container.ContainerIntelligentWorkbench.getAllCraftingResults;
 
-// The grid (InventoryTileCrafting) fires the change event itself - silenced by
-// MixinInventoryTileCrafting while MixinSlotCrafting batches a craft to one fire. This container
-// can't use MixinCraftingManager's memo (it collects ALL matching recipes for its conflict
-// carousel, not the first), so it carries its own recipe memory below.
 @Mixin(ContainerIntelligentWorkbench.class)
 @Pseudo
 public abstract class MixinContainerIntelligentWorkbench implements FixedCraftingContainer {
@@ -43,13 +39,6 @@ public abstract class MixinContainerIntelligentWorkbench implements FixedCraftin
     @Shadow(remap = false)
     public abstract void func_75142_b();
 
-    // Last set of IRecipe that matched the crafting grid, mirroring AE2's Platform.lastUsedRecipe cache
-    // (appeng.util.Platform.findMatchingRecipe): re-checking whether these specific recipes still match
-    // is a handful of IRecipe.matches() calls, vs. a full linear scan of every registered recipe (GTNH's
-    // CraftingManager list can be enormous). A snapshot/diff of the grid's item identities doesn't work here
-    // because a tool's container-item replacement (decrStackSize -> null, then setInventorySlotContents ->
-    // damaged copy) fires onCraftMatrixChanged with the slot transiently null, which always looks "changed".
-    // Re-validating the actual matched recipes instead degrades gracefully through that transient state.
     @Unique
     private List<IRecipe> lastRecipes = null;
 
@@ -59,8 +48,6 @@ public abstract class MixinContainerIntelligentWorkbench implements FixedCraftin
         InventoryTileCrafting craftMatrix = tileIntelligentWorkbench.craftMatrix;
         World world = tileIntelligentWorkbench.getWorldObj();
 
-        // The repair pseudo-recipe (null sentinel) is damage-dependent, so it's never cached - but detecting
-        // it is a cheap 9-slot scan, not a CraftingManager search, so re-deriving it every call is fine.
         boolean cacheHit = lastRecipes != null && !lastRecipes.isEmpty() && !lastRecipes.contains(null);
         if (cacheHit) {
             for (IRecipe recipe : lastRecipes) {

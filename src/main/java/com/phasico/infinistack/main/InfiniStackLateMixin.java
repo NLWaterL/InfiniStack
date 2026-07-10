@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
+import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import javax.annotation.Nonnull;
 
 // Define late mixins (mixins targeting non-coremod mod classes) in this class.
@@ -137,8 +138,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
                     "MixinTileEntityCompressor",
                     "MixinTileEntityDireCrafting",
                     "MixinTileEntityNeutron",
-                    "MixinContainerExtremeCrafting",
-                    "MixinInventoryDireCrafting"
+                    "MixinContainerExtremeCrafting"
             );
             for (String mixinClass : avaritiaMixins) {
                 mixins.add("avaritia." + mixinClass);
@@ -501,8 +501,15 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("modularui") && FMLLaunchHandler.side().isClient()){
+            mixins.add("modularui.MixinSlotWidget");
+        }
+
         if (loadedMods.contains("modularui2")){
             mixins.add("modularui2.MixinItemStackHandler");
+            if (FMLLaunchHandler.side().isClient()){
+                mixins.add("modularui2.MixinGuiDraw");
+            }
         }
 
         if (loadedMods.contains("HopperDuctMod")){

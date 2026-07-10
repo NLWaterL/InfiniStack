@@ -16,11 +16,6 @@ import remoteio.common.inventory.InventoryTileCrafting;
 @Pseudo
 public abstract class MixinInventoryTileCrafting implements SuppressibleCraftMatrix {
 
-    // InventoryTileCrafting re-implements the whole inventory with its own stackList AND its own
-    // eventHandler field, constructing super with a null container - so the duck's getEventHandler
-    // (which MixinSlotCrafting uses to decide whether to batch) must be overridden to return the
-    // real one, set via setContainer(). The flag setter/getter stay inherited from
-    // MixinInventoryCrafting's implementation in the superclass.
     @Shadow(remap = false)
     private Container eventHandler;
 
@@ -34,9 +29,6 @@ public abstract class MixinInventoryTileCrafting implements SuppressibleCraftMat
         return Configurables.maxStackSize;
     }
 
-    // Its overridden decrStackSize/setInventorySlotContents call eventHandler.func_75130_a
-    // directly, bypassing the vanilla InventoryCrafting code that MixinInventoryCrafting patches -
-    // so its fires get the same suppression check here.
     @Redirect(
         method = {"func_70298_a", "func_70299_a"},
         at = @At(value = "INVOKE",

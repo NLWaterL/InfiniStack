@@ -1,0 +1,3 @@
+dependencies {
+    compile files("${rootProject.projectDir}/libs/modularui-1.2.20.jar")
+}

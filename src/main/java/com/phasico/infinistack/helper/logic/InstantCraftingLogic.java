@@ -10,7 +10,7 @@ public class InstantCraftingLogic {
 
     /**
      * Performs instant crafting of items with large stack size without lag!
-     * Doesn't support container items anymore.
+     * Now only used for hbm book recipes and extreme crafting recipes.
      * @param size The dimension of the crafting matrix. For example, vanilla workbench is 3.
      */
     public static boolean instantCraft(InventoryCrafting craftMatrix, SlotCrafting craftingSlot, IRecipe recipe, EntityPlayer player, int size) {
@@ -43,7 +43,7 @@ public class InstantCraftingLogic {
             }
         }
 
-        consumeIngredients(craftMatrix, maxCraft, size);
+        consumeIngredients(craftMatrix, maxCraft, player, size);
         returnResultToPlayer(recipeResult, player, totalAmount);
 
         //Achievement & Stuff
@@ -168,27 +168,56 @@ public class InstantCraftingLogic {
         int maxCraft = Integer.MAX_VALUE;
 
         for (int i = 0; i < (size * size); i++) {
-            ItemStack craftItem = craftMatrix.getStackInSlot(i);
-            if (craftItem != null) {
-                if (craftItem.getItem().hasContainerItem(craftItem)) {
-                    return -1;  //We're not handling container items anymore - fallback to the limitedRetrySlotClick
+
+            ItemStack craftStack = craftMatrix.getStackInSlot(i);
+
+            if (craftStack != null) {
+
+                if (craftStack.getItem().hasContainerItem(craftStack)) {
+                    ItemStack containerStack = craftStack.getItem().getContainerItem(craftStack);
+                    if (!craftStack.getItem().doesContainerItemLeaveCraftingGrid(craftStack)
+                            && containerStack != null
+                            && craftStack.isItemEqual(containerStack)
+                            && ItemStack.areItemStackTagsEqual(craftStack, containerStack)
+                    ) {
+                        continue;
+                    }
                 }
-                maxCraft = Math.min(maxCraft, craftItem.stackSize);
+
+                maxCraft = Math.min(maxCraft, craftStack.stackSize);
+
             }
         }
 
         return maxCraft == Integer.MAX_VALUE ? 0 : maxCraft;
     }
 
-    public static void consumeIngredients(InventoryCrafting craftMatrix, int craftCount, int size) {
+    public static void consumeIngredients(InventoryCrafting craftMatrix, int craftCount, EntityPlayer player, int size) {
         for (int i = 0; i < (size * size); i++) {
             ItemStack stack = craftMatrix.getStackInSlot(i);
+
             if (stack != null) {
+
+                if (stack.getItem().hasContainerItem(stack)) {
+
+                    ItemStack containerItem = stack.getItem().getContainerItem(stack);
+
+                    if (!stack.getItem().doesContainerItemLeaveCraftingGrid(stack)) {
+                        craftMatrix.setInventorySlotContents(i, containerItem);
+                        continue;
+                    } else {
+                        if (containerItem != null) {
+                            containerItem.stackSize = craftCount;
+                            returnResultToPlayer(containerItem, player);
+                        }
+                    }
+                }
+
                 stack.stackSize -= craftCount;
                 if (stack.stackSize <= 0) {
                     craftMatrix.setInventorySlotContents(i, null);
-                    //Maybe log something if it went negative?
                 }
+
             }
         }
     }

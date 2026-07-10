@@ -45,7 +45,7 @@ public abstract class MixinContainerBook {
 
             result.stackSize = maxCraft;
 
-            InstantCraftingLogic.consumeIngredients(craftMatrix, maxCraft, 2);
+            InstantCraftingLogic.consumeIngredients(craftMatrix, maxCraft, player, 2);
 
             InstantCraftingLogic.returnResultToPlayer(result, player);
 
