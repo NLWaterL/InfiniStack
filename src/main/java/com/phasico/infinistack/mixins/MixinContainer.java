@@ -16,11 +16,6 @@ import java.util.Set;
 @Mixin(Container.class)
 public abstract class MixinContainer {
 
-    /**
-    * Fix float accuracy problem when you left-click and drag an itemStack.
-    * Using Int divide instead.
-    * @author NLWaterL
-    * */
     @Overwrite
     public static void func_94525_a(Set<Slot> slotSet, int dragMode, ItemStack stack, int extra) {
         if (dragMode == 0) {
@@ -61,8 +56,9 @@ public abstract class MixinContainer {
             if (current == null || !transferred.isItemEqual(current)) break;
         }
 
-        player.inventory.markDirty();
-        player.openContainer.detectAndSendChanges();
-
+        if (player instanceof EntityPlayerMP) {
+            player.inventory.markDirty();
+            player.openContainer.detectAndSendChanges();
+        }
     }
 }

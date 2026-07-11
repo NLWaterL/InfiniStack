@@ -42,16 +42,12 @@ public abstract class MixinInventoryCrafting implements SuppressibleCraftMatrix 
         return suppressMatrixEvents;
     }
 
-    // decrStackSize and setInventorySlotContents each hard-code a call to
-    // eventHandler.onCraftMatrixChanged(this). MixinSlotCrafting raises the suppress flag for the
-    // duration of one craft (onPickupFromSlot) and fires the event itself exactly once afterwards,
-    // so the per-mutation fires here would be redundant recipe searches.
     @Redirect(
         method = {"decrStackSize", "setInventorySlotContents"},
         at = @At(value = "INVOKE",
                  target = "Lnet/minecraft/inventory/Container;onCraftMatrixChanged(Lnet/minecraft/inventory/IInventory;)V")
     )
-    private void suppressableCraftMatrixChanged(Container handler, IInventory matrix) {
+    private void suppressibleCraftMatrixChanged(Container handler, IInventory matrix) {
         if (!suppressMatrixEvents) {
             handler.onCraftMatrixChanged(matrix);
         }

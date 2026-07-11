@@ -15,25 +15,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * Makes one craft cost one recipe search, mimicking how AE2's crafting terminal and the Backpack
- * mod's crafting slots behave.
- *
- * Vanilla onPickupFromSlot mutates the live crafting matrix once per filled slot
- * (decrStackSize, plus setInventorySlotContents for container items like GT tools), and every one
- * of those mutations fires eventHandler.onCraftMatrixChanged - a recipe search. AE2 backs its grid
- * with an inventory whose change hook is a no-op and calls func_75130_a explicitly once per craft
- * (SlotCraftingTerm.craftItem); the Backpack mod's SlotCraftingAdvanced likewise fires it once at
- * the end of func_82870_a. Here we silence the matrix for the duration of onPickupFromSlot and
- * fire the event once on return. All shift-click crafting now runs this per-unit path (driven by
- * MixinContainer's retry loop; InstantCraftingLogic is parked), so together with
- * MixinCraftingManager's memo every unit craft costs one cached recipe check instead of
- * (filled slots + 1) full recipe-list scans - GT tool recipes included.
- *
- * Gated on the container mixin opting in via FixedCraftingContainer. Mod slots that subclass
- * SlotCrafting and override onPickupFromSlot (TConstruct, adventurebackpack, daoza) still work:
- * their super call runs this wrapping, and their own pre/post logic stays outside it unsuppressed.
- */
 @Mixin(SlotCrafting.class)
 public abstract class MixinSlotCrafting {
 
@@ -41,9 +22,6 @@ public abstract class MixinSlotCrafting {
     @Final
     private IInventory craftMatrix;
 
-    // Non-null only between the HEAD and RETURN of an onPickupFromSlot call we chose to batch.
-    // Slot instances belong to a single container and crafting runs on the game thread, so a plain
-    // field is safe.
     @Unique
     private Container batchedEventHandler;
 

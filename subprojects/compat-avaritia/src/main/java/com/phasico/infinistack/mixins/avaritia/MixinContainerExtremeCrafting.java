@@ -1,6 +1,6 @@
 package com.phasico.infinistack.mixins.avaritia;
 
-import com.phasico.infinistack.helper.FixedCraftingContainer;
+
 import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
 import fox.spiteful.avaritia.crafting.ExtremeCraftingManager;
 import fox.spiteful.avaritia.gui.ContainerExtremeCrafting;
@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ContainerExtremeCrafting.class)
 @Pseudo
-public abstract class MixinContainerExtremeCrafting implements FixedCraftingContainer {
+public abstract class MixinContainerExtremeCrafting {
 
     @Shadow(remap = false)
     public InventoryCrafting craftMatrix;

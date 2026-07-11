@@ -1,0 +1,4 @@
+dependencies {
+    compile files("${rootProject.projectDir}/libs/bogosorter-1.2.68-GTNH.jar")
+    compile files("${rootProject.projectDir}/libs/StorageDrawers-2.1.10-GTNH.jar")
+}

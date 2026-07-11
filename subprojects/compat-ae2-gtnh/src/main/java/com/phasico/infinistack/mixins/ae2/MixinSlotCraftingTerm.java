@@ -14,8 +14,6 @@ import com.phasico.infinistack.helper.Configurables;
 @Pseudo
 public abstract class MixinSlotCraftingTerm {
 
-    // CRAFT_SHIFT / CRAFT_STACK compute maxTimesToCraft = func_77976_d() / howManyPerCraft.
-    // Redirect func_77976_d() to maxStackSize so the batch is sized for large stacks.
     @Redirect(
         method = "doClick",
         at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;func_77976_d()I"),
@@ -25,9 +23,6 @@ public abstract class MixinSlotCraftingTerm {
         return Configurables.maxStackSize;
     }
 
-    // capCraftingAttempts() is the intended extension point AE2 left for capping batch
-    // crafts. Inject at RETURN to bound it by retryLimit so large maxStackSize values
-    // don't cause a server stall.
     @Inject(
         method = "capCraftingAttempts",
         at = @At("RETURN"),

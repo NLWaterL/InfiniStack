@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import javax.annotation.Nonnull;
 
@@ -14,11 +16,10 @@ import javax.annotation.Nonnull;
 @LateMixin
 public class InfiniStackLateMixin implements ILateMixinLoader {
 
-    //Helper method used to detect GTNH Version of a mod.
-    //Never detect the classes you're going to mixin into.
-    private static boolean hasClass(String name) {
-        try { Class.forName(name); return true; }
-        catch (ClassNotFoundException e) { return false; }
+    //Helper method used to detect GTNH Version of a mod by its registered version string.
+    private static boolean isGTNHVersion(String modId) {
+        ModContainer mod = Loader.instance().getIndexedModList().get(modId);
+        return mod != null && mod.getVersion() != null && mod.getVersion().contains("GTNH");
     }
 
     @Override
@@ -218,7 +219,7 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("adventurebackpack")){
             List<String> adventureBackpackMixins;
-            if (hasClass("com.darkona.adventurebackpack.util.ThaumcraftUtils")) { //GTNH Version
+            if (isGTNHVersion("adventurebackpack")) {
                 adventureBackpackMixins = Arrays.asList(
                         "AccessorContainerBackpack",
                         "MixinContainerAdventure",
@@ -1334,8 +1335,30 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             }
         }
 
+        if (loadedMods.contains("bogosorter")) {
+            mixins.add("bogosorter.AccessorInventoryManager");
+            mixins.add("bogosorter.MixinDropOffHandler");
+            mixins.add("bogosorter.MixinItemSortContainer");
+        }
+
+        if (loadedMods.contains("craftingtweaks")) {
+            mixins.add("craftingtweaks.MixinDefaultProviderImpl");
+            mixins.add("craftingtweaks.MixinDefaultProviderV2Impl");
+            mixins.add("craftingtweaks.MixinHandlerCompress");
+        }
+
         if (loadedMods.contains("JABBA")) {
             mixins.add("jabba.MixinBarrelPacketHandler");
+        }
+
+        if (loadedMods.contains("FLabsBF")) {
+            mixins.add("betterfurnaces.MixinBlockBetterFurnace");
+            mixins.add("betterfurnaces.MixinTileEntityBetterFurnace");
+        }
+
+        if (loadedMods.contains("MoreFurnaces")) {
+            mixins.add("morefurnaces.MixinBlockMoreFurnaces");
+            mixins.add("morefurnaces.MixinTileEntityIronFurnace");
         }
 
         if (loadedMods.contains("serverutilities")) {

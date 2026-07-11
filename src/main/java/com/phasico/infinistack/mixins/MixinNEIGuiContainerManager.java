@@ -2,12 +2,11 @@ package com.phasico.infinistack.mixins;
 
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.guihook.GuiContainerManager;
-import codechicken.nei.util.ReadableNumberConverter;
 import com.phasico.infinistack.helper.logic.ItemCountDisplay;
-import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Coerce;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(GuiContainerManager.class)
@@ -25,7 +24,8 @@ public abstract class MixinNEIGuiContainerManager {
             ),
             require = 0, remap = false
     )
-    private static String forceInfiniStackCount(ReadableNumberConverter converter, long value) {
+    @SuppressWarnings("InvalidInjectorMethodSignature") //IDE inspection doesn't understand @Coerce
+    private static String forceInfiniStackCount(@Coerce Object converter, long value) {
         return ItemCountDisplay.getStackSizeText(value);
     }
 

@@ -20,19 +20,13 @@ public abstract class MixinInventoryCraftingStation {
         return Configurables.maxStackSize;
     }
 
-    // InventoryCraftingStation overrides decrStackSize/setInventorySlotContents with tile-backed
-    // storage and calls its own eventHandler.func_75130_a directly, bypassing the vanilla
-    // InventoryCrafting code that MixinInventoryCrafting patches - so its fires get the same
-    // suppression check here. The flag lives in the InventoryCrafting superclass (set by
-    // MixinSlotCrafting around each craft); super's eventHandler is wired too, so the duck's
-    // getEventHandler needs no override.
     @Redirect(
         method = {"func_70298_a", "func_70299_a"},
         at = @At(value = "INVOKE",
                  target = "Lnet/minecraft/inventory/Container;func_75130_a(Lnet/minecraft/inventory/IInventory;)V"),
         remap = false
     )
-    private void suppressableCraftMatrixChanged(Container handler, IInventory matrix) {
+    private void suppressibleCraftMatrixChanged(Container handler, IInventory matrix) {
         if (!((SuppressibleCraftMatrix) (Object) this).isMatrixEventsSuppressed()) {
             handler.onCraftMatrixChanged(matrix);
         }

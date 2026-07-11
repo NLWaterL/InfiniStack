@@ -1,0 +1,3 @@
+dependencies {
+    compile files("${rootProject.projectDir}/libs/MoreFurnaces-1.3.9-MC1.7.10.jar")
+}

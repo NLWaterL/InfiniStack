@@ -35,7 +35,7 @@ public abstract class MixinInventoryTileCrafting implements SuppressibleCraftMat
                  target = "Lnet/minecraft/inventory/Container;func_75130_a(Lnet/minecraft/inventory/IInventory;)V"),
         remap = false
     )
-    private void suppressableCraftMatrixChanged(Container handler, IInventory matrix) {
+    private void suppressibleCraftMatrixChanged(Container handler, IInventory matrix) {
         if (!isMatrixEventsSuppressed()) {
             handler.onCraftMatrixChanged(matrix);
         }
