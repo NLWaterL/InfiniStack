@@ -1,6 +1,7 @@
 package com.phasico.infinistack.mixins;
 
 import com.phasico.infinistack.helper.Configurables;
+import com.phasico.infinistack.helper.StackSizeOverrides;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class MixinItemStack {
 
     @Shadow public int stackSize;
+    @Shadow int itemDamage;
 
     @Inject(method = "writeToNBT", at = @At("RETURN"))
     private void afterWrite(NBTTagCompound nbt, CallbackInfoReturnable<NBTTagCompound> cir) {
@@ -32,6 +34,8 @@ public abstract class MixinItemStack {
 
     @Overwrite
     public int getMaxStackSize() {
+        int override = StackSizeOverrides.get(((ItemStack)(Object)this).getItem(), this.itemDamage);
+        if (override > 0) return override;
         return ((ItemStack)(Object)this).getItem().getItemStackLimit() == 1 && !Configurables.allStackable ? 1 : Configurables.maxStackSize;
     }
 

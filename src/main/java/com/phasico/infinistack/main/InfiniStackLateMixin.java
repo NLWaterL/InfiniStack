@@ -551,6 +551,9 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             for(String mixinClass : ae2Mixins){
                 mixins.add("ae2." + mixinClass);
             }
+            if (FMLLaunchHandler.side().isClient()){
+                mixins.add("ae2.MixinTranslatedRenderItem");
+            }
         }
 
         if (loadedMods.contains("AFSU")){

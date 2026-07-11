@@ -2,7 +2,7 @@ package com.phasico.infinistack.main;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;
-import com.phasico.infinistack.helper.Logger;
+import com.phasico.infinistack.helper.LogHelper;
 
 import java.util.Map;
 
@@ -12,7 +12,7 @@ public class InfiniStackIFMLLoadingPlugin implements IFMLLoadingPlugin {
 
     static {
         MixinBootstrap.init();
-        Logger.info("FML Plugin Loaded!");
+        LogHelper.info("FML Plugin Loaded!");
     }
 
     public String getSetupClass() { return InfiniStackIFMLHook.class.getName(); }
