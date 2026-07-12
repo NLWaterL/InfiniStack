@@ -46,6 +46,8 @@
   "client": [
     "MixinItemStackClient",
     "MixinRenderItem",
-    "MixinNEIGuiContainerManager"
+    "MixinNEIGuiContainerManager",
+    "AccessorGuiContainer",
+    "AccessorGuiScreen"
   ]
   }
