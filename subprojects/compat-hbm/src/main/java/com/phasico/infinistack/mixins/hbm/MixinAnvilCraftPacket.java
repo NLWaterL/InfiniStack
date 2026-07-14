@@ -94,7 +94,6 @@ public abstract class MixinAnvilCraftPacket {
             player.inventoryContainer.detectAndSendChanges();
 
             cir.setReturnValue(null);
-            return;
         }
 
     }
@@ -145,7 +144,6 @@ public abstract class MixinAnvilCraftPacket {
                         if (needConsume == 0) break;
                     } else {
                         inventoryItem.stackSize -= needConsume;
-                        needConsume = 0;
                         break;
                     }
                 }

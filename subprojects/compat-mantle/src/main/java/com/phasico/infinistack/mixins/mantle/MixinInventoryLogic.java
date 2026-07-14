@@ -21,7 +21,7 @@ public abstract class MixinInventoryLogic {
         return Configurables.maxStackSize;
     }
 
-    @Overwrite
+    @Overwrite(remap = false)
     public int func_70297_j_() {
         return stackSizeLimit == 64 ? Configurables.maxStackSize : stackSizeLimit;
     }

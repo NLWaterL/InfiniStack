@@ -17,9 +17,9 @@ public class StackSizeOverrides {
     private static final Entry NONE = new Entry();
 
     /** Parsed config entries grouped by item key ("modid:unlocalizedName" or registry name). */
-    private static final Map<String, Entry> byKey = new HashMap<String, Entry>();
+    private static final Map<String, Entry> byKey = new HashMap<>();
     /** Lazy per-Item resolution cache; items resolve once the registry knows them. */
-    private static final ConcurrentHashMap<Item, Entry> cache = new ConcurrentHashMap<Item, Entry>();
+    private static final ConcurrentHashMap<Item, Entry> cache = new ConcurrentHashMap<>();
     private static boolean active = false;
 
     public static void load(String[] lines) {
@@ -73,7 +73,7 @@ public class StackSizeOverrides {
                 entry.wildcardSize = size;
             } else {
                 if (entry.byMeta == null) {
-                    entry.byMeta = new HashMap<Integer, Integer>();
+                    entry.byMeta = new HashMap<>();
                 }
                 entry.byMeta.put(meta, size);
             }

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 
 @Mixin(SlotIntegratedCircuit.class)
 @Pseudo
-public class MixinSlotIntegratedCircuit {
+public abstract class MixinSlotIntegratedCircuit {
 
     @Overwrite(remap = false)
     public int func_75219_a() {

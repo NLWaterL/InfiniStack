@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 
 @Mixin(SlotGeneric.class)
 @Pseudo
-public class MixinSlotGeneric {
+public abstract class MixinSlotGeneric {
 
     @Overwrite(remap = false)
     public int func_75219_a() {

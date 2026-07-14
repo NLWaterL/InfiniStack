@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
-@Mixin(value = ZipCard.class, remap = false)
+@Mixin(ZipCard.class)
 @Pseudo
 public abstract class MixinZipCard {
 

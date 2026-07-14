@@ -2,7 +2,6 @@ package com.phasico.infinistack.mixins.hbm;
 
 import com.hbm.inventory.container.ContainerBook;
 import com.hbm.inventory.recipes.MagicRecipes;
-import com.phasico.infinistack.helper.Configurables;
 import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.*;

@@ -104,7 +104,7 @@ public abstract class MixinContainerAnvil {
     private static int calculateMaxAnvilCraft(ItemStack leftInput, ItemStack rightInput, AnvilSmithingRecipe recipe) {
         if (leftInput == null || rightInput == null || recipe == null) return -100;
 
-        int maxCraft = 0;
+        int maxCraft;
 
         int leftConsume = recipe.amountConsumed(0, false);
         int rightConsume = recipe.amountConsumed(1, false);
