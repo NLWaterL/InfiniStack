@@ -36,12 +36,32 @@ public abstract class MixinContainerWorkbench implements FixedCraftingContainer,
     @Unique
     private boolean instantCraftEnabled = false;
 
+    @Unique
+    private int resultSlotId = -1;
+
     public boolean isInstantCraftEnabled() {
         return instantCraftEnabled;
     }
 
     public void setInstantCraftEnabled(boolean enabled) {
         instantCraftEnabled = enabled;
+    }
+
+    public Slot getResultSlot() {
+        Container self = (Container) (Object) this;
+        if (resultSlotId < 0) {
+            for (int i = 0; i < self.inventorySlots.size(); i++) {
+                if (self.inventorySlots.get(i) instanceof SlotCrafting) {
+                    resultSlotId = i;
+                    break;
+                }
+            }
+        }
+        return resultSlotId < 0 ? null : self.getSlot(resultSlotId);
+    }
+
+    public int getResultSlotSize() {
+        return 26;
     }
 
     @Inject(method = "transferStackInSlot", at = @At("HEAD"), cancellable = true)

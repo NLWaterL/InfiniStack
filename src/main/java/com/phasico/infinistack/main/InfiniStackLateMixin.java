@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import com.gtnewhorizon.gtnhmixins.ILateMixinLoader;
 import com.gtnewhorizon.gtnhmixins.LateMixin;
+import com.phasico.infinistack.helper.LogHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
@@ -1366,6 +1367,13 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("serverutilities")) {
             mixins.add("serverutilities.MixinItemStackSerializer");
+        }
+
+        //User-configured exclusions from config/infinistack/latemixin_exclusions.txt.
+        for (String excluded : InfiniStackMixinPlugin.getLateMixinExclusions()) {
+            if (mixins.remove(excluded)) {
+                LogHelper.info("Skipping late mixin {} (disabled in latemixin_exclusions.txt)", excluded);
+            }
         }
 
         return mixins;

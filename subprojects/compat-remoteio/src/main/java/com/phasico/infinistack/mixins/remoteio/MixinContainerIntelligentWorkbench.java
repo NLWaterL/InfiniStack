@@ -3,14 +3,19 @@ package com.phasico.infinistack.mixins.remoteio;
 
 import com.google.common.collect.Lists;
 import com.phasico.infinistack.helper.FixedCraftingContainer;
-import net.minecraft.inventory.IInventory;
+import com.phasico.infinistack.helper.InstantCraftToggle;
+import com.phasico.infinistack.helper.logic.InstantCraftingLogic;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import remoteio.common.inventory.InventoryTileCrafting;
 import remoteio.common.inventory.container.ContainerIntelligentWorkbench;
 import remoteio.common.tile.TileIntelligentWorkbench;
@@ -21,7 +26,7 @@ import static remoteio.common.inventory.container.ContainerIntelligentWorkbench.
 
 @Mixin(ContainerIntelligentWorkbench.class)
 @Pseudo
-public abstract class MixinContainerIntelligentWorkbench implements FixedCraftingContainer {
+public abstract class MixinContainerIntelligentWorkbench implements FixedCraftingContainer, InstantCraftToggle {
 
     @Shadow(remap = false)
     @Final
@@ -41,6 +46,37 @@ public abstract class MixinContainerIntelligentWorkbench implements FixedCraftin
 
     @Unique
     private List<IRecipe> lastRecipes = null;
+
+    @Unique
+    private boolean instantCraftEnabled = false;
+
+    @Unique
+    private int resultSlotId = -1;
+
+    public boolean isInstantCraftEnabled() {
+        return instantCraftEnabled;
+    }
+
+    public void setInstantCraftEnabled(boolean enabled) {
+        instantCraftEnabled = enabled;
+    }
+
+    public Slot getResultSlot() {
+        Container self = (Container) (Object) this;
+        if (resultSlotId < 0) {
+            for (int i = 0; i < self.inventorySlots.size(); i++) {
+                if (self.inventorySlots.get(i) instanceof SlotCrafting) {
+                    resultSlotId = i;
+                    break;
+                }
+            }
+        }
+        return resultSlotId < 0 ? null : self.getSlot(resultSlotId);
+    }
+
+    public int getResultSlotSize() {
+        return 26;
+    }
 
     @Overwrite(remap = false)
     public void func_75130_a(IInventory inventory) {
@@ -86,6 +122,56 @@ public abstract class MixinContainerIntelligentWorkbench implements FixedCraftin
     )
     private Object returnCopy(List self, int index){
         return this.results.get(index).copy();
+    }
+
+    //Fast Crafting Logic
+    @Inject(method = "func_82846_b", at = @At("HEAD"), cancellable = true, remap = false)
+    private void fastCraftingLogic(EntityPlayer player, int slotIndex, CallbackInfoReturnable<ItemStack> cir) {
+
+        if (!instantCraftEnabled) {
+            return;
+        }
+
+        if(slotIndex < 0 || slotIndex >= ((Container)(Object)this).inventorySlots.size()){
+            return;
+        }
+
+        Slot slot = (Slot) ((Container)(Object)this).inventorySlots.get(slotIndex);
+
+        if (slot instanceof SlotCrafting) {
+            ItemStack slotStack = slot.getStack();
+
+            //Handles Recipe Conflict
+            List<IRecipe> recipes = findAllMatchingRecipe(tileIntelligentWorkbench.craftMatrix, player.worldObj);
+
+            if(recipeIndex >= recipes.size() || recipeIndex >= results.size()) return;
+            IRecipe recipe = recipes.get(recipeIndex);
+            ItemStack resultStack = results.get(recipeIndex);
+
+            if(recipe == null || resultStack == null) return;
+            ItemStack recipeStack = recipe.getCraftingResult(tileIntelligentWorkbench.craftMatrix);
+
+            if(!(ItemStack.areItemStacksEqual(recipeStack, resultStack) && ItemStack.areItemStackTagsEqual(recipeStack, resultStack))) {
+                return;
+            }
+
+            if (slotStack != null) {
+
+                boolean success = InstantCraftingLogic.instantCraft(tileIntelligentWorkbench.craftMatrix, (SlotCrafting)slot, recipe, player, 3);
+
+                if (success) {
+
+                    craftResult.setInventorySlotContents(0, null);
+
+                    ((Container)(Object)this).onCraftMatrixChanged(tileIntelligentWorkbench.craftMatrix);
+
+                    ((Container)(Object)this).detectAndSendChanges();
+
+                    cir.setReturnValue(null);
+
+                }
+            }
+        }
     }
 
     @Unique

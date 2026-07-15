@@ -4,21 +4,14 @@ import com.daozcraft.itemsSP.ZipCard;
 import com.phasico.infinistack.helper.Configurables;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(ZipCard.class)
 @Pseudo
 public abstract class MixinZipCard {
 
-    @ModifyArg(
-            method = "func_77659_a",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Ljava/lang/Math;min(II)I",
-                    ordinal = 0
-            ),
-            index = 0, remap = false)
+    @ModifyConstant(method = "func_77659_a", constant = @Constant(intValue = 64), remap = false)
     public int modifyStackSizeCap(int original){
         return Configurables.maxStackSize;
     }

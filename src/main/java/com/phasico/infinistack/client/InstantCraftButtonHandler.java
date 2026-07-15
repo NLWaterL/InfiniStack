@@ -8,8 +8,6 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiCrafting;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.EnumChatFormatting;
@@ -19,7 +17,7 @@ import java.util.Collections;
 
 public class InstantCraftButtonHandler {
 
-    private static boolean stickyPreference = false;
+    private static boolean stickyPreference = true;
 
     private GuiScreen trackedScreen;
     private GuiInstantCraftToggleButton trackedButton;
@@ -29,23 +27,7 @@ public class InstantCraftButtonHandler {
         trackedScreen = null;
         trackedButton = null;
 
-        int w;
-        int h;
-        int gap;
-
-        int resultSlotId = 0; //Normally 0, but if it's not, re-assign the correct value to it in the if-else part.
-
-        // Slot x and y from code means the 16x16 item area, so for a frame of FxG px centered on the item area:
-        // gap = (G - 16) / 2 + air, and the x formula below already centers on the frame.
-        if (event.gui instanceof GuiCrafting) {
-            w = 22;
-            h = 12;
-            gap = 7;  // 26x26 result-slot frame: (26-16)/2 + 2px air
-        } else if (event.gui instanceof GuiInventory) {
-            w = 18;
-            h = 10;
-            gap = 2;  // normal 18x18 frame: (18-16)/2 + 1px air
-        } else {
+        if (!(event.gui instanceof GuiContainer)) {
             return;
         }
 
@@ -55,9 +37,35 @@ public class InstantCraftButtonHandler {
             return;
         }
 
-        Slot resultSlot = container.getSlot(resultSlotId);
-        int x = resultSlot.xDisplayPosition + 8 - w / 2;
-        int y = resultSlot.yDisplayPosition - h - gap;
+        InstantCraftToggle toggle = (InstantCraftToggle) container;
+        Slot resultSlot = toggle.getResultSlot();
+        if (resultSlot == null) {
+            return;
+        }
+
+        int slotSize = toggle.getResultSlotSize();
+
+        int w;
+        int h;
+
+        if (slotSize >= 26) {
+            w = 22;
+            h = 12;
+        } else if (slotSize >= 18) {
+            w = 18;
+            h = 10;
+        } else {
+            w = slotSize;
+            h = 10;
+        }
+
+        int gap = toggle.getButtonGap();
+
+        // Slot x and y from code mean the 16x16 item area; the x formula centers on the frame.
+        int x = resultSlot.xDisplayPosition + 8 - w / 2 + toggle.getButtonHorizontalShift();
+        int y = toggle.isButtonBelow()
+                ? resultSlot.yDisplayPosition + 16 + gap
+                : resultSlot.yDisplayPosition - h - gap;
 
         GuiInstantCraftToggleButton button = new GuiInstantCraftToggleButton(gui, x, y, w, h, container);
         event.buttonList.add(button);
@@ -65,7 +73,7 @@ public class InstantCraftButtonHandler {
         trackedScreen = event.gui;
         trackedButton = button;
 
-        ((InstantCraftToggle) container).setInstantCraftEnabled(stickyPreference);
+        toggle.setInstantCraftEnabled(stickyPreference);
         sendToggle(stickyPreference);
     }
 

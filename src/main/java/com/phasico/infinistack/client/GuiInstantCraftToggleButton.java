@@ -74,7 +74,8 @@ public class GuiInstantCraftToggleButton extends GuiButton {
         drawTexturedModalRect(xPosition, yPosition + topHeight, 0, v + 20 - bottomHeight, leftWidth, bottomHeight);
         drawTexturedModalRect(xPosition + leftWidth, yPosition + topHeight, 200 - rightWidth, v + 20 - bottomHeight, rightWidth, bottomHeight);
 
-        int color = isToggledOn() ? 0x55FF55 : 0xA0A0A0;
+        int color = isToggledOn() ? 0x55FF55 : 0xFF5555;
+
         drawCenteredString(mc.fontRenderer, displayString, xPosition + width / 2, yPosition + (height - 8) / 2, color);
     }
 }
