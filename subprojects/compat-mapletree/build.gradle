@@ -1,0 +1,3 @@
+dependencies {
+    compileOnly files("${rootProject.projectDir}/libs/MapleTree-Forge-v1.1.33m.jar")
+}

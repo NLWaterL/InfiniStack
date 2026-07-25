@@ -1030,6 +1030,37 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             mixins.add("malisisdoors.MixinTileEntitySidedInventory");
         }
 
+        if (loadedMods.contains("mod_ecru_MapleTree")){
+            List<String> mapletreeMixins = Arrays.asList(
+                    "MixinBlockBiofuelPD",
+                    "MixinBlockCauldron",
+                    "MixinBlockCookPot",
+                    "MixinBlockEngine",
+                    "MixinBlockGatherItems",
+                    "MixinBlockGrainDryer",
+                    "MixinBlockGrainHopper",
+                    "MixinBlockMortar",
+                    "MixinBlockPlanter",
+                    "MixinBlockStoneMortar",
+                    "MixinBlockWineBarrel",
+                    "MixinEntityMomijiInventory",
+                    "MixinTileEntityBiofuelPD",
+                    "MixinTileEntityCauldron",
+                    "MixinTileEntityCookPot",
+                    "MixinTileEntityEngine",
+                    "MixinTileEntityGatherItems",
+                    "MixinTileEntityGrainDryer",
+                    "MixinTileEntityGrainHopper",
+                    "MixinTileEntityMortar",
+                    "MixinTileEntityPlanter",
+                    "MixinTileEntityStoneMortar",
+                    "MixinTileEntityWineBarrel"
+            );
+            for(String mixinClass : mapletreeMixins){
+                mixins.add("mapletree." + mixinClass);
+            }
+        }
+
         if (loadedMods.contains("Mantle")){
             List<String> mantleMixins = Arrays.asList(
                     "MixinAdaptiveInventoryLogic",

@@ -49,7 +49,7 @@ public class InstantCraftingLogic {
         //Achievement & Stuff
 
         FMLCommonHandler.instance().firePlayerCraftingEvent(player, recipeResult, craftMatrix);
-        craftingSlot.onCrafting(recipeResult, maxCraft);
+        craftingSlot.onCrafting(recipeResult, (int)totalAmount);
 
         return true;
     }
