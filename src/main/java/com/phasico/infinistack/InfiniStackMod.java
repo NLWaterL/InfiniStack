@@ -11,7 +11,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.Mod;
 import net.minecraftforge.common.MinecraftForge;
 
-@Mod(modid = InfiniStackMod.MODID, version = "1.1.0-beta2")
+@Mod(modid = InfiniStackMod.MODID, version = "1.1.0-beta3")
 public class InfiniStackMod
 {
     public static final String MODID = "infinistack";

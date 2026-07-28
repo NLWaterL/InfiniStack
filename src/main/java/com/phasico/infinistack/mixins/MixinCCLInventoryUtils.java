@@ -1,5 +1,6 @@
 package com.phasico.infinistack.mixins;
 
+import codechicken.lib.inventory.InventoryRange;
 import codechicken.lib.inventory.InventoryUtils;
 import com.phasico.infinistack.helper.Configurables;
 import net.minecraft.item.Item;
@@ -22,6 +23,18 @@ public abstract class MixinCCLInventoryUtils {
     )
     private static int expandItemStackLimit(int original) {
         return Configurables.maxStackSize;
+    }
+
+    @Overwrite(remap = false)
+    public static int getInsertibleQuantity(InventoryRange inv, ItemStack stack) {
+        long quantity = 0;
+        stack = InventoryUtils.copyStack(stack, Integer.MAX_VALUE);
+        for (int slot : inv.slots) {
+            quantity += Math.max(0, InventoryUtils.fitStackInSlot(inv, slot, stack));
+            if (quantity >= Integer.MAX_VALUE)
+                return Integer.MAX_VALUE;
+        }
+        return (int) quantity;
     }
 
     @Overwrite(remap = false)
