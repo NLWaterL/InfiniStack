@@ -180,12 +180,6 @@ jar {
 				// Mixin will automatically register any configs specified here.
 				'MixinConfigs': "mixins.${modid}.json",
 
-				// To use the IEarlyMixinLoader interface, an FML plugin needs to be
-				// registered.
-				// Note: the previous two properties aren't required for the early
-				// interface.
-				'FMLCorePlugin': 'io.github.legacymoddingmc.unimixins.example.ExampleCore',
-
 				// If your mod also contains a Forge mod (marked by a @Mod annotation),
 				// these need to be set or it will get ignored.
 				// Note that a Forge mod is required for late mixins to work.
