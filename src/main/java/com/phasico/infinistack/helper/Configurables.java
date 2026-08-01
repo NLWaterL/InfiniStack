@@ -7,16 +7,16 @@ import java.io.File;
 
 public class Configurables {
 
-    public static int maxStackSize;
-    public static boolean allStackable;
+    public static int maxStackSize = 1_000_000_000;
+    public static boolean allStackable = false;
 
-    public static boolean alwaysShowCount;
-    public static boolean useAlternateDisplay;
+    public static boolean alwaysShowCount = false;
+    public static boolean useAlternateDisplay = false;
     //null = auto
-    public static Boolean resizeCountTextOverride;
-    
-    public static int transmutationLimit;
-    public static int retryLimit;
+    public static Boolean resizeCountTextOverride = null;
+
+    public static int transmutationLimit = 64;
+    public static int retryLimit = 10000;
 
     private static Configuration config;
 

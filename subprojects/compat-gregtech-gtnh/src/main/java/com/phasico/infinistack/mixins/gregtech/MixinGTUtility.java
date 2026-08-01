@@ -14,23 +14,21 @@ import static gregtech.api.util.GTUtility.isStackInvalid;
 @Pseudo
 public abstract class MixinGTUtility {
 
-    //UNUSED FOR NOW
-
     @Overwrite(remap = false)
     public static ItemStack copyAmount(int aAmount, ItemStack aStack) {
         ItemStack rStack = copy(aStack);
         if (isStackInvalid(rStack)) {
             return null;
-        } else {
-            if (aAmount > Configurables.maxStackSize) {
-                aAmount = Configurables.maxStackSize;
-            } else if ( aAmount != -1 && aAmount < 0) {
-                aAmount = 0;
-            }
-
-            rStack.stackSize = aAmount;
-            return rStack;
         }
+        if (aAmount > Configurables.maxStackSize) {
+            aAmount = Configurables.maxStackSize;
+        } else if (aAmount == -1) {
+            aAmount = 111;
+        } else if (aAmount < 0) {
+            aAmount = 0;
+        }
+        rStack.stackSize = aAmount;
+        return rStack;
     }
 
     @Overwrite(remap = false)
@@ -38,17 +36,17 @@ public abstract class MixinGTUtility {
         ItemStack rStack = copy(aStack);
         if (isStackInvalid(rStack)) {
             return null;
-        } else {
-            long tAmount = rStack.stackSize * (long)aMultiplier;
-            if (tAmount > Configurables.maxStackSize) {
-                tAmount = Configurables.maxStackSize;
-            } else if ( tAmount != -1 && tAmount < 0) {
-                tAmount = 0;
-            }
-
-            rStack.stackSize = (int)tAmount;
-            return rStack;
         }
+        long tAmount = rStack.stackSize * (long) aMultiplier;
+        if (tAmount > Configurables.maxStackSize) {
+            tAmount = Configurables.maxStackSize;
+        } else if (tAmount == -1) {
+            tAmount = 111;
+        } else if (tAmount < 0) {
+            tAmount = 0;
+        }
+        rStack.stackSize = (int) tAmount;
+        return rStack;
     }
 
 }
