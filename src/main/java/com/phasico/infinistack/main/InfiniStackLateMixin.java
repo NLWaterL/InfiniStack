@@ -437,6 +437,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
         if (loadedMods.contains("StorageDrawers")){
             mixins.add("storagedrawers.MixinDrawerData");
             mixins.add("storagedrawers.MixinTileEntityDrawersComp");
+            mixins.add("storagedrawers.MixinTileEntityFramingTable");
+            mixins.add("storagedrawers.MixinBlockFramingTable");
         }
 
         if (loadedMods.contains("ironfurnaces")){
@@ -1020,6 +1022,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
 
         if (loadedMods.contains("LogisticsPipes")){
             mixins.add("logisticspipes.MixinCardManagmentInventory");
+            mixins.add("logisticspipes.MixinItemIdentifier");
+            mixins.add("logisticspipes.MixinInventoryUtil");
         }
 
         if (loadedMods.contains("MagicBees")){

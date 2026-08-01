@@ -6,6 +6,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import serverutils.lib.item.ItemStackSerializer;
 
 @Mixin(ItemStackSerializer.class)
@@ -28,6 +30,16 @@ public abstract class MixinItemStackSerializer {
             stack.stackSize = count;
         }
         return stack;
+    }
+
+    @Redirect(
+            method = "write",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/nbt/NBTTagCompound;func_74771_c(Ljava/lang/String;)B"),
+            remap = false
+    )
+    private static byte readRealCount(NBTTagCompound nbt, String key) {
+        int count = nbt.hasKey(key, 3) ? nbt.getInteger(key) : nbt.getByte(key);
+        return (byte) (count == 1 ? 1 : 0);
     }
 
 }
