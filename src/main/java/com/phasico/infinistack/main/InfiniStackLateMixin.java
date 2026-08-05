@@ -764,7 +764,8 @@ public class InfiniStackLateMixin implements ILateMixinLoader {
             List<String> cofhcoreMixins = Arrays.asList(
                     "MixinCustomInventoryWrapper",
                     "MixinInventoryContainerItemWrapper",
-                    "MixinInventoryCraftingCustom"
+                    "MixinInventoryCraftingCustom",
+                    "MixinInventoryHelper"
             );
             for(String mixinClass : cofhcoreMixins){
                 mixins.add("cofhcore." + mixinClass);
